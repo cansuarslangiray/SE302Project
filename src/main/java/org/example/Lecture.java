@@ -39,6 +39,4 @@ public class Lecture {
         this.assistant = assistant;
         this.courseName = courseName;
     }
-
-
 }

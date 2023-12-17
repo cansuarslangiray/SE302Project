@@ -25,6 +25,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class App extends Application {
+    static  int counter =0;
     public static class Lesson {
         private final SimpleStringProperty week;
         private final SimpleStringProperty topics;
@@ -472,47 +473,74 @@ public class App extends Application {
         gridPane.add(submitButton, 0, 18, 2, 1);
 
         submitButton.setOnAction(event -> {
-            if (courseNameTextField.getText().isEmpty() || termChoiceBox.getValue() == null ||
-                    typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
-                    deliveryToggleGroup.getSelectedToggle() == null) {
+                    if (courseNameTextField.getText().isEmpty() || termChoiceBox.getValue() == null ||
+                            typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
+                            deliveryToggleGroup.getSelectedToggle() == null) {
 
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText(null);
-                alert.setTitle("Uyarı");
-                alert.setContentText("Lütfen tüm alanları doldurun!");
-                alert.showAndWait();
-            } else {
-                // Proceed with creating the Lecture object and writing to JSON file
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Uyarı");
+                        alert.setContentText("Lütfen tüm alanları doldurun!");
+                        alert.showAndWait();
+                    } else {
+                        // Proceed with creating the Lecture object and writing to JSON file
 
-                RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
-                RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
-                RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
-                RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
+                        RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
+                        RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
+                        RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
+                        RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
 
-                Lecture lecture = new Lecture(courseNameTextField.getText(), selectedLanguage.getText(), selectedType.getText(),
-                        selectedLevel.getText(), selectedDelivery.getText(), ((RadioButton) typeToggleGroup.getSelectedToggle()).getText(), courseCodeTextField.getText(),
-                        termChoiceBox.getValue(), theoryHoursTextField.getText(), applicationHoursTextField.getText(),
-                        localCreditTextField.getText(), ectsTextField.getText(), preTextField.getText(), teachingMethodsTextArea.getText(),
-                        coordinatorTextField.getText(), instructionalStaffTextField.getText(), assistantsTextField.getText());
+                        Lecture lecture = new Lecture(courseNameTextField.getText(), selectedLanguage.getText(), selectedType.getText(),
+                                selectedLevel.getText(), selectedDelivery.getText(), ((RadioButton) typeToggleGroup.getSelectedToggle()).getText(), courseCodeTextField.getText(),
+                                termChoiceBox.getValue(), theoryHoursTextField.getText(), applicationHoursTextField.getText(),
+                                localCreditTextField.getText(), ectsTextField.getText(), preTextField.getText(), teachingMethodsTextArea.getText(),
+                                coordinatorTextField.getText(), instructionalStaffTextField.getText(), assistantsTextField.getText());
+                        String path = "SE302Project/Lecuters/" + courseCodeTextField.getText();
+                        File file = new File(path);
+                        try {
+                            if (file.exists()) {
+                                System.out.println("Dosya zaten mevcut.");
+                            } else {
+                                if (file.mkdir()) {
+                                    System.out.println("Dosya olusturldu.");
+                                } else {
+                                    System.out.println("Failed to create directory.");
+                                }
+                            }
+                            Gson gson = new Gson();
+                            SyllabusVersioning versioning = new SyllabusVersioning("kaya", "oyle", "10.12.23" ,lecture);
+                            String jsonString = gson.toJson(versioning);
+                            String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
+                            counter++;
+                            try (FileWriter writer = new FileWriter(filePath)) {
+                                writer.write(jsonString);
+                                System.out.println("JSON successfully written to the file: " + filePath);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        /*Gson gson = new Gson();
+                        String jsonString = gson.toJson(lecture);
+                        String filePath = "SE302Project/file.json";
 
+                        try {
+                            File file1 = new File(filePath);
+                            file1.getParentFile().mkdirs();
 
-                Gson gson = new Gson();
-                String jsonString = gson.toJson(lecture);
-                String filePath = "SE302Project/file.json";
-
-                try {
-                    File file = new File(filePath);
-                    file.getParentFile().mkdirs();
-
-                    try (FileWriter writer = new FileWriter(file)) {
-                        writer.write(jsonString);
-                        System.out.println("JSON successfully written to the file: " + filePath);
+                            try (FileWriter writer = new FileWriter(file1)) {
+                                writer.write(jsonString);
+                                System.out.println("JSON successfully written to the file: " + filePath);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }*/
+                        } catch (Exception e) {
+                            System.out.println("Error: " + e.getMessage());
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+
+            );
 
         TableView<Lesson> tableView = new TableView<>();
 

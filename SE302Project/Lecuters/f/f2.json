@@ -1,0 +1,24 @@
+{
+  "name": "kaya",
+  "reason": "oyle",
+  "lecture": {
+    "type": "Seçmeli",
+    "courseLevel": "Lisans",
+    "mode": "Çevrim İçi",
+    "courseCategory": "Seçmeli",
+    "language": "İngilizce",
+    "courseName": "d",
+    "code": "f",
+    "term": "Bahar",
+    "theory": "c",
+    "application": "c",
+    "localCredits": "c",
+    "ects": "cc",
+    "prerequisites": "c",
+    "teachingMethod": "c",
+    "courseCoordinator": "c",
+    "courseLecturer": "c",
+    "assistant": "c"
+  },
+  "time": "10.12.23"
+}
