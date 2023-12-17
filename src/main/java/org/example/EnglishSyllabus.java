@@ -1,6 +1,6 @@
-
 package org.example;
 
+import com.google.gson.Gson;
 import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class App extends Application {
+public class EnglishSyllabus extends Application {
     public static class Lesson {
         private final SimpleStringProperty week;
         private final SimpleStringProperty topics;
@@ -62,8 +62,7 @@ public class App extends Application {
         private IntegerProperty lo6;
 
 
-
-        public Activity(String name, int count, int percentage, int lo1,int lo2,int lo3,int lo4,int lo5,int lo6) {
+        public Activity(String name, int count, int percentage, int lo1, int lo2, int lo3, int lo4, int lo5, int lo6) {
             this.name = new SimpleStringProperty(name);
             this.count = new SimpleIntegerProperty(count);
             this.percentage = new SimpleIntegerProperty(percentage);
@@ -74,6 +73,7 @@ public class App extends Application {
             this.lo5 = new SimpleIntegerProperty(lo5);
             this.lo6 = new SimpleIntegerProperty(lo6);
         }
+
         public String getName() {
             return name.get();
         }
@@ -183,6 +183,7 @@ public class App extends Application {
         }
 
     }
+
     public class workLoad {
 
         private StringProperty activity;
@@ -239,7 +240,7 @@ public class App extends Application {
         }
 
 
-        public workLoad(String activity, int count, int hour ,int workloud) {
+        public workLoad(String activity, int count, int hour, int workloud) {
             this.activity = new SimpleStringProperty(activity);
             this.count = new SimpleIntegerProperty(count);
             this.hour = new SimpleIntegerProperty(hour);
@@ -267,22 +268,62 @@ public class App extends Application {
         }
 
         // Getters
-        public String getDescription() { return description.get(); }
-        public int getLevel1() { return level1.get(); }
-        public int getLevel2() { return level2.get(); }
-        public int getLevel3() { return level3.get(); }
-        public int getLevel4() { return level4.get(); }
-        public int getLevel5() { return level5.get(); }
-        public String getLo() { return lo.get(); }
+        public String getDescription() {
+            return description.get();
+        }
+
+        public int getLevel1() {
+            return level1.get();
+        }
+
+        public int getLevel2() {
+            return level2.get();
+        }
+
+        public int getLevel3() {
+            return level3.get();
+        }
+
+        public int getLevel4() {
+            return level4.get();
+        }
+
+        public int getLevel5() {
+            return level5.get();
+        }
+
+        public String getLo() {
+            return lo.get();
+        }
 
         // Setters
-        public void setDescription(String value) { description.set(value); }
-        public void setLevel1(int value) { level1.set(value); }
-        public void setLevel2(int value) { level2.set(value); }
-        public void setLevel3(int value) { level3.set(value); }
-        public void setLevel4(int value) { level4.set(value); }
-        public void setLevel5(int value) { level5.set(value); }
-        public void setLo(String value) { lo.set(value); }
+        public void setDescription(String value) {
+            description.set(value);
+        }
+
+        public void setLevel1(int value) {
+            level1.set(value);
+        }
+
+        public void setLevel2(int value) {
+            level2.set(value);
+        }
+
+        public void setLevel3(int value) {
+            level3.set(value);
+        }
+
+        public void setLevel4(int value) {
+            level4.set(value);
+        }
+
+        public void setLevel5(int value) {
+            level5.set(value);
+        }
+
+        public void setLo(String value) {
+            lo.set(value);
+        }
     }
 
     private final ObservableList<Competency> competencies = FXCollections.observableArrayList(
@@ -304,7 +345,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Ders Formu");
+        stage.setTitle("Course Form");
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20, 20, 20, 20));
@@ -316,7 +357,8 @@ public class App extends Application {
         gridPane1.setVgap(10);
         gridPane1.setHgap(10);
 
-        Label titleLabel = new Label("İZMİR EKONOMİ ÜNİVERSİTESİ\n        DERS ÖNERİ FORMU");
+        Label titleLabel = new Label("IZMIR UNIVERSITY OF ECONOMICS\n" +
+                "COURSE OUTLINE FORM");
         titleLabel.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 20;");
         titleLabel.setAlignment(Pos.CENTER);
 
@@ -324,151 +366,152 @@ public class App extends Application {
         gridPane.getChildren().add(titleLabel);
         GridPane.setHalignment(titleLabel, HPos.CENTER);
 
-        Label orangeLabel = new Label("1.GENEL BİLGİLER");
+        Label orangeLabel = new Label("1. GENERAL INFORMATION");
         orangeLabel.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         GridPane.setConstraints(orangeLabel, 0, 1, 2, 1);
         gridPane.getChildren().add(orangeLabel);
 
         gridPane.add(new Label(""), 0, 1);
 
-        gridPane.add(new Label("Dersin Adı:"), 0, 2);
+        gridPane.add(new Label("Course Name:"), 0, 2);
         TextField courseNameTextField = new TextField();
         gridPane.add(courseNameTextField, 1, 2);
 
-        gridPane.add(new Label("Dersin Kodu:"), 0, 3);
+        gridPane.add(new Label("Course Code:"), 0, 3);
         TextField courseCodeTextField = new TextField();
         gridPane.add(courseCodeTextField, 1, 3);
 
-        gridPane.add(new Label("Dönem:"), 0, 4);
+        gridPane.add(new Label("Term:"), 0, 4);
         ChoiceBox<String> termChoiceBox = new ChoiceBox<>();
-        termChoiceBox.getItems().addAll("Güz", "Bahar");
+        termChoiceBox.getItems().addAll("Fall", "Spring");
         gridPane.add(termChoiceBox, 1, 4);
 
-        gridPane.add(new Label("Teori (saat/hafta):"), 0, 5);
+        gridPane.add(new Label("Theory (hours/week):"), 0, 5);
         TextField theoryHoursTextField = new TextField();
         gridPane.add(theoryHoursTextField, 1, 5);
 
-        gridPane.add(new Label("Uygulama/Lab (saat/hafta):"), 0, 6);
+        gridPane.add(new Label("Application/Lab (hours/week):"), 0, 6);
         TextField applicationHoursTextField = new TextField();
         gridPane.add(applicationHoursTextField, 1, 6);
 
-        gridPane.add(new Label("Yerel Kredi:"), 0, 7);
+        gridPane.add(new Label("Local\n" +
+                "Credits"), 0, 7);
         TextField localCreditTextField = new TextField();
         gridPane.add(localCreditTextField, 1, 7);
 
-        gridPane.add(new Label("AKTS:"), 0, 8);
+        gridPane.add(new Label("ECTS:"), 0, 8);
         TextField ectsTextField = new TextField();
         gridPane.add(ectsTextField, 1, 8);
 
-        gridPane.add(new Label("Ön Koşullar:"), 0, 9);
+        gridPane.add(new Label("Prerequisites:"), 0, 9);
         TextField preTextField = new TextField();
         gridPane.add(preTextField, 1, 9);
 
-        gridPane.add(new Label("Dersin Dili:"), 0, 10);
+        gridPane.add(new Label("Course Language:"), 0, 10);
         ToggleGroup languageToggleGroup = new ToggleGroup();
-        RadioButton languageTurkishRadioButton = new RadioButton("Türkçe");
+        RadioButton languageTurkishRadioButton = new RadioButton("Turkish");
         languageTurkishRadioButton.setToggleGroup(languageToggleGroup);
-        RadioButton languageEnglishRadioButton = new RadioButton("İngilizce");
+        RadioButton languageEnglishRadioButton = new RadioButton("English");
         languageEnglishRadioButton.setToggleGroup(languageToggleGroup);
-        RadioButton languageOtherRadioButton = new RadioButton("İkinci Yabancı Dil");
+        RadioButton languageOtherRadioButton = new RadioButton("Second Foreign Language");
         languageOtherRadioButton.setToggleGroup(languageToggleGroup);
         HBox languageBox = new HBox(10, languageTurkishRadioButton, languageEnglishRadioButton, languageOtherRadioButton);
         gridPane.add(languageBox, 1, 10);
 
-        gridPane.add(new Label("Dersin Türü:"), 0, 11);
+        gridPane.add(new Label("Course Type"), 0, 11);
         ToggleGroup typeToggleGroup = new ToggleGroup();
-        RadioButton typeMandatoryRadioButton = new RadioButton("Zorunlu");
+        RadioButton typeMandatoryRadioButton = new RadioButton("Required");
         typeMandatoryRadioButton.setToggleGroup(typeToggleGroup);
-        RadioButton typeElectiveRadioButton = new RadioButton("Seçmeli");
+        RadioButton typeElectiveRadioButton = new RadioButton("Elective");
         typeElectiveRadioButton.setToggleGroup(typeToggleGroup);
         HBox typeBox = new HBox(10, typeMandatoryRadioButton, typeElectiveRadioButton);
         gridPane.add(typeBox, 1, 11);
 
-        gridPane.add(new Label("Dersin Düzeyi:"), 0, 12);
+        gridPane.add(new Label("Course Level:"), 0, 12);
         ToggleGroup levelToggleGroup = new ToggleGroup();
-        RadioButton levelUndergraduateRadioButton = new RadioButton("Ön Lisans");
+        RadioButton levelUndergraduateRadioButton = new RadioButton("Associate Degree");
         levelUndergraduateRadioButton.setToggleGroup(levelToggleGroup);
-        RadioButton levelGraduateRadioButton = new RadioButton("Lisans");
+        RadioButton levelGraduateRadioButton = new RadioButton("Undergraduate");
         levelGraduateRadioButton.setToggleGroup(levelToggleGroup);
         HBox levelBox = new HBox(10, levelUndergraduateRadioButton, levelGraduateRadioButton);
         gridPane.add(levelBox, 1, 12);
 
-        gridPane.add(new Label("Dersin Veriliş Şekli:"), 0, 13);
+        gridPane.add(new Label("Mode of Delivery "), 0, 13);
         ToggleGroup deliveryToggleGroup = new ToggleGroup();
-        RadioButton deliveryFaceToFaceRadioButton = new RadioButton("Yüz Yüze");
+        RadioButton deliveryFaceToFaceRadioButton = new RadioButton(" Face-to-Face");
         deliveryFaceToFaceRadioButton.setToggleGroup(deliveryToggleGroup);
-        RadioButton deliveryOnlineRadioButton = new RadioButton("Çevrim İçi");
+        RadioButton deliveryOnlineRadioButton = new RadioButton("Online");
         deliveryOnlineRadioButton.setToggleGroup(deliveryToggleGroup);
         HBox deliveryBox = new HBox(10, deliveryFaceToFaceRadioButton, deliveryOnlineRadioButton);
         gridPane.add(deliveryBox, 1, 13);
 
-        gridPane.add(new Label("Dersin Öğretim Yöntem ve Teknikleri:"), 0, 14);
+        gridPane.add(new Label("Teaching Methods and Techniques"), 0, 14);
         TextArea teachingMethodsTextArea = new TextArea();
         gridPane.add(teachingMethodsTextArea, 1, 14);
 
-        gridPane.add(new Label("Ders Koordinatörü:"), 0, 15);
+        gridPane.add(new Label("Course Coordinator"), 0, 15);
         TextField coordinatorTextField = new TextField();
         gridPane.add(coordinatorTextField, 1, 15);
 
-        gridPane.add(new Label("Öğretim Eleman(lar):"), 0, 16);
+        gridPane.add(new Label("Course Lecturer(s)\n"), 0, 16);
         TextField instructionalStaffTextField = new TextField();
         gridPane.add(instructionalStaffTextField, 1, 16);
 
-        gridPane.add(new Label("Yardımcı(lar):"), 0, 17);
+        gridPane.add(new Label("Assistant(s)"), 0, 17);
         TextField assistantsTextField = new TextField();
         gridPane.add(assistantsTextField, 1, 17);
 
-        gridPane.add(new Label("Dersin Kategorisi:"), 0, 18);
+        gridPane.add(new Label("Course Category"), 0, 18);
         ToggleGroup levelToggleGroup1 = new ToggleGroup();
-        RadioButton levelUndergraduateRadioButton1 = new RadioButton("Temel Ders");
+        RadioButton levelUndergraduateRadioButton1 = new RadioButton("Core Course");
         levelUndergraduateRadioButton.setToggleGroup(levelToggleGroup);
-        RadioButton levelGraduateRadioButton1 = new RadioButton("Uzmanlık/Alan Ders");
+        RadioButton levelGraduateRadioButton1 = new RadioButton("Major Area Course");
         levelGraduateRadioButton1.setToggleGroup(levelToggleGroup);
-        RadioButton levelGraduateRadioButton2 = new RadioButton("Destek Dersi");
+        RadioButton levelGraduateRadioButton2 = new RadioButton("Supportive Course");
         levelGraduateRadioButton2.setToggleGroup(levelToggleGroup);
-        RadioButton levelGraduateRadioButton3 = new RadioButton("İletişim ve Yönetim Becerileri Dersi");
+        RadioButton levelGraduateRadioButton3 = new RadioButton("Communication and Management Skills Course\n");
         levelGraduateRadioButton3.setToggleGroup(levelToggleGroup);
-        RadioButton levelGraduateRadioButton4 = new RadioButton("Aktarılabilir Beceri Dersi\n");
+        RadioButton levelGraduateRadioButton4 = new RadioButton("Transferable Skill Course");
         levelGraduateRadioButton4.setToggleGroup(levelToggleGroup);
-        VBox levelBox1 = new VBox(10, levelUndergraduateRadioButton1, levelGraduateRadioButton1,levelGraduateRadioButton2,levelGraduateRadioButton3,levelGraduateRadioButton4);
+        VBox levelBox1 = new VBox(10, levelUndergraduateRadioButton1, levelGraduateRadioButton1, levelGraduateRadioButton2, levelGraduateRadioButton3, levelGraduateRadioButton4);
         gridPane.add(levelBox1, 1, 18);
 
-        Label orangeLabel1 = new Label("2. HAFTALIK KONULAR VE İLGİLİ ÖN HAZIRLIK ÇALIŞMALARI\n");
+        Label orangeLabel1 = new Label("2. WEEKLY SUBJECTS AND REQUIRED MATERIALS");
         orangeLabel1.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         GridPane.setConstraints(orangeLabel1, 0, 19, 2, 1);
         gridPane.getChildren().add(orangeLabel1);
 
         Label spaceLabel1 = new Label("        ");
-        Label orangeLabel3 = new Label("4. AKTS / İŞ YÜKÜ TABLOSU");
+        Label orangeLabel3 = new Label("4. ECTS / WORKLOAD TABLE");
         orangeLabel3.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         Label spaceLabel = new Label("        ");
 
 
-        VBox vBox1=new VBox(spaceLabel1,orangeLabel3,spaceLabel);
+        VBox vBox1 = new VBox(spaceLabel1, orangeLabel3, spaceLabel);
 
 
         Label spaceLabe = new Label("        ");
-        Label orangeLabel4 = new Label("5. DERSİN ÖĞRENME ÇIKTILARININ PROGRAM YETERLİLİKLERİ İLE İLİŞKİSİ\n");
+        Label orangeLabel4 = new Label("5. COURSE/PROGRAM OUTCOME MATRIX");
         orangeLabel4.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         Label spaceLabe1 = new Label("        ");
 
-        VBox vBox2=new VBox(spaceLabe1,orangeLabel4,spaceLabe);
+        VBox vBox2 = new VBox(spaceLabe1, orangeLabel4, spaceLabe);
 
-        gridPane1.add(new Label("ders Kitabı:"), 0, 1);
+        gridPane1.add(new Label("Course Notes/Textbooks"), 0, 1);
         TextArea Book = new TextArea();
         gridPane1.add(Book, 1, 1);
 
-        gridPane1.add(new Label("Önerilen Okumalar/Materyaller:"), 0, 2);
+        gridPane1.add(new Label("Suggested Readings/Materials"), 0, 2);
         TextArea Material = new TextArea();
         gridPane1.add(Material, 1, 2);
 
-        Label orangeLabel2 = new Label("3. DEĞERLENDİRME ÖLÇÜTLERİ");
+        Label orangeLabel2 = new Label("3. ASSESSMENT\n");
         orangeLabel2.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         gridPane1.setConstraints(orangeLabel2, 0, 3, 2, 2);
-        gridPane1.getChildren().add(orangeLabel2 );
+        gridPane1.getChildren().add(orangeLabel2);
 
 
-        Button submitButton = new Button("Gönder");
+        Button submitButton = new Button("Submit");
         gridPane.add(submitButton, 0, 18, 2, 1);
 
         submitButton.setOnAction(event -> {
@@ -478,8 +521,8 @@ public class App extends Application {
 
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
-                alert.setTitle("Uyarı");
-                alert.setContentText("Lütfen tüm alanları doldurun!");
+                alert.setTitle("Alert");
+                alert.setContentText("Please fill in all fields!");
                 alert.showAndWait();
             } else {
                 // Proceed with creating the Lecture object and writing to JSON file
@@ -516,13 +559,13 @@ public class App extends Application {
 
         TableView<Lesson> tableView = new TableView<>();
 
-        TableColumn<Lesson, String> weekColumn = new TableColumn<>("Hafta");
+        TableColumn<Lesson, String> weekColumn = new TableColumn<>("Week");
         weekColumn.setCellValueFactory(cellData -> cellData.getValue().week);
 
-        TableColumn<Lesson, String> topicsColumn = new TableColumn<>("Konular");
+        TableColumn<Lesson, String> topicsColumn = new TableColumn<>("Subjects");
         topicsColumn.setCellValueFactory(cellData -> cellData.getValue().topics);
 
-        TableColumn<Lesson, String> preparationColumn = new TableColumn<>("Ön Hazırlık");
+        TableColumn<Lesson, String> preparationColumn = new TableColumn<>("Required Materials");
         preparationColumn.setCellValueFactory(cellData -> cellData.getValue().preparation);
 
         tableView.getColumns().addAll(weekColumn, topicsColumn, preparationColumn);
@@ -536,26 +579,27 @@ public class App extends Application {
 
         TableView<Activity> table = new TableView<>();
         data.addAll(
-                new Activity("Katılım", 1, 30, 1,2,3,4,5,6),
-                new Activity("Laboratuvar/Uygulama", 1, 30, 1,2,3,4,5,6),
-                new Activity("Arazi Çalışması", 1, 30, 1,2,3,4,5,6),
-                new Activity("Küçük Sınav/Stüdyo Kritiğ", 1, 30, 1,2,3,4,5,6),
-                new Activity("Ödev", 1, 30, 1,2,3,4,5,6),
-                new Activity("Sunum/Jüri Önünde Sunum", 1, 30, 1,2,3,4,5,6),
-                new Activity("Proje", 1, 30, 1,2,3,4,5,6),
-                new Activity("Seminer/Çalıştay", 1, 30, 1,2,3,4,5,6),
-                new Activity("Sözlü Sınav", 1, 30, 1,2,3,4,5,6),
-                new Activity("Ara Sınavı", 1, 30, 1,2,3,4,5,6),
-                new Activity("Final Sınavı", 1, 30, 1,2,3,4,5,6),
-                new Activity("Toplam", 3, 100, 3 ,3,4,5,6,7));
+                new Activity("Participation", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Laboratory/Application", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Field Work", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Quiz/Studio Critique", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Homework/Assignment", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Presentation/Jury", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Project", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Portfolio", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Seminar/Workshop", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Oral Exam", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Midterm Exam", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Final Exam", 1, 30, 1, 2, 3, 4, 5, 6),
+                new Activity("Toplam", 3, 100, 3, 3, 4, 5, 6, 7));
 
-        TableColumn<Activity, String> nameCol = new TableColumn<>("Yarıyıl Aktiviteleri");
+        TableColumn<Activity, String> nameCol = new TableColumn<>("Semester Activities");
         nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
 
-        TableColumn<Activity, Number> countCol = new TableColumn<>("Sayı");
+        TableColumn<Activity, Number> countCol = new TableColumn<>("Number");
         countCol.setCellValueFactory(cellData -> cellData.getValue().count);
 
-        TableColumn<Activity, Number> percentageCol = new TableColumn<>("Katkı Payı %");
+        TableColumn<Activity, Number> percentageCol = new TableColumn<>("Weighting");
         percentageCol.setCellValueFactory(cellData -> cellData.getValue().percentage);
 
         TableColumn<Activity, Number> lo1Col = new TableColumn<>("LO1");
@@ -570,53 +614,51 @@ public class App extends Application {
         TableColumn<Activity, Number> lo4Col = new TableColumn<>("LO4");
         lo4Col.setCellValueFactory(cellData -> cellData.getValue().lo4);
 
-        TableColumn<Activity, Number> lo5Col = new TableColumn<>("LO5");
-        lo5Col.setCellValueFactory(cellData -> cellData.getValue().lo5);
 
-        TableColumn<Activity, Number> lo6Col = new TableColumn<>("LO6");
-        lo6Col.setCellValueFactory(cellData -> cellData.getValue().lo6);
 
-        table.getColumns().addAll(nameCol, countCol, percentageCol, lo1Col,lo2Col,lo3Col,lo4Col,lo5Col,lo6Col);
+        table.getColumns().addAll(nameCol, countCol, percentageCol, lo1Col, lo2Col, lo3Col, lo4Col);
         table.setItems(data);
 
-        nameCol.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        countCol.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        percentageCol.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo1Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo2Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo3Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo4Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo5Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo6Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
+        nameCol.prefWidthProperty().bind(tableView.widthProperty().divide(7));
+        countCol.prefWidthProperty().bind(tableView.widthProperty().divide(7));
+        percentageCol.prefWidthProperty().bind(tableView.widthProperty().divide(7));
+        lo1Col.prefWidthProperty().bind(tableView.widthProperty().divide(7));
+        lo2Col.prefWidthProperty().bind(tableView.widthProperty().divide(7));
+        lo3Col.prefWidthProperty().bind(tableView.widthProperty().divide(7));
+        lo4Col.prefWidthProperty().bind(tableView.widthProperty().divide(7));
+
 
         TableView<workLoad> table1 = new TableView<>();
-        data1.addAll(new workLoad("Sınıf Dışı Ders Çalışması",14,2,18),
-                new workLoad("Sınıf Dışı Ders Çalışması",14,2,18),
-                new workLoad("Arazi Çalışması",14,2,18),
-                new workLoad("Küçük Sınav/Stüdyo Kritiği",14,2,18),
-                new workLoad("Ödev",14,2,18),
-                new workLoad("Sunum/Jüri Önünde Sunum",14,2,18),
-                new workLoad("Proje",14,2,18),
-                new workLoad("Seminer/Çalıştay",14,2,18),
-                new workLoad("Sözlü Sınav",14,2,18),
-                new workLoad("Ara Sınav",14,2,18),
-                new workLoad("Final Sınavı",14,2,18),
-                new workLoad("toplam",14,2,18)
-
+        data1.addAll(
+                new workLoad("Study Hours out of Class", 14, 2, 18),
+                new workLoad("Field Work", 14, 2, 18),
+                new workLoad("Quiz/Studio Critique", 14, 2, 18),
+                new workLoad("Homework/Assignment", 14, 2, 18),
+                new workLoad("Presentation/Jury", 14, 2, 18),
+                new workLoad("Project", 14, 2, 18),
+                new workLoad("Portfolio", 14, 2, 18),
+                new workLoad("Seminar/Workshop", 14, 2, 18),
+                new workLoad("Oral Exam", 14, 2, 18),
+                new workLoad("Midterm Exam", 14, 2, 18),
+                new workLoad("Final Exam", 14, 2, 18),
+                new workLoad("Total", 14, 2, 18)
         );
-        TableColumn<workLoad, String> activityCol = new TableColumn<>("Yarıyıl Aktiviteleri");
+
+
+
+        TableColumn<workLoad, String> activityCol = new TableColumn<>("Semester Activities");
         activityCol.setCellValueFactory(cellData -> cellData.getValue().activity);
 
-        TableColumn<workLoad, Number> countCol1 = new TableColumn<>("Sayı");
+        TableColumn<workLoad, Number> countCol1 = new TableColumn<>("Number");
         countCol1.setCellValueFactory(cellData -> cellData.getValue().count);
 
-        TableColumn<workLoad, Number>hourCol = new TableColumn<>("Süre (Saat) ");
+        TableColumn<workLoad, Number> hourCol = new TableColumn<>("Duration(Hours)");
         hourCol.setCellValueFactory(cellData -> cellData.getValue().hour);
 
-        TableColumn<workLoad, Number> workloadCol= new TableColumn<>("İş yükü");
+        TableColumn<workLoad, Number> workloadCol = new TableColumn<>("Workload");
         workloadCol.setCellValueFactory(cellData -> cellData.getValue().workloud);
 
-        table1.getColumns().addAll(activityCol, countCol1,hourCol,workloadCol);
+        table1.getColumns().addAll(activityCol, countCol1, hourCol, workloadCol);
         table1.setItems(data1);
         activityCol.prefWidthProperty().bind(table1.widthProperty().divide(4));
         countCol1.prefWidthProperty().bind(table1.widthProperty().divide(4));
@@ -626,7 +668,7 @@ public class App extends Application {
 
         TableView<Competency> table12 = new TableView<>();
 
-        TableColumn<Competency, String> descColumn = new TableColumn<>("Program Yeterlilikleri/Çıktıları");
+        TableColumn<Competency, String> descColumn = new TableColumn<>("Program Competencies/Outcomes");
         descColumn.setCellValueFactory(cellData -> cellData.getValue().description);
 
         TableColumn<Competency, Number> level1Column = createNumericColumn("1", "level1");
@@ -641,7 +683,7 @@ public class App extends Application {
         table12.getColumns().addAll(descColumn, level1Column, level2Column, level3Column, level4Column, level5Column, loColumn);
         table12.setItems(competencies);
 
-        VBox vBox = new VBox(gridPane,tableView,gridPane1,table,vBox1,table1,vBox2,table12,submitButton);
+        VBox vBox = new VBox(gridPane, tableView, gridPane1, table, vBox1, table1, vBox2, table12, submitButton);
 
         int numberOfLines = 3;
 
@@ -650,14 +692,15 @@ public class App extends Application {
             Separator separator = new Separator();
             separator.setHalignment(HPos.CENTER);
 
-            gridPane.add(separator, 0, 10 + i, 2, 2);}
+            gridPane.add(separator, 0, 10 + i, 2, 2);
+        }
 
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        Scene scene = new Scene(new StackPane(scrollPane), 1200, 800);
-        stage.setScene(scene);
+        Scene scene1 = new Scene(new StackPane(scrollPane), 1200, 800);
+        stage.setScene(scene1);
         stage.show();
     }
 
