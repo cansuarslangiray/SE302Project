@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -539,10 +540,20 @@ public class EnglishSyllabus extends Application {
                         coordinatorTextField.getText(), instructionalStaffTextField.getText(), assistantsTextField.getText());
 
 
+
                 Gson gson = new Gson();
                 String jsonString = gson.toJson(lecture);
-                String filePath = "SE302Project/file.json";
-
+                String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
+                String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
+                File directory = new File(syllabusPath);
+                if (!directory.exists()) {
+                    directory.mkdirs();}
+                String courseCode = courseCodeTextField.getText();
+                String courseCodePath = syllabusPath + File.separator + courseCode;
+                File directory2 = new File(courseCodePath);
+                if (!directory2.exists()) {
+                    directory2.mkdirs();}
+                String filePath= courseCodePath+ File.separator+ "file.json";
                 try {
                     File file = new File(filePath);
                     file.getParentFile().mkdirs();

@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -495,7 +496,17 @@ public class App extends Application {
                                 termChoiceBox.getValue(), theoryHoursTextField.getText(), applicationHoursTextField.getText(),
                                 localCreditTextField.getText(), ectsTextField.getText(), preTextField.getText(), teachingMethodsTextArea.getText(),
                                 coordinatorTextField.getText(), instructionalStaffTextField.getText(), assistantsTextField.getText());
-                        String path = "SE302Project/Lecuters/" + courseCodeTextField.getText();
+                        String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
+                        String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
+                        File directory = new File(syllabusPath);
+                        if (!directory.exists()) {
+                            directory.mkdirs();}
+                        String courseCode = courseCodeTextField.getText();
+                        String courseCodePath = syllabusPath + File.separator + courseCode;
+                        File directory2 = new File(courseCodePath);
+                        if (!directory2.exists()) {
+                            directory2.mkdirs();}
+                        String path= courseCodePath;
                         File file = new File(path);
                         try {
                             if (file.exists()) {
