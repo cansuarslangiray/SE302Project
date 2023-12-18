@@ -299,19 +299,22 @@ public class FirstScene extends Application {
     }
 }
 */
+import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.Optional;
 
 public class FirstScene extends Application {
@@ -357,12 +360,12 @@ public class FirstScene extends Application {
 
 
         turkishButton.setOnAction(e -> {
-            App app = new App();
+            TurkishSyllabus app = new TurkishSyllabus(null, false);
             app.start(primaryStage);
         });
 
         englishButton.setOnAction(e -> {
-            EnglishSyllabus englishSyllabus = new EnglishSyllabus();
+            EnglishSyllabus englishSyllabus = new EnglishSyllabus(null, false);
             englishSyllabus.start(primaryStage);
         });
 
@@ -415,11 +418,36 @@ public class FirstScene extends Application {
 
         result.ifPresent(selectedButton -> {
             if (selectedButton == englishButton) {
-                EnglishSyllabus englishSyllabus = new EnglishSyllabus();
-                englishSyllabus.start(primaryStage);
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Select JSON File");
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+                File selectedFile = fileChooser.showOpenDialog(new Stage());
+                if (selectedFile != null) {
+                    try (Reader reader = new FileReader(selectedFile)) {
+                        Gson gson = new Gson();
+                        Lecture lecture = gson.fromJson(reader, Lecture.class);
+                        EnglishSyllabus englishSyllabus = new EnglishSyllabus(lecture, true);
+                        englishSyllabus.start(primaryStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
             } else if (selectedButton == turkishButton) {
-                App app = new App();
-                app.start(primaryStage);
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Select JSON File");
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+                File selectedFile = fileChooser.showOpenDialog(new Stage());
+                if (selectedFile != null) {
+                    try (Reader reader = new FileReader(selectedFile)) {
+                        Gson gson = new Gson();
+                        Lecture lecture = gson.fromJson(reader, Lecture.class);
+                        TurkishSyllabus app = new TurkishSyllabus(lecture, true);
+                        app.start(primaryStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

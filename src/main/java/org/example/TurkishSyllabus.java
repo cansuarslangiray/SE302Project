@@ -18,21 +18,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.stage.*;
 
 import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Optional;
 
 import static javax.swing.JOptionPane.showInputDialog;
 
-public class App extends Application {
-
+public class TurkishSyllabus extends Application {
+    Lecture lecture;
+    boolean isSaved;
+    public TurkishSyllabus(Lecture lecture, boolean isSaved) {
+        this.lecture = lecture;
+        this.isSaved = isSaved;
+    }
     static  int counter =0;
-
+    static Stage mainStage;
     String changedBy;
     String changeReason ;
     String changeDate ;
@@ -314,12 +316,9 @@ public class App extends Application {
             new Lesson("4", "Dosyalar ile çalışma", " Java How to Program, 15. Bölüm; Java in\n" +
                     "Two Semesters, 18. Bölüm")
     );
-
     @Override
     public void start(Stage stage) {
-
         stage.setTitle("Ders Formu");
-
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20, 20, 20, 20));
         gridPane.setVgap(10);
@@ -486,88 +485,6 @@ public class App extends Application {
         Button submitButton = new Button("Gönder");
         gridPane.add(submitButton, 0, 18, 2, 1);
 
-        submitButton.setOnAction(event -> {
-                    if (courseNameTextField.getText().isEmpty() || termChoiceBox.getValue() == null ||
-                            typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
-                            deliveryToggleGroup.getSelectedToggle() == null) {
-
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setHeaderText(null);
-                        alert.setTitle("Uyarı");
-                        alert.setContentText("Lütfen tüm alanları doldurun!");
-                        alert.showAndWait();
-                    } else {
-                        showInputDialog();
-
-                        RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
-                        RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
-                        RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
-                        RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
-
-                        Lecture lecture = new Lecture(courseNameTextField.getText(), selectedLanguage.getText(), selectedType.getText(),
-                                selectedLevel.getText(), selectedDelivery.getText(), ((RadioButton) typeToggleGroup.getSelectedToggle()).getText(), courseCodeTextField.getText(),
-                                termChoiceBox.getValue(), theoryHoursTextField.getText(), applicationHoursTextField.getText(),
-                                localCreditTextField.getText(), ectsTextField.getText(), preTextField.getText(), teachingMethodsTextArea.getText(),
-                                coordinatorTextField.getText(), instructionalStaffTextField.getText(), assistantsTextField.getText());
-                        String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
-                        String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
-                        File directory = new File(syllabusPath);
-                        if (!directory.exists()) {
-                            directory.mkdirs();}
-                        String courseCode = courseCodeTextField.getText();
-                        String courseCodePath = syllabusPath + File.separator + courseCode;
-                        File directory2 = new File(courseCodePath);
-                        if (!directory2.exists()) {
-                            directory2.mkdirs();}
-                        String path= courseCodePath;
-                        File file = new File(path);
-                        try {
-                            if (file.exists()) {
-                                System.out.println("Dosya zaten mevcut.");
-                            } else {
-                                if (file.mkdir()) {
-                                    System.out.println("Dosya olusturldu.");
-                                } else {
-                                    System.out.println("Failed to create directory.");
-                                }
-                            }
-                            Gson gson = new Gson();
-                            SyllabusVersioning versioning = new SyllabusVersioning(changedBy,changeReason,changeDate,lecture);
-                            String jsonString = gson.toJson(versioning);
-                            File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
-                            int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
-                            String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
-                            try (FileWriter writer = new FileWriter(filePath)) {
-                                writer.write(jsonString);
-                                System.out.println("JSON successfully written to the file: " + filePath);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        /*Gson gson = new Gson();
-                        String jsonString = gson.toJson(lecture);
-                        String filePath = "SE302Project/file.json";
-
-                        try {
-                            File file1 = new File(filePath);
-                            file1.getParentFile().mkdirs();
-
-                            try (FileWriter writer = new FileWriter(file1)) {
-                                writer.write(jsonString);
-                                System.out.println("JSON successfully written to the file: " + filePath);
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }*/
-                        } catch (Exception e) {
-                            System.out.println("Error: " + e.getMessage());
-                        }
-                    }
-                }
-
-            );
-
-
         TableView<Lesson> tableView = new TableView<>();
 
         TableColumn<Lesson, String> weekColumn = new TableColumn<>("Hafta");
@@ -709,29 +626,166 @@ public class App extends Application {
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        submitButton.setOnAction(event -> {
+                    if (courseNameTextField.getText().isEmpty() || termChoiceBox.getValue() == null ||
+                            typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
+                            deliveryToggleGroup.getSelectedToggle() == null) {
 
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Uyarı");
+                        alert.setContentText("Lütfen tüm alanları doldurun!");
+                        alert.showAndWait();
+                    } else {
+                        showInputDialog();
+
+                        RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
+                        RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
+                        RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
+                        RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
+
+                        Lecture lecture = new Lecture(courseNameTextField.getText(), selectedLanguage.getText(), selectedType.getText(),
+                                selectedLevel.getText(), selectedDelivery.getText(), ((RadioButton) typeToggleGroup.getSelectedToggle()).getText(), courseCodeTextField.getText(),
+                                termChoiceBox.getValue(), theoryHoursTextField.getText(), applicationHoursTextField.getText(),
+                                localCreditTextField.getText(), ectsTextField.getText(), preTextField.getText(), teachingMethodsTextArea.getText(),
+                                coordinatorTextField.getText(), instructionalStaffTextField.getText(), assistantsTextField.getText());
+                        String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
+                        String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
+                        File directory = new File(syllabusPath);
+                        if (!directory.exists()) {
+                            directory.mkdirs();}
+                        String courseCode = courseCodeTextField.getText();
+                        String courseCodePath = syllabusPath + File.separator + courseCode;
+                        File directory2 = new File(courseCodePath);
+                        if (!directory2.exists()) {
+                            directory2.mkdirs();}
+                        String path= courseCodePath;
+                        File file = new File(path);
+                        try {
+                            if (file.exists()) {
+                                System.out.println("Dosya zaten mevcut.");
+                            } else {
+                                if (file.mkdir()) {
+                                    System.out.println("Dosya olusturldu.");
+                                } else {
+                                    System.out.println("Failed to create directory.");
+                                }
+                            }
+                            Gson gson = new Gson();
+                            String lectureString = gson.toJson(lecture);
+                            DirectoryChooser directoryChooser = new DirectoryChooser();
+                            directoryChooser.setTitle("Select Folder to Save JSON File");
+                            File selectedDirectory = directoryChooser.showDialog(new Stage());
+                            if (selectedDirectory != null) {
+                                TextInputDialog dialog = new TextInputDialog("output");
+                                dialog.setTitle("Enter File Name");
+                                dialog.setHeaderText(null);
+                                dialog.setContentText("Please enter the name of the JSON file:");
+                                Optional<String> result = dialog.showAndWait();
+                                if (result.isPresent()) {
+                                    String fileName = result.get().isEmpty() ? "output" : result.get();
+                                    String jsonFilePath = selectedDirectory.getAbsolutePath() + File.separator + fileName + ".json";
+                                    try (FileWriter fileWriter = new FileWriter(jsonFilePath)) {
+                                        fileWriter.write(lectureString);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                            SyllabusVersioning versioning = new SyllabusVersioning(changedBy,changeReason,changeDate,lecture);
+                            String jsonString = gson.toJson(versioning);
+                            File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
+                            int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
+                            String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
+                            try (FileWriter writer = new FileWriter(filePath)) {
+                                writer.write(jsonString);
+                                System.out.println("JSON successfully written to the file: " + filePath);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Error: " + e.getMessage());
+                        }
+                    }
+                }
+
+        );
+        if (isSaved) {
+            courseNameTextField.setText(lecture.courseName);
+            courseCodeTextField.setText(lecture.code);
+            if (lecture.term.equals("Güz")){
+                termChoiceBox.setValue("Güz");
+            }
+            else {
+                termChoiceBox.setValue("Bahar");
+            }
+            theoryHoursTextField.setText(lecture.theory);
+            localCreditTextField.setText(lecture.localCredits);
+            applicationHoursTextField.setText(lecture.application);
+            ectsTextField.setText(lecture.ects);
+            preTextField.setText(lecture.prerequisites);
+            String lectureLanguage = lecture.language;
+            switch (lectureLanguage)
+            {
+                case "Türkçe":
+                    languageToggleGroup.selectToggle(languageTurkishRadioButton);
+                    break;
+                case "İngilizce":
+                    languageToggleGroup.selectToggle(languageEnglishRadioButton);
+                    break;
+                case "İkinci Yabancı Dil":
+                    languageToggleGroup.selectToggle(languageOtherRadioButton);
+                    break;
+            }
+            if (lecture.type.equals("Zorunlu")){
+                typeToggleGroup.selectToggle(typeMandatoryRadioButton);
+            }
+            else {
+                typeToggleGroup.selectToggle(typeElectiveRadioButton);
+            }
+
+            if (lecture.courseLevel.equals("Lisans")){
+                levelToggleGroup.selectToggle(levelGraduateRadioButton);
+            }
+            else {
+                levelToggleGroup.selectToggle(levelUndergraduateRadioButton);
+            }
+
+            if (lecture.mode.equals("Yüz Yüze")){
+                deliveryToggleGroup.selectToggle(deliveryFaceToFaceRadioButton);
+            }
+            else {
+                deliveryToggleGroup.selectToggle(deliveryOnlineRadioButton);
+            }
+            coordinatorTextField.setText(lecture.courseCoordinator);
+            teachingMethodsTextArea.setText(lecture.teachingMethod);
+            instructionalStaffTextField.setText(lecture.courseLecturer);
+            assistantsTextField.setText(lecture.assistant);
+        }
         Scene scene = new Scene(new StackPane(scrollPane), 1200, 800);
         stage.setScene(scene);
         stage.show();
     }
 
+
+
     public void showInputDialog() {
 
-            Stage inputStage = new Stage();
-            inputStage.setTitle("Kullanıcı Girişi");
+        Stage inputStage = new Stage();
+        inputStage.setTitle("Kullanıcı Girişi");
 
-            GridPane inputGridPane = new GridPane();
-            inputGridPane.setPadding(new Insets(20, 20, 20, 20));
-            inputGridPane.setVgap(10);
-            inputGridPane.setHgap(10);
+        GridPane inputGridPane = new GridPane();
+        inputGridPane.setPadding(new Insets(20, 20, 20, 20));
+        inputGridPane.setVgap(10);
+        inputGridPane.setHgap(10);
 
 
-            Label inputLabel = new Label("değişlik yapan kişi");
-            TextField userInputField = new TextField();
-            inputGridPane.add(inputLabel, 0, 0);
-            inputGridPane.add(userInputField, 1, 0);
+        Label inputLabel = new Label("değişlik yapan kişi");
+        TextField userInputField = new TextField();
+        inputGridPane.add(inputLabel, 0, 0);
+        inputGridPane.add(userInputField, 1, 0);
 
-            Label inputLabel1 = new Label("Değişiklik sebebi");
+        Label inputLabel1 = new Label("Değişiklik sebebi");
         TextField userInputField1 = new TextField();
         inputGridPane.add(inputLabel1, 0, 1);
         inputGridPane.add(userInputField1, 1, 1);
@@ -743,28 +797,25 @@ public class App extends Application {
 
 
         Button confirmButton = new Button("Onayla");
-            confirmButton.setOnAction(e -> {
-                 changedBy = userInputField.getText();
-                changeReason = userInputField1.getText();
-                changeDate = userInputField2.getText();
+        confirmButton.setOnAction(e -> {
+            changedBy = userInputField.getText();
+            changeReason = userInputField1.getText();
+            changeDate = userInputField2.getText();
 
-                inputStage.close();
-            });
+            inputStage.close();
+        });
 
-            inputGridPane.add(confirmButton, 1, 4);
+        inputGridPane.add(confirmButton, 1, 4);
 
-            Scene inputScene = new Scene(inputGridPane, 400, 200);
-            inputStage.setScene(inputScene);
-
-
-            inputStage.initModality(Modality.APPLICATION_MODAL);
-            inputStage.initStyle(StageStyle.UNDECORATED);
-
-            inputStage.showAndWait();
-        }
+        Scene inputScene = new Scene(inputGridPane, 400, 200);
+        inputStage.setScene(inputScene);
 
 
+        inputStage.initModality(Modality.APPLICATION_MODAL);
+        inputStage.initStyle(StageStyle.UNDECORATED);
 
+        inputStage.showAndWait();
+    }
 
     private TableColumn<Competency, Number> createNumericColumn(String columnName, String property) {
         TableColumn<Competency, Number> column = new TableColumn<>(columnName);

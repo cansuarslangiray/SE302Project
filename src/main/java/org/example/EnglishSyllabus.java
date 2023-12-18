@@ -18,14 +18,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 
 public class EnglishSyllabus extends Application {
+    Lecture lecture;
+    boolean isSaved;
+
+    public EnglishSyllabus (Lecture lecture, boolean isSaved) {
+        this.lecture = lecture;
+        this.isSaved = isSaved;
+    }
     public static class Lesson {
         private final SimpleStringProperty week;
         private final SimpleStringProperty topics;
@@ -543,6 +552,26 @@ public class EnglishSyllabus extends Application {
 
                 Gson gson = new Gson();
                 String jsonString = gson.toJson(lecture);
+                String lectureString = gson.toJson(lecture);
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                directoryChooser.setTitle("Select Folder to Save JSON File");
+                File selectedDirectory = directoryChooser.showDialog(new Stage());
+                if (selectedDirectory != null) {
+                    TextInputDialog dialog = new TextInputDialog("output");
+                    dialog.setTitle("Enter File Name");
+                    dialog.setHeaderText(null);
+                    dialog.setContentText("Please enter the name of the JSON file:");
+                    Optional<String> result = dialog.showAndWait();
+                    if (result.isPresent()) {
+                        String fileName = result.get().isEmpty() ? "output" : result.get();
+                        String jsonFilePath = selectedDirectory.getAbsolutePath() + File.separator + fileName + ".json";
+                        try (FileWriter fileWriter = new FileWriter(jsonFilePath)) {
+                            fileWriter.write(lectureString);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
                 String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
                 String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
                 File directory = new File(syllabusPath);
@@ -709,7 +738,58 @@ public class EnglishSyllabus extends Application {
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        if (isSaved) {
+            courseNameTextField.setText(lecture.courseName);
+            courseCodeTextField.setText(lecture.code);
+            if (lecture.term.equals("Güz")){
+                termChoiceBox.setValue("Güz");
+            }
+            else {
+                termChoiceBox.setValue("Bahar");
+            }
+            theoryHoursTextField.setText(lecture.theory);
+            localCreditTextField.setText(lecture.localCredits);
+            applicationHoursTextField.setText(lecture.application);
+            ectsTextField.setText(lecture.ects);
+            preTextField.setText(lecture.prerequisites);
+            String lectureLanguage = lecture.language;
+            switch (lectureLanguage)
+            {
+                case "Türkçe":
+                    languageToggleGroup.selectToggle(languageTurkishRadioButton);
+                    break;
+                case "İngilizce":
+                    languageToggleGroup.selectToggle(languageEnglishRadioButton);
+                    break;
+                case "İkinci Yabancı Dil":
+                    languageToggleGroup.selectToggle(languageOtherRadioButton);
+                    break;
+            }
+            if (lecture.type.equals("Zorunlu")){
+                typeToggleGroup.selectToggle(typeMandatoryRadioButton);
+            }
+            else {
+                typeToggleGroup.selectToggle(typeElectiveRadioButton);
+            }
 
+            if (lecture.courseLevel.equals("Lisans")){
+                levelToggleGroup.selectToggle(levelGraduateRadioButton);
+            }
+            else {
+                levelToggleGroup.selectToggle(levelUndergraduateRadioButton);
+            }
+
+            if (lecture.mode.equals("Yüz Yüze")){
+                deliveryToggleGroup.selectToggle(deliveryFaceToFaceRadioButton);
+            }
+            else {
+                deliveryToggleGroup.selectToggle(deliveryOnlineRadioButton);
+            }
+            coordinatorTextField.setText(lecture.courseCoordinator);
+            teachingMethodsTextArea.setText(lecture.teachingMethod);
+            instructionalStaffTextField.setText(lecture.courseLecturer);
+            assistantsTextField.setText(lecture.assistant);
+        }
         Scene scene1 = new Scene(new StackPane(scrollPane), 1200, 800);
         stage.setScene(scene1);
         stage.show();
