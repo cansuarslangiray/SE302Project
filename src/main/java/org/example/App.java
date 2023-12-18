@@ -30,6 +30,7 @@ import java.io.IOException;
 import static javax.swing.JOptionPane.showInputDialog;
 
 public class App extends Application {
+
     static  int counter =0;
 
     String changedBy;
@@ -533,8 +534,9 @@ public class App extends Application {
                             Gson gson = new Gson();
                             SyllabusVersioning versioning = new SyllabusVersioning(changedBy,changeReason,changeDate,lecture);
                             String jsonString = gson.toJson(versioning);
+                            File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
+                            int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
                             String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
-                            counter++;
                             try (FileWriter writer = new FileWriter(filePath)) {
                                 writer.write(jsonString);
                                 System.out.println("JSON successfully written to the file: " + filePath);
