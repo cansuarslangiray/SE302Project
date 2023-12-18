@@ -18,19 +18,29 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static javax.swing.JOptionPane.showInputDialog;
+
 public class App extends Application {
     static  int counter =0;
+
+    String changedBy;
+    String changeReason ;
+    String changeDate ;
+
     public static class Lesson {
         private final SimpleStringProperty week;
         private final SimpleStringProperty topics;
         private final SimpleStringProperty preparation;
+
 
         private Lesson(String week, String topics, String preparation) {
             this.week = new SimpleStringProperty(week);
@@ -306,6 +316,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+
         stage.setTitle("Ders Formu");
 
         GridPane gridPane = new GridPane();
@@ -317,6 +328,7 @@ public class App extends Application {
         gridPane1.setPadding(new Insets(20, 20, 20, 20));
         gridPane1.setVgap(10);
         gridPane1.setHgap(10);
+
 
         Label titleLabel = new Label("İZMİR EKONOMİ ÜNİVERSİTESİ\n        DERS ÖNERİ FORMU");
         titleLabel.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 20;");
@@ -484,7 +496,7 @@ public class App extends Application {
                         alert.setContentText("Lütfen tüm alanları doldurun!");
                         alert.showAndWait();
                     } else {
-                        // Proceed with creating the Lecture object and writing to JSON file
+                        showInputDialog();
 
                         RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
                         RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
@@ -519,7 +531,7 @@ public class App extends Application {
                                 }
                             }
                             Gson gson = new Gson();
-                            SyllabusVersioning versioning = new SyllabusVersioning("kaya", "oyle", "10.12.23" ,lecture);
+                            SyllabusVersioning versioning = new SyllabusVersioning(changedBy,changeReason,changeDate,lecture);
                             String jsonString = gson.toJson(versioning);
                             String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
                             counter++;
@@ -552,6 +564,7 @@ public class App extends Application {
                 }
 
             );
+
 
         TableView<Lesson> tableView = new TableView<>();
 
@@ -699,6 +712,56 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void showInputDialog() {
+
+            Stage inputStage = new Stage();
+            inputStage.setTitle("Kullanıcı Girişi");
+
+            GridPane inputGridPane = new GridPane();
+            inputGridPane.setPadding(new Insets(20, 20, 20, 20));
+            inputGridPane.setVgap(10);
+            inputGridPane.setHgap(10);
+
+
+            Label inputLabel = new Label("değişlik yapan kişi");
+            TextField userInputField = new TextField();
+            inputGridPane.add(inputLabel, 0, 0);
+            inputGridPane.add(userInputField, 1, 0);
+
+            Label inputLabel1 = new Label("Değişiklik sebebi");
+        TextField userInputField1 = new TextField();
+        inputGridPane.add(inputLabel1, 0, 1);
+        inputGridPane.add(userInputField1, 1, 1);
+
+        Label inputLabel2 = new Label("değişiklik Tarihi");
+        TextField userInputField2 = new TextField();
+        inputGridPane.add(inputLabel2, 0, 2);
+        inputGridPane.add(userInputField2, 1, 2);
+
+
+        Button confirmButton = new Button("Onayla");
+            confirmButton.setOnAction(e -> {
+                 changedBy = userInputField.getText();
+                changeReason = userInputField1.getText();
+                changeDate = userInputField2.getText();
+
+                inputStage.close();
+            });
+
+            inputGridPane.add(confirmButton, 1, 4);
+
+            Scene inputScene = new Scene(inputGridPane, 400, 200);
+            inputStage.setScene(inputScene);
+
+
+            inputStage.initModality(Modality.APPLICATION_MODAL);
+            inputStage.initStyle(StageStyle.UNDECORATED);
+
+            inputStage.showAndWait();
+        }
+
+
 
 
     private TableColumn<Competency, Number> createNumericColumn(String columnName, String property) {

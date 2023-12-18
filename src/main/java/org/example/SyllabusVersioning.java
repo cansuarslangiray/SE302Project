@@ -4,7 +4,6 @@ public class SyllabusVersioning {
     String name;
     String reason;
     Lecture lecture;
-
     String time;
 
     public SyllabusVersioning(String name, String reason, String time, Lecture lecture) {
