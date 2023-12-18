@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class FirstScene extends App {
+public class FirstScene extends Application{
 
     @Override
     public void start(Stage primaryStage) {
@@ -66,11 +66,11 @@ public class FirstScene extends App {
         Background background = new Background(backgroundFill);
         vbox.setBackground(background);
 
-        Scene scene = new Scene(vbox, 1200, 800);
+        Scene scene1 = new Scene(vbox, 1200, 800);
 
 
         primaryStage.setTitle("Syllabus");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(scene1);
         primaryStage.show();
     }
 
