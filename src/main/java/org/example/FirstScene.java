@@ -355,8 +355,8 @@ public class FirstScene extends Application {
 
 
         Button turkishButton = createButton("ADD First Version Of TURKISH SYLLABUS");
-        Button englishButton = createButton("Add First Version OF ENGLISH SYLLSBUS");
-        Button listVersions = createButton("Version of Syllbuses");
+        Button englishButton = createButton("Add First Version OF ENGLISH SYLLABUS");
+        Button listVersions = createButton("Version of Syllabuses");
 
 
         turkishButton.setOnAction(e -> {
