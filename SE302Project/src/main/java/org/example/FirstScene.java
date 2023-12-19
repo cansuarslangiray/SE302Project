@@ -311,6 +311,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.scene.control.TextArea;
 
 import java.util.Optional;
 
@@ -341,6 +342,7 @@ public class FirstScene extends Application {
         MenuItem CompareItem = new MenuItem("Compare");
         MenuItem editItem = new MenuItem("Edit");
         MenuItem exitItem = new MenuItem("Exit");
+        MenuItem help=new MenuItem("Help");
         exitItem.setOnAction(e -> primaryStage.close());
         openItem.setOnAction(e -> showLanguageSelectionPopup());
 
@@ -349,6 +351,9 @@ public class FirstScene extends Application {
 
 
         menuBar.getMenus().addAll(fileMenu, helpMenu);
+        helpMenu.getItems().addAll(help);
+
+        help.setOnAction(e -> showHelp());
 
 
         Button turkishButton = createButton("ADD First Version Of TURKISH SYLLABUS");
@@ -400,6 +405,47 @@ public class FirstScene extends Application {
         button.setPrefSize(350, 50);
         return button;
     }
+    private Scene createHelpScene() {
+        // Create a TextArea to display help content
+        TextArea helpTextArea = new TextArea();
+        helpTextArea.setEditable(false);
+        helpTextArea.setWrapText(true);
+
+        // Set the help content (you can replace this with the actual content)
+        String helpContent = "This is the help content.\nYou can add more details here.";
+        helpTextArea.setText(helpContent);
+
+        // Create a button to close the help window
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> primaryStage.close());
+
+        // Create a VBox to hold the TextArea and Close button
+        VBox helpVBox = new VBox(10);
+        helpVBox.setAlignment(Pos.CENTER);
+        helpVBox.getChildren().addAll(helpTextArea, closeButton);
+
+        // Return the help scene
+        return new Scene(helpVBox, 400, 300);
+    }
+
+    private void showHelp() {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Help");
+        alert.setHeaderText(null);
+
+
+        String helpContent = "This is the help content.\nYou can add more details here.";
+        alert.setContentText(helpContent);
+
+
+        ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(closeButton);
+
+
+        alert.showAndWait();
+    }
+
 
     private void showLanguageSelectionPopup() {
         Alert alert = new Alert(Alert.AlertType.NONE);

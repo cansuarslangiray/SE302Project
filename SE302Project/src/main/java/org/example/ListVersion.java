@@ -60,8 +60,7 @@ public class ListVersion extends Application{
     }
 
     private void goBackToMainScene() {
-        // Implement the logic to go back to the main scene
-        // You may need to update this based on your actual application structure
+
         FirstScene firstScene = new FirstScene();
         firstScene.start(primaryStage);
     }
