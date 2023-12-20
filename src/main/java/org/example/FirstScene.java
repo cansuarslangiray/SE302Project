@@ -88,7 +88,7 @@ public class FirstScene extends Application {
             app.start(primaryStage);
         });
 
-        englishButton.setOnAction(e -> {
+       englishButton.setOnAction(e -> {
             EnglishSyllabus englishSyllabus = new EnglishSyllabus(null, false);
             englishSyllabus.start(primaryStage);
         });

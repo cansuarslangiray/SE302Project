@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class ViewVersion {
 
-    public static void main(String[] args) throws FileNotFoundException {
+   /* public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the course code: ");
         String courseCode = scanner.nextLine();
@@ -31,10 +31,10 @@ public class ViewVersion {
         Gson gson = new Gson();
         SyllabusVersioning syllabus = gson.fromJson(reader, SyllabusVersioning.class);
         printSyllabus(syllabus);
-    }
+    }*/
 
 
-    private static void printSyllabus(SyllabusVersioning syllabus) {
+   /* private static void printSyllabus(SyllabusVersioning syllabus) {
         System.out.println("Details of Version:");
         System.out.println("Lecturer's name: " + syllabus.getName());
         System.out.println("Reason: " + syllabus.getReason());
@@ -61,7 +61,7 @@ public class ViewVersion {
             System.out.println("Course Lecturer: " + lecture.getCourseLecturer());
             System.out.println("Assistant: " + lecture.getAssistant());
         }
-    }
+    }*/
 
     private static void showError(String errorMessage) {
         System.err.println(errorMessage);

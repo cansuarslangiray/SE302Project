@@ -26,7 +26,6 @@ import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.util.Optional;
 
-import static javax.swing.JOptionPane.showInputDialog;
 
 public class TurkishSyllabus extends Application {
     Lecture lecture;
@@ -35,8 +34,6 @@ public class TurkishSyllabus extends Application {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
-    static  int counter =0;
-    static Stage mainStage;
     String changedBy;
     String changeReason ;
     String changeDate ;
@@ -44,26 +41,10 @@ public class TurkishSyllabus extends Application {
 
     private final ObservableList<Competency> competencies = FXCollections.observableArrayList(
             new Competency("Matematik, Fen Bilimleri ve Bilgisayar Mühendisliği konularında yeterli bilgi sahibidir...", 0, 0, 1, 0, 0, "1,2")
-            // ... Add other competencies here
     );
 
     private ObservableList<Activity> data = FXCollections.observableArrayList();
     private ObservableList<workLoad> data1 = FXCollections.observableArrayList();
-
-    private static class EnterFriendlyTextFieldTableCell<S, T> extends TextFieldTableCell<S, T> {
-        public EnterFriendlyTextFieldTableCell() {
-            super();
-            setOnKeyPressed(event -> {
-                if (event.getCode().equals(javafx.scene.input.KeyCode.ENTER)) {
-                    commitEdit(getItem());
-                    TablePosition<S, ?> position = getTableView().getFocusModel().getFocusedCell();
-                    getTableView().getSelectionModel().selectBelowCell();
-                    getTableView().edit(position.getRow() + 1, position.getTableColumn());
-                    event.consume();
-                }
-            });
-        }
-    }
 
     private final ObservableList<Lesson> lessons = FXCollections.observableArrayList(
             new Lesson("1", "", ""),
@@ -203,15 +184,15 @@ public class TurkishSyllabus extends Application {
         gridPane.add(new Label("Dersin Kategorisi:"), 0, 18);
         ToggleGroup levelToggleGroup1 = new ToggleGroup();
         RadioButton levelUndergraduateRadioButton1 = new RadioButton("Temel Ders");
-        levelUndergraduateRadioButton.setToggleGroup(levelToggleGroup);
+        levelUndergraduateRadioButton.setToggleGroup(levelToggleGroup1);
         RadioButton levelGraduateRadioButton1 = new RadioButton("Uzmanlık/Alan Ders");
-        levelGraduateRadioButton1.setToggleGroup(levelToggleGroup);
+        levelGraduateRadioButton1.setToggleGroup(levelToggleGroup1);
         RadioButton levelGraduateRadioButton2 = new RadioButton("Destek Dersi");
-        levelGraduateRadioButton2.setToggleGroup(levelToggleGroup);
+        levelGraduateRadioButton2.setToggleGroup(levelToggleGroup1);
         RadioButton levelGraduateRadioButton3 = new RadioButton("İletişim ve Yönetim Becerileri Dersi");
-        levelGraduateRadioButton3.setToggleGroup(levelToggleGroup);
+        levelGraduateRadioButton3.setToggleGroup(levelToggleGroup1);
         RadioButton levelGraduateRadioButton4 = new RadioButton("Aktarılabilir Beceri Dersi\n");
-        levelGraduateRadioButton4.setToggleGroup(levelToggleGroup);
+        levelGraduateRadioButton4.setToggleGroup(levelToggleGroup1);
         VBox levelBox1 = new VBox(10, levelUndergraduateRadioButton1, levelGraduateRadioButton1,levelGraduateRadioButton2,levelGraduateRadioButton3,levelGraduateRadioButton4);
         gridPane.add(levelBox1, 1, 18);
 
@@ -257,15 +238,14 @@ public class TurkishSyllabus extends Application {
         tableView.setEditable(true);
 
         TableColumn<Lesson, String> weekColumn = new TableColumn<>("Hafta");
-        weekColumn.setCellValueFactory(cellData -> cellData.getValue().week);
-        weekColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+//        weekColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         weekColumn.setOnEditCommit(event -> {
             Lesson lesson = event.getRowValue();
             lesson.setWeek(event.getNewValue());
         });
 
         TableColumn<Lesson, String> topicsColumn = new TableColumn<>("Konular");
-        topicsColumn.setCellValueFactory(cellData -> cellData.getValue().topics);
+       // topicsColumn.setCellValueFactory(cellData -> cellData.getValue().topics);
         topicsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         topicsColumn.setOnEditCommit(event -> {
             Lesson lesson = event.getRowValue();
@@ -273,7 +253,7 @@ public class TurkishSyllabus extends Application {
         });
 
         TableColumn<Lesson, String> preparationColumn = new TableColumn<>("Ön Hazırlık");
-        preparationColumn.setCellValueFactory(cellData -> cellData.getValue().preparation);
+        //preparationColumn.setCellValueFactory(cellData -> cellData.getValue().preparation);
         preparationColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         preparationColumn.setOnEditCommit(event -> {
             Lesson lesson = event.getRowValue();
@@ -292,49 +272,49 @@ public class TurkishSyllabus extends Application {
         table.setEditable(true);
 
         TableColumn<Activity, String> nameCol = new TableColumn<>("Yarıyıl Aktiviteleri");
-        nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
+        //nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
         nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
         TableColumn<Activity, Integer> countCol = new TableColumn<>("Sayı");
-        countCol.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
+       // countCol.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
         countCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         countCol.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
 
 
         TableColumn<Activity, Integer> percentageCol = new TableColumn<>("Katkı Payı %");
-        percentageCol.setCellValueFactory(cellData -> cellData.getValue().percentage.asObject());
+       // percentageCol.setCellValueFactory(cellData -> cellData.getValue().percentage.asObject());
         percentageCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         percentageCol.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
         TableColumn<Activity, Integer> lo1Col = new TableColumn<>("LO1");
-        lo1Col.setCellValueFactory(cellData -> cellData.getValue().lo1.asObject());
+       // lo1Col.setCellValueFactory(cellData -> cellData.getValue().lo1.asObject());
         lo1Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         lo1Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
         TableColumn<Activity, Integer> lo2Col = new TableColumn<>("LO2");
-        lo2Col.setCellValueFactory(cellData -> cellData.getValue().lo2.asObject());
+       // lo2Col.setCellValueFactory(cellData -> cellData.getValue().lo2.asObject());
         lo2Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         lo2Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
 
         TableColumn<Activity, Integer> lo3Col = new TableColumn<>("LO3");
-        lo3Col.setCellValueFactory(cellData -> cellData.getValue().lo3.asObject());
+       // lo3Col.setCellValueFactory(cellData -> cellData.getValue().lo3.asObject());
         lo3Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         lo3Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
         TableColumn<Activity, Integer> lo4Col = new TableColumn<>("LO4");
-        lo4Col.setCellValueFactory(cellData -> cellData.getValue().lo4.asObject());
+       // lo4Col.setCellValueFactory(cellData -> cellData.getValue().lo4.asObject());
         lo4Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         lo4Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
         TableColumn<Activity, Integer> lo5Col = new TableColumn<>("LO5");
-        lo5Col.setCellValueFactory(cellData -> cellData.getValue().lo5.asObject());
+      //  lo5Col.setCellValueFactory(cellData -> cellData.getValue().lo5.asObject());
         lo5Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         lo5Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
         TableColumn<Activity, Integer> lo6Col = new TableColumn<>("LO6");
-        lo6Col.setCellValueFactory(cellData -> cellData.getValue().lo6.asObject());
+      //  lo6Col.setCellValueFactory(cellData -> cellData.getValue().lo6.asObject());
         lo6Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         lo6Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
@@ -376,25 +356,25 @@ public class TurkishSyllabus extends Application {
 
         );
         TableColumn<workLoad, String> activityCol = new TableColumn<>("Yarıyıl Aktiviteleri");
-        activityCol.setCellValueFactory(cellData -> cellData.getValue().activity);
+       // activityCol.setCellValueFactory(cellData -> cellData.getValue().activity);
         activityCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
         TableColumn<workLoad,Integer> countCol1 = new TableColumn<>("Sayı");
-        countCol1.setCellValueFactory(cellData -> cellData.getValue().count.asObject());
+      //  countCol1.setCellValueFactory(cellData -> cellData.getValue().count.asObject());
         countCol1.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         countCol1.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
 
 
 
         TableColumn<workLoad, Integer>hourCol = new TableColumn<>("Süre (Saat) ");
-        hourCol.setCellValueFactory(cellData -> cellData.getValue().hour.asObject());
+      //  hourCol.setCellValueFactory(cellData -> cellData.getValue().hour.asObject());
         hourCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         hourCol.setOnEditCommit(event -> event.getRowValue().setHour(event.getNewValue()));
 
 
         TableColumn<workLoad, Integer> workloadCol= new TableColumn<>("İş yükü");
-        workloadCol.setCellValueFactory(cellData -> cellData.getValue().workloud.asObject());
+       // workloadCol.setCellValueFactory(cellData -> cellData.getValue().workloud.asObject());
         workloadCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         workloadCol.setOnEditCommit(event -> event.getRowValue().setWorkloud(event.getNewValue()));
 
@@ -410,36 +390,36 @@ public class TurkishSyllabus extends Application {
         TableView<Competency> table12 = new TableView<>();
 
         TableColumn<Competency, String> descColumn = new TableColumn<>("Program Yeterlilikleri/Çıktıları");
-        descColumn.setCellValueFactory(cellData -> cellData.getValue().description);
+     //   descColumn.setCellValueFactory(cellData -> cellData.getValue().description);
 
         TableColumn<Competency,Integer> level1Column = new TableColumn<>("1");
-        level1Column.setCellValueFactory(cellData -> cellData.getValue().level1.asObject());
+     //   level1Column.setCellValueFactory(cellData -> cellData.getValue().level1.asObject());
         level1Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         level1Column.setOnEditCommit(event -> event.getRowValue().setLevel1(event.getNewValue()));
 
         TableColumn<Competency,Integer> level2Column = new TableColumn<>("2");
-        level2Column.setCellValueFactory(cellData -> cellData.getValue().level2.asObject());
+      //  level2Column.setCellValueFactory(cellData -> cellData.getValue().level2.asObject());
         level2Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         level2Column.setOnEditCommit(event -> event.getRowValue().setLevel2(event.getNewValue()));
 
         TableColumn<Competency,Integer> level3Column = new TableColumn<>("3");
-        level3Column.setCellValueFactory(cellData -> cellData.getValue().level3.asObject());
+       // level3Column.setCellValueFactory(cellData -> cellData.getValue().level3.asObject());
         level3Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         level3Column.setOnEditCommit(event -> event.getRowValue().setLevel3(event.getNewValue()));
 
         TableColumn<Competency,Integer> level4Column = new TableColumn<>("4");
-        level4Column.setCellValueFactory(cellData -> cellData.getValue().level4.asObject());
+       // level4Column.setCellValueFactory(cellData -> cellData.getValue().level4.asObject());
         level4Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         level4Column.setOnEditCommit(event -> event.getRowValue().setLevel4(event.getNewValue()));
 
         TableColumn<Competency,Integer> level5Column = new TableColumn<>("5");
-        level5Column.setCellValueFactory(cellData -> cellData.getValue().level5.asObject());
+      //  level5Column.setCellValueFactory(cellData -> cellData.getValue().level5.asObject());
         level5Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         level5Column.setOnEditCommit(event -> event.getRowValue().setLevel5(event.getNewValue()));
 
 
         TableColumn<Competency, String> loColumn = new TableColumn<>("LO#");
-        loColumn.setCellValueFactory(cellData -> cellData.getValue().lo);
+    //    loColumn.setCellValueFactory(cellData -> cellData.getValue().lo);
 
         table12.getColumns().addAll(descColumn, level1Column, level2Column, level3Column, level4Column, level5Column, loColumn);
         table12.setItems(competencies);
@@ -458,8 +438,92 @@ public class TurkishSyllabus extends Application {
         ScrollPane scrollPane = new ScrollPane(vBox);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        submitButton.setOnAction(event -> {
-                    if (courseNameTextField.getText().isEmpty() || termChoiceBox.getValue() == null ||
+
+        if (isSaved) {
+            courseNameTextField.setText(lecture.courseName);
+            courseCodeTextField.setText(lecture.courseCode);
+            if (lecture.term.equals("Güz")){
+                termChoiceBox.setValue("Güz");
+            }
+            else {
+                termChoiceBox.setValue("Bahar");
+            }
+            theoryHoursTextField.setText(lecture.theoryHours);
+            applicationHoursTextField.setText(lecture.applicationHours);
+            localCreditTextField.setText(lecture.localCredit);
+            ectsTextField.setText(lecture.ects);
+            preTextField.setText(lecture.prerequisites);
+            String lectureLanguage = lecture.language;
+            switch (lectureLanguage)
+            {
+                case "Türkçe":
+                    languageToggleGroup.selectToggle(languageTurkishRadioButton);
+                    break;
+                case "İngilizce":
+                    languageToggleGroup.selectToggle(languageEnglishRadioButton);
+                    break;
+                case "İkinci Yabancı Dil":
+                    languageToggleGroup.selectToggle(languageOtherRadioButton);
+                    break;
+            }
+            if (lecture.type.equals("Zorunlu")){
+                typeToggleGroup.selectToggle(typeMandatoryRadioButton);
+            }
+            else {
+                typeToggleGroup.selectToggle(typeElectiveRadioButton);
+            }
+
+            if (lecture.courseLevel.equals("Lisans")){
+                levelToggleGroup.selectToggle(levelGraduateRadioButton);
+            }
+            else {
+                levelToggleGroup.selectToggle(levelUndergraduateRadioButton);
+            }
+
+            if (lecture.deliveryMode.equals("Yüz Yüze")){
+                deliveryToggleGroup.selectToggle(deliveryFaceToFaceRadioButton);
+            }
+            else {
+                deliveryToggleGroup.selectToggle(deliveryOnlineRadioButton);
+            }
+            teachingMethodsTextArea.setText(lecture.teachingMethods);
+            coordinatorTextField.setText(lecture.coordinator);
+            instructionalStaffTextField.setText(lecture.lecturer);
+            assistantsTextField.setText(lecture.assistants);
+            String lectureCategory = lecture.courseCategory;
+
+            for(int j=0;j<lecture.weeklySubject.size();j++){
+                lessons.get(j).setWeek(lecture.weeklySubject.get(j).getWeek());
+                lessons.get(j).setTopics(lecture.weeklySubject.get(j).getTopics());
+                lessons.get(j).setPreparation(lecture.weeklySubject.get(j).getPreparation());
+
+
+            }
+            Book.setText(lecture.book);
+            Material.setText(lecture.materials);
+            for(int j=0;j<lecture.assessmentTable.size();j++){
+                data.get(j).setCount(lecture.assessmentTable.get(j).count);
+                data.get(j).setLo1(lecture.assessmentTable.get(j).lo1);
+                data.get(j).setLo2(lecture.assessmentTable.get(j).lo2);
+                data.get(j).setLo3(lecture.assessmentTable.get(j).lo3);
+                data.get(j).setLo4(lecture.assessmentTable.get(j).lo4);
+                data.get(j).setLo5(lecture.assessmentTable.get(j).lo5);
+                data.get(j).setLo6(lecture.assessmentTable.get(j).lo6);
+                data.get(j).setPercentage(lecture.assessmentTable.get(j).percentage);
+                data.get(j).setName(lecture.assessmentTable.get(j).getName());
+
+            }
+            for(int j=0;j<lecture.workloadTable.size();j++){
+                data1.add(lecture.workloadTable.get(j));
+            }
+            for(int j=0;j<lecture.outcomeTable.size();j++){
+                competencies.add(lecture.outcomeTable.get(j));
+            }
+
+
+
+        } submitButton.setOnAction(event -> {
+                    /*if (courseNameTextField.getText().isEmpty() || termChoiceBox.getValue() == null ||
                             typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
                             deliveryToggleGroup.getSelectedToggle() == null) {
 
@@ -468,19 +532,40 @@ public class TurkishSyllabus extends Application {
                         alert.setTitle("Uyarı");
                         alert.setContentText("Lütfen tüm alanları doldurun!");
                         alert.showAndWait();
-                    } else {
+                    } else {*/
                         showInputDialog();
 
                         RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
                         RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
                         RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
                         RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
+                        RadioButton selectedCategory = (RadioButton) levelToggleGroup1.getSelectedToggle();
 
-                        Lecture lecture = new Lecture(courseNameTextField.getText(), selectedLanguage.getText(), selectedType.getText(),
-                                selectedLevel.getText(), selectedDelivery.getText(), ((RadioButton) typeToggleGroup.getSelectedToggle()).getText(), courseCodeTextField.getText(),
-                                termChoiceBox.getValue(), theoryHoursTextField.getText(), applicationHoursTextField.getText(),
-                                localCreditTextField.getText(), ectsTextField.getText(), preTextField.getText(), teachingMethodsTextArea.getText(),
-                                coordinatorTextField.getText(), instructionalStaffTextField.getText(), assistantsTextField.getText());
+            Lecture lecture = new Lecture(
+                    courseNameTextField.getText(),
+                    courseCodeTextField.getText(),
+                    termChoiceBox.getValue().toString(),
+                    theoryHoursTextField.getText(),
+                    applicationHoursTextField.getText(),
+                    localCreditTextField.getText(),
+                    ectsTextField.getText(),
+                    preTextField.getText(),
+                    selectedLanguage.getText(),
+                    selectedType.getText(),
+                    selectedLevel.getText(),
+                    selectedDelivery.getText(),
+                    teachingMethodsTextArea.getText(),
+                    coordinatorTextField.getText(),
+                    instructionalStaffTextField.getText(),
+                    assistantsTextField.getText(),
+                    selectedCategory.getText(),
+                    lessons,
+                    Book.getText(),
+                    Material.getText(),
+                    data,
+                    data1,
+                    competencies
+            );
                         String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
                         String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
                         File directory = new File(syllabusPath);
@@ -538,62 +623,10 @@ public class TurkishSyllabus extends Application {
                         } catch (Exception e) {
                             System.out.println("Error: " + e.getMessage());
                         }
-                    }
+                   // }
                 }
 
         );
-        if (isSaved) {
-            courseNameTextField.setText(lecture.courseName);
-            courseCodeTextField.setText(lecture.code);
-            if (lecture.term.equals("Güz")){
-                termChoiceBox.setValue("Güz");
-            }
-            else {
-                termChoiceBox.setValue("Bahar");
-            }
-            theoryHoursTextField.setText(lecture.theory);
-            localCreditTextField.setText(lecture.localCredits);
-            applicationHoursTextField.setText(lecture.application);
-            ectsTextField.setText(lecture.ects);
-            preTextField.setText(lecture.prerequisites);
-            String lectureLanguage = lecture.language;
-            switch (lectureLanguage)
-            {
-                case "Türkçe":
-                    languageToggleGroup.selectToggle(languageTurkishRadioButton);
-                    break;
-                case "İngilizce":
-                    languageToggleGroup.selectToggle(languageEnglishRadioButton);
-                    break;
-                case "İkinci Yabancı Dil":
-                    languageToggleGroup.selectToggle(languageOtherRadioButton);
-                    break;
-            }
-            if (lecture.type.equals("Zorunlu")){
-                typeToggleGroup.selectToggle(typeMandatoryRadioButton);
-            }
-            else {
-                typeToggleGroup.selectToggle(typeElectiveRadioButton);
-            }
-
-            if (lecture.courseLevel.equals("Lisans")){
-                levelToggleGroup.selectToggle(levelGraduateRadioButton);
-            }
-            else {
-                levelToggleGroup.selectToggle(levelUndergraduateRadioButton);
-            }
-
-            if (lecture.mode.equals("Yüz Yüze")){
-                deliveryToggleGroup.selectToggle(deliveryFaceToFaceRadioButton);
-            }
-            else {
-                deliveryToggleGroup.selectToggle(deliveryOnlineRadioButton);
-            }
-            coordinatorTextField.setText(lecture.courseCoordinator);
-            teachingMethodsTextArea.setText(lecture.teachingMethod);
-            instructionalStaffTextField.setText(lecture.courseLecturer);
-            assistantsTextField.setText(lecture.assistant);
-        }
         Scene scene = new Scene(new StackPane(scrollPane), 1200, 800);
         stage.setScene(scene);
         stage.show();

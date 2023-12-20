@@ -3,39 +3,42 @@ package org.example;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Lesson {
-    public final SimpleStringProperty week;
-    public final SimpleStringProperty topics;
-    public final SimpleStringProperty preparation;
+    public String week;
+    public String topics;
+    public String preparation;
 
     public void setWeek(String week) {
-        this.week.set(week);
+        this.week = week;
     }
 
     public void setTopics(String topics) {
-        this.topics.set(topics);
+        this.topics = topics;
     }
 
     public void setPreparation(String preparation) {
-        this.preparation.set(preparation);
-    }
-
-
-
-    public Lesson(String week, String topics, String preparation) {
-        this.week = new SimpleStringProperty(week);
-        this.topics = new SimpleStringProperty(topics);
-        this.preparation = new SimpleStringProperty(preparation);
+        this.preparation = preparation;
     }
 
     public String getWeek() {
-        return week.get();
+        return week;
     }
 
     public String getTopics() {
-        return topics.get();
+        return topics;
     }
 
     public String getPreparation() {
-        return preparation.get();
+        return preparation;
+    }
+
+    public Lesson() {
+
+    }
+
+    public Lesson(String week, String topics, String preparation) {
+        this.week = week;
+        this.topics = topics;
+        this.preparation = preparation;
     }
 }
+

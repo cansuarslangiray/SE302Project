@@ -37,7 +37,7 @@ public class ListVersion extends Application{
 
 
         versions = new ArrayList<>();
-        versions.add(new App());
+       // versions.add(new EnglishSyllabus());
 
         ObservableList<Application> observableVersions = FXCollections.observableList(versions);
         versionListView.setItems(observableVersions);
