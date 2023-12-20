@@ -9,8 +9,6 @@ public class Competency {
     public StringProperty description;
     public IntegerProperty level1;
     public IntegerProperty level2;
-    public IntegerProperty level3;
-    public IntegerProperty level4;
 
     public String getDescription() {
         return description.get();
@@ -96,6 +94,8 @@ public class Competency {
         this.lo.set(lo);
     }
 
+    public IntegerProperty level3;
+    public IntegerProperty level4;
     public IntegerProperty level5;
     public StringProperty lo;
 

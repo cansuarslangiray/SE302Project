@@ -17,9 +17,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -35,307 +37,6 @@ public class EnglishSyllabus extends Application {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
-    public static class Lesson {
-        private final SimpleStringProperty week;
-        private final SimpleStringProperty topics;
-        private final SimpleStringProperty preparation;
-
-        private Lesson(String week, String topics, String preparation) {
-            this.week = new SimpleStringProperty(week);
-            this.topics = new SimpleStringProperty(topics);
-            this.preparation = new SimpleStringProperty(preparation);
-        }
-
-        public String getWeek() {
-            return week.get();
-        }
-
-        public String getTopics() {
-            return topics.get();
-        }
-
-        public String getPreparation() {
-            return preparation.get();
-        }
-    }
-
-
-    public class Activity {
-        private StringProperty name;
-        private IntegerProperty count;
-        private IntegerProperty percentage;
-        private IntegerProperty lo1;
-        private IntegerProperty lo2;
-        private IntegerProperty lo3;
-        private IntegerProperty lo4;
-        private IntegerProperty lo5;
-        private IntegerProperty lo6;
-
-
-        public Activity(String name, int count, int percentage, int lo1, int lo2, int lo3, int lo4, int lo5, int lo6) {
-            this.name = new SimpleStringProperty(name);
-            this.count = new SimpleIntegerProperty(count);
-            this.percentage = new SimpleIntegerProperty(percentage);
-            this.lo1 = new SimpleIntegerProperty(lo1);
-            this.lo2 = new SimpleIntegerProperty(lo2);
-            this.lo3 = new SimpleIntegerProperty(lo3);
-            this.lo4 = new SimpleIntegerProperty(lo4);
-            this.lo5 = new SimpleIntegerProperty(lo5);
-            this.lo6 = new SimpleIntegerProperty(lo6);
-        }
-
-        public String getName() {
-            return name.get();
-        }
-
-        public StringProperty nameProperty() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name.set(name);
-        }
-
-        public int getCount() {
-            return count.get();
-        }
-
-        public IntegerProperty countProperty() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count.set(count);
-        }
-
-        public int getPercentage() {
-            return percentage.get();
-        }
-
-        public IntegerProperty percentageProperty() {
-            return percentage;
-        }
-
-        public void setPercentage(int percentage) {
-            this.percentage.set(percentage);
-        }
-
-        public int getLo1() {
-            return lo1.get();
-        }
-
-        public IntegerProperty lo1Property() {
-            return lo1;
-        }
-
-        public void setLo1(int lo1) {
-            this.lo1.set(lo1);
-        }
-
-        public int getLo2() {
-            return lo2.get();
-        }
-
-        public IntegerProperty lo2Property() {
-            return lo2;
-        }
-
-        public void setLo2(int lo2) {
-            this.lo2.set(lo2);
-        }
-
-        public int getLo3() {
-            return lo3.get();
-        }
-
-        public IntegerProperty lo3Property() {
-            return lo3;
-        }
-
-        public void setLo3(int lo3) {
-            this.lo3.set(lo3);
-        }
-
-        public int getLo4() {
-            return lo4.get();
-        }
-
-        public IntegerProperty lo4Property() {
-            return lo4;
-        }
-
-        public void setLo4(int lo4) {
-            this.lo4.set(lo4);
-        }
-
-        public int getLo5() {
-            return lo5.get();
-        }
-
-        public IntegerProperty lo5Property() {
-            return lo5;
-        }
-
-        public void setLo5(int lo5) {
-            this.lo5.set(lo5);
-        }
-
-        public int getLo6() {
-            return lo6.get();
-        }
-
-        public IntegerProperty lo6Property() {
-            return lo6;
-        }
-
-        public void setLo6(int lo6) {
-            this.lo6.set(lo6);
-        }
-
-    }
-
-    public class workLoad {
-
-        private StringProperty activity;
-        private IntegerProperty count;
-        private IntegerProperty hour;
-        private IntegerProperty workloud;
-
-        public String getActivity() {
-            return activity.get();
-        }
-
-        public StringProperty activityProperty() {
-            return activity;
-        }
-
-        public void setActivity(String activity) {
-            this.activity.set(activity);
-        }
-
-        public int getCount() {
-            return count.get();
-        }
-
-        public IntegerProperty countProperty() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count.set(count);
-        }
-
-        public int getHour() {
-            return hour.get();
-        }
-
-        public IntegerProperty hourProperty() {
-            return hour;
-        }
-
-        public void setHour(int hour) {
-            this.hour.set(hour);
-        }
-
-        public int getWorkloud() {
-            return workloud.get();
-        }
-
-        public IntegerProperty workloudProperty() {
-            return workloud;
-        }
-
-        public void setWorkloud(int workloud) {
-            this.workloud.set(workloud);
-        }
-
-
-        public workLoad(String activity, int count, int hour, int workloud) {
-            this.activity = new SimpleStringProperty(activity);
-            this.count = new SimpleIntegerProperty(count);
-            this.hour = new SimpleIntegerProperty(hour);
-            this.workloud = new SimpleIntegerProperty(workloud);
-        }
-    }
-
-    public class Competency {
-        private StringProperty description;
-        private IntegerProperty level1;
-        private IntegerProperty level2;
-        private IntegerProperty level3;
-        private IntegerProperty level4;
-        private IntegerProperty level5;
-        private StringProperty lo;
-
-        public Competency(String description, Integer level1, Integer level2, Integer level3, Integer level4, Integer level5, String lo) {
-            this.description = new SimpleStringProperty(description);
-            this.level1 = new SimpleIntegerProperty(level1);
-            this.level2 = new SimpleIntegerProperty(level2);
-            this.level3 = new SimpleIntegerProperty(level3);
-            this.level4 = new SimpleIntegerProperty(level4);
-            this.level5 = new SimpleIntegerProperty(level5);
-            this.lo = new SimpleStringProperty(lo);
-        }
-
-        // Getters
-        public String getDescription() {
-            return description.get();
-        }
-
-        public int getLevel1() {
-            return level1.get();
-        }
-
-        public int getLevel2() {
-            return level2.get();
-        }
-
-        public int getLevel3() {
-            return level3.get();
-        }
-
-        public int getLevel4() {
-            return level4.get();
-        }
-
-        public int getLevel5() {
-            return level5.get();
-        }
-
-        public String getLo() {
-            return lo.get();
-        }
-
-        // Setters
-        public void setDescription(String value) {
-            description.set(value);
-        }
-
-        public void setLevel1(int value) {
-            level1.set(value);
-        }
-
-        public void setLevel2(int value) {
-            level2.set(value);
-        }
-
-        public void setLevel3(int value) {
-            level3.set(value);
-        }
-
-        public void setLevel4(int value) {
-            level4.set(value);
-        }
-
-        public void setLevel5(int value) {
-            level5.set(value);
-        }
-
-        public void setLo(String value) {
-            lo.set(value);
-        }
-    }
-
     private final ObservableList<Competency> competencies = FXCollections.observableArrayList(
             new Competency("Matematik, Fen Bilimleri ve Bilgisayar Mühendisliği konularında yeterli bilgi sahibidir...", 0, 0, 1, 0, 0, "1,2")
             // ... Add other competencies here
@@ -345,12 +46,22 @@ public class EnglishSyllabus extends Application {
     private ObservableList<workLoad> data1 = FXCollections.observableArrayList();
 
     private final ObservableList<Lesson> lessons = FXCollections.observableArrayList(
-            new Lesson("1", "Programlama Stili ve Konvansiyonlar", "Practice of Programming, 1. Bölüm"),
-            new Lesson("2", "Yapılandırma Otomasyonu ve Yazılım Dağıtımı", "Apache Maven Çevrimiçi Belgeleri"),
-            new Lesson("3", "Grafik Kullanıcı Arayüzleri: JavaFX", "Java How to Program, 25. Bölüm; Java In\n" +
-                    "Two Semesters, 10. Bölüm.\n"),
-            new Lesson("4", "Dosyalar ile çalışma", " Java How to Program, 15. Bölüm; Java in\n" +
-                    "Two Semesters, 18. Bölüm")
+            new Lesson("1", "", ""),
+            new Lesson("2", "", ""),
+            new Lesson("3", "", ""),
+            new Lesson("4", "", ""),
+            new Lesson("5","",""),
+            new Lesson("6","",""),
+            new Lesson("7","",""),
+            new Lesson("8","",""),
+            new Lesson("9","",""),
+            new Lesson("10","",""),
+            new Lesson("11","",""),
+            new Lesson("12","",""),
+            new Lesson("13","",""),
+            new Lesson("14","",""),
+            new Lesson("15","",""),
+            new Lesson("16","","")
     );
 
     @Override
@@ -597,23 +308,8 @@ public class EnglishSyllabus extends Application {
             }
         });
 
-        TableView<Lesson> tableView = new TableView<>();
 
-        TableColumn<Lesson, String> weekColumn = new TableColumn<>("Week");
-        weekColumn.setCellValueFactory(cellData -> cellData.getValue().week);
-
-        TableColumn<Lesson, String> topicsColumn = new TableColumn<>("Subjects");
-        topicsColumn.setCellValueFactory(cellData -> cellData.getValue().topics);
-
-        TableColumn<Lesson, String> preparationColumn = new TableColumn<>("Required Materials");
-        preparationColumn.setCellValueFactory(cellData -> cellData.getValue().preparation);
-
-        tableView.getColumns().addAll(weekColumn, topicsColumn, preparationColumn);
-
-        weekColumn.prefWidthProperty().bind(tableView.widthProperty().divide(3));
-        topicsColumn.prefWidthProperty().bind(tableView.widthProperty().divide(3));
-        preparationColumn.prefWidthProperty().bind(tableView.widthProperty().divide(3));
-
+/*
         tableView.setItems(lessons);
 
 
@@ -721,9 +417,203 @@ public class EnglishSyllabus extends Application {
         loColumn.setCellValueFactory(cellData -> cellData.getValue().lo);
 
         table12.getColumns().addAll(descColumn, level1Column, level2Column, level3Column, level4Column, level5Column, loColumn);
+        table12.setItems(competencies);*/
+
+        TableView<Lesson> tableView1 = new TableView<>();
+        tableView1.setItems(lessons);
+        tableView1.setEditable(true);
+
+        TableColumn<Lesson, String> week = new TableColumn<>("Hafta");
+        week.setCellValueFactory(cellData -> cellData.getValue().week);
+        week.setCellFactory(TextFieldTableCell.forTableColumn());
+        week.setOnEditCommit(event -> {
+            Lesson lesson = event.getRowValue();
+            lesson.setWeek(event.getNewValue());
+        });
+
+        TableColumn<Lesson, String> topics = new TableColumn<>("Konular");
+        topics.setCellValueFactory(cellData -> cellData.getValue().topics);
+        topics.setCellFactory(TextFieldTableCell.forTableColumn());
+        topics.setOnEditCommit(event -> {
+            Lesson lesson = event.getRowValue();
+            lesson.setTopics(event.getNewValue());
+        });
+
+        TableColumn<Lesson, String> preparation = new TableColumn<>("Ön Hazırlık");
+        preparation.setCellValueFactory(cellData -> cellData.getValue().preparation);
+        preparation.setCellFactory(TextFieldTableCell.forTableColumn());
+        preparation.setOnEditCommit(event -> {
+            Lesson lesson = event.getRowValue();
+            lesson.setPreparation(event.getNewValue());
+        });
+
+        tableView1.getColumns().addAll(week, topics, preparation);
+
+
+        week.prefWidthProperty().bind(tableView1.widthProperty().divide(3));
+        topics.prefWidthProperty().bind(tableView1.widthProperty().divide(3));
+        preparation.prefWidthProperty().bind(tableView1.widthProperty().divide(3));
+
+
+        TableView<Activity> table = new TableView<>();
+        table.setEditable(true);
+
+        TableColumn<Activity, String> nameCol = new TableColumn<>("Yarıyıl Aktiviteleri");
+        nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
+
+        TableColumn<Activity, Integer> countCol = new TableColumn<>("Sayı");
+        countCol.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
+        countCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        countCol.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
+
+
+        TableColumn<Activity, Integer> percentageCol = new TableColumn<>("Katkı Payı %");
+        percentageCol.setCellValueFactory(cellData -> cellData.getValue().percentage.asObject());
+        percentageCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        percentageCol.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        TableColumn<Activity, Integer> lo1Col = new TableColumn<>("LO1");
+        lo1Col.setCellValueFactory(cellData -> cellData.getValue().lo1.asObject());
+        lo1Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo1Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        TableColumn<Activity, Integer> lo2Col = new TableColumn<>("LO2");
+        lo2Col.setCellValueFactory(cellData -> cellData.getValue().lo2.asObject());
+        lo2Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo2Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+
+        TableColumn<Activity, Integer> lo3Col = new TableColumn<>("LO3");
+        lo3Col.setCellValueFactory(cellData -> cellData.getValue().lo3.asObject());
+        lo3Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo3Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        TableColumn<Activity, Integer> lo4Col = new TableColumn<>("LO4");
+        lo4Col.setCellValueFactory(cellData -> cellData.getValue().lo4.asObject());
+        lo4Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo4Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        TableColumn<Activity, Integer> lo5Col = new TableColumn<>("LO5");
+        lo5Col.setCellValueFactory(cellData -> cellData.getValue().lo5.asObject());
+        lo5Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo5Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        TableColumn<Activity, Integer> lo6Col = new TableColumn<>("LO6");
+        lo6Col.setCellValueFactory(cellData -> cellData.getValue().lo6.asObject());
+        lo6Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo6Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        table.getColumns().addAll(nameCol, countCol, percentageCol, lo1Col, lo2Col, lo3Col, lo4Col, lo5Col, lo6Col);
+        table.setItems(data);
+
+
+        data.addAll(
+                new Activity("Participation", 0, 0, 0, 0, 0, 0, 0, 0),
+                new Activity("Laboratory/Application", 0,0,0,0,0,0,0,0),
+                new Activity("Field Work", 0,0,0,0,0,0,0,0),
+                new Activity("Quiz/Studio Critique", 0,0,0,0,0,0,0,0),
+                new Activity("Homework/Assignment", 0,0,0,0,0,0,0,0),
+                new Activity("Presentation/Jury",0,0,0,0,0,0,0,0),
+                new Activity("Project",0,0,0,0,0,0,0,0),
+                new Activity("Portfolio", 0,0,0,0,0,0,0,0),
+                new Activity("Seminar/Workshop", 0,0,0,0,0,0,0,0),
+                new Activity("Oral Exam", 0,0,0,0,0,0,0,0),
+                new Activity("Midterm Exam",0,0,0,0,0,0,0,0),
+                new Activity("Final Exam", 0,0,0,0,0,0,0,0),
+                new Activity("Toplam", 0,0,0,0,0,0,0,0));
+
+
+
+
+        TableView<workLoad> table1 = new TableView<>();
+        table1.setEditable(true);
+
+        data1.addAll(
+                new workLoad("Study Hours out of Class",0,0,0),
+                new workLoad("Field Work", 0,0,0),
+                new workLoad("Quiz/Studio Critique", 0,0,0),
+                new workLoad("Homework/Assignment",0,0,0),
+                new workLoad("Presentation/Jury",0,0,0),
+                new workLoad("Project", 0,0,0),
+                new workLoad("Portfolio",0,0,0),
+                new workLoad("Seminar/Workshop",0,0,0),
+                new workLoad("Oral Exam", 0,0,0),
+                new workLoad("Midterm Exam", 0,0,0),
+                new workLoad("Final Exam", 0,0,0),
+                new workLoad("Total", 0,0,0)
+        );
+        TableColumn<workLoad, String> activityCol = new TableColumn<>("Yarıyıl Aktiviteleri");
+        activityCol.setCellValueFactory(cellData -> cellData.getValue().activity);
+        activityCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
+
+        TableColumn<workLoad,Integer> countCol1 = new TableColumn<>("Sayı");
+        countCol1.setCellValueFactory(cellData -> cellData.getValue().count.asObject());
+        countCol1.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        countCol1.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
+
+
+
+        TableColumn<workLoad, Integer>hourCol = new TableColumn<>("Süre (Saat) ");
+        hourCol.setCellValueFactory(cellData -> cellData.getValue().hour.asObject());
+        hourCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        hourCol.setOnEditCommit(event -> event.getRowValue().setHour(event.getNewValue()));
+
+
+        TableColumn<workLoad, Integer> workloadCol= new TableColumn<>("İş yükü");
+        workloadCol.setCellValueFactory(cellData -> cellData.getValue().workloud.asObject());
+        workloadCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        workloadCol.setOnEditCommit(event -> event.getRowValue().setWorkloud(event.getNewValue()));
+
+
+        table1.getColumns().addAll(activityCol, countCol1,hourCol,workloadCol);
+        table1.setItems(data1);
+        activityCol.prefWidthProperty().bind(table1.widthProperty().divide(4));
+        countCol1.prefWidthProperty().bind(table1.widthProperty().divide(4));
+        hourCol.prefWidthProperty().bind(table1.widthProperty().divide(4));
+        workloadCol.prefWidthProperty().bind(table1.widthProperty().divide(4));
+
+
+        TableView<Competency> table12 = new TableView<>();
+
+        TableColumn<Competency, String> descColumn = new TableColumn<>("Program Yeterlilikleri/Çıktıları");
+        descColumn.setCellValueFactory(cellData -> cellData.getValue().description);
+
+        TableColumn<Competency,Integer> level1Column = new TableColumn<>("1");
+        level1Column.setCellValueFactory(cellData -> cellData.getValue().level1.asObject());
+        level1Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level1Column.setOnEditCommit(event -> event.getRowValue().setLevel1(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level2Column = new TableColumn<>("2");
+        level2Column.setCellValueFactory(cellData -> cellData.getValue().level2.asObject());
+        level2Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level2Column.setOnEditCommit(event -> event.getRowValue().setLevel2(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level3Column = new TableColumn<>("3");
+        level3Column.setCellValueFactory(cellData -> cellData.getValue().level3.asObject());
+        level3Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level3Column.setOnEditCommit(event -> event.getRowValue().setLevel3(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level4Column = new TableColumn<>("4");
+        level4Column.setCellValueFactory(cellData -> cellData.getValue().level4.asObject());
+        level4Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level4Column.setOnEditCommit(event -> event.getRowValue().setLevel4(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level5Column = new TableColumn<>("5");
+        level5Column.setCellValueFactory(cellData -> cellData.getValue().level5.asObject());
+        level5Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level5Column.setOnEditCommit(event -> event.getRowValue().setLevel5(event.getNewValue()));
+
+
+        TableColumn<Competency, String> loColumn = new TableColumn<>("LO#");
+        loColumn.setCellValueFactory(cellData -> cellData.getValue().lo);
+
+        table12.getColumns().addAll(descColumn, level1Column, level2Column, level3Column, level4Column, level5Column, loColumn);
         table12.setItems(competencies);
 
-        VBox vBox = new VBox(gridPane, tableView, gridPane1, table, vBox1, table1, vBox2, table12, submitButton);
+        VBox vBox = new VBox(gridPane, tableView1, gridPane1, table, vBox1, table1, vBox2, table12, submitButton);
 
         int numberOfLines = 3;
 

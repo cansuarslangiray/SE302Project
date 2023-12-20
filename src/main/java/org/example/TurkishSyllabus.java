@@ -17,8 +17,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
 import javafx.stage.*;
+import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
@@ -48,13 +50,39 @@ public class TurkishSyllabus extends Application {
     private ObservableList<Activity> data = FXCollections.observableArrayList();
     private ObservableList<workLoad> data1 = FXCollections.observableArrayList();
 
+    private static class EnterFriendlyTextFieldTableCell<S, T> extends TextFieldTableCell<S, T> {
+        public EnterFriendlyTextFieldTableCell() {
+            super();
+            setOnKeyPressed(event -> {
+                if (event.getCode().equals(javafx.scene.input.KeyCode.ENTER)) {
+                    commitEdit(getItem());
+                    TablePosition<S, ?> position = getTableView().getFocusModel().getFocusedCell();
+                    getTableView().getSelectionModel().selectBelowCell();
+                    getTableView().edit(position.getRow() + 1, position.getTableColumn());
+                    event.consume();
+                }
+            });
+        }
+    }
+
     private final ObservableList<Lesson> lessons = FXCollections.observableArrayList(
-            new Lesson("1", "Programlama Stili ve Konvansiyonlar", "Practice of Programming, 1. Bölüm"),
-            new Lesson("2", "Yapılandırma Otomasyonu ve Yazılım Dağıtımı", "Apache Maven Çevrimiçi Belgeleri"),
-            new Lesson("3", "Grafik Kullanıcı Arayüzleri: JavaFX", "Java How to Program, 25. Bölüm; Java In\n" +
-                    "Two Semesters, 10. Bölüm.\n"),
-            new Lesson("4", "Dosyalar ile çalışma", " Java How to Program, 15. Bölüm; Java in\n" +
-                    "Two Semesters, 18. Bölüm")
+            new Lesson("1", "", ""),
+            new Lesson("2", "", ""),
+            new Lesson("3", "", ""),
+            new Lesson("4", "", ""),
+            new Lesson("5","",""),
+            new Lesson("6","",""),
+            new Lesson("7","",""),
+            new Lesson("8","",""),
+            new Lesson("9","",""),
+            new Lesson("10","",""),
+            new Lesson("11","",""),
+            new Lesson("12","",""),
+            new Lesson("13","",""),
+            new Lesson("14","",""),
+            new Lesson("15","",""),
+            new Lesson("16","","")
+
     );
     @Override
     public void start(Stage stage) {
@@ -226,106 +254,150 @@ public class TurkishSyllabus extends Application {
         gridPane.add(submitButton, 0, 18, 2, 1);
 
         TableView<Lesson> tableView = new TableView<>();
+        tableView.setEditable(true);
 
         TableColumn<Lesson, String> weekColumn = new TableColumn<>("Hafta");
         weekColumn.setCellValueFactory(cellData -> cellData.getValue().week);
+        weekColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        weekColumn.setOnEditCommit(event -> {
+            Lesson lesson = event.getRowValue();
+            lesson.setWeek(event.getNewValue());
+        });
 
         TableColumn<Lesson, String> topicsColumn = new TableColumn<>("Konular");
         topicsColumn.setCellValueFactory(cellData -> cellData.getValue().topics);
+        topicsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        topicsColumn.setOnEditCommit(event -> {
+            Lesson lesson = event.getRowValue();
+            lesson.setTopics(event.getNewValue());
+        });
 
         TableColumn<Lesson, String> preparationColumn = new TableColumn<>("Ön Hazırlık");
         preparationColumn.setCellValueFactory(cellData -> cellData.getValue().preparation);
+        preparationColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        preparationColumn.setOnEditCommit(event -> {
+            Lesson lesson = event.getRowValue();
+            lesson.setPreparation(event.getNewValue());
+        });
 
         tableView.getColumns().addAll(weekColumn, topicsColumn, preparationColumn);
+        tableView.setItems(lessons);
 
         weekColumn.prefWidthProperty().bind(tableView.widthProperty().divide(3));
         topicsColumn.prefWidthProperty().bind(tableView.widthProperty().divide(3));
         preparationColumn.prefWidthProperty().bind(tableView.widthProperty().divide(3));
 
-        tableView.setItems(lessons);
-
 
         TableView<Activity> table = new TableView<>();
-        data.addAll(
-                new Activity("Katılım", 1, 30, 1,2,3,4,5,6),
-                new Activity("Laboratuvar/Uygulama", 1, 30, 1,2,3,4,5,6),
-                new Activity("Arazi Çalışması", 1, 30, 1,2,3,4,5,6),
-                new Activity("Küçük Sınav/Stüdyo Kritiğ", 1, 30, 1,2,3,4,5,6),
-                new Activity("Ödev", 1, 30, 1,2,3,4,5,6),
-                new Activity("Sunum/Jüri Önünde Sunum", 1, 30, 1,2,3,4,5,6),
-                new Activity("Proje", 1, 30, 1,2,3,4,5,6),
-                new Activity("Seminer/Çalıştay", 1, 30, 1,2,3,4,5,6),
-                new Activity("Sözlü Sınav", 1, 30, 1,2,3,4,5,6),
-                new Activity("Ara Sınavı", 1, 30, 1,2,3,4,5,6),
-                new Activity("Final Sınavı", 1, 30, 1,2,3,4,5,6),
-                new Activity("Toplam", 3, 100, 3 ,3,4,5,6,7));
+        table.setEditable(true);
 
         TableColumn<Activity, String> nameCol = new TableColumn<>("Yarıyıl Aktiviteleri");
         nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        TableColumn<Activity, Number> countCol = new TableColumn<>("Sayı");
-        countCol.setCellValueFactory(cellData -> cellData.getValue().count);
 
-        TableColumn<Activity, Number> percentageCol = new TableColumn<>("Katkı Payı %");
-        percentageCol.setCellValueFactory(cellData -> cellData.getValue().percentage);
+        TableColumn<Activity, Integer> countCol = new TableColumn<>("Sayı");
+        countCol.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
+        countCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        countCol.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
 
-        TableColumn<Activity, Number> lo1Col = new TableColumn<>("LO1");
-        lo1Col.setCellValueFactory(cellData -> cellData.getValue().lo1);
 
-        TableColumn<Activity, Number> lo2Col = new TableColumn<>("LO2");
-        lo2Col.setCellValueFactory(cellData -> cellData.getValue().lo2);
+        TableColumn<Activity, Integer> percentageCol = new TableColumn<>("Katkı Payı %");
+        percentageCol.setCellValueFactory(cellData -> cellData.getValue().percentage.asObject());
+        percentageCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        percentageCol.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
-        TableColumn<Activity, Number> lo3Col = new TableColumn<>("LO3");
-        lo3Col.setCellValueFactory(cellData -> cellData.getValue().lo3);
+        TableColumn<Activity, Integer> lo1Col = new TableColumn<>("LO1");
+        lo1Col.setCellValueFactory(cellData -> cellData.getValue().lo1.asObject());
+        lo1Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo1Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
-        TableColumn<Activity, Number> lo4Col = new TableColumn<>("LO4");
-        lo4Col.setCellValueFactory(cellData -> cellData.getValue().lo4);
+        TableColumn<Activity, Integer> lo2Col = new TableColumn<>("LO2");
+        lo2Col.setCellValueFactory(cellData -> cellData.getValue().lo2.asObject());
+        lo2Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo2Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
-        TableColumn<Activity, Number> lo5Col = new TableColumn<>("LO5");
-        lo5Col.setCellValueFactory(cellData -> cellData.getValue().lo5);
 
-        TableColumn<Activity, Number> lo6Col = new TableColumn<>("LO6");
-        lo6Col.setCellValueFactory(cellData -> cellData.getValue().lo6);
+        TableColumn<Activity, Integer> lo3Col = new TableColumn<>("LO3");
+        lo3Col.setCellValueFactory(cellData -> cellData.getValue().lo3.asObject());
+        lo3Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo3Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
 
-        table.getColumns().addAll(nameCol, countCol, percentageCol, lo1Col,lo2Col,lo3Col,lo4Col,lo5Col,lo6Col);
+        TableColumn<Activity, Integer> lo4Col = new TableColumn<>("LO4");
+        lo4Col.setCellValueFactory(cellData -> cellData.getValue().lo4.asObject());
+        lo4Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo4Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        TableColumn<Activity, Integer> lo5Col = new TableColumn<>("LO5");
+        lo5Col.setCellValueFactory(cellData -> cellData.getValue().lo5.asObject());
+        lo5Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo5Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        TableColumn<Activity, Integer> lo6Col = new TableColumn<>("LO6");
+        lo6Col.setCellValueFactory(cellData -> cellData.getValue().lo6.asObject());
+        lo6Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        lo6Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
+
+        table.getColumns().addAll(nameCol, countCol, percentageCol, lo1Col, lo2Col, lo3Col, lo4Col, lo5Col, lo6Col);
         table.setItems(data);
 
-        nameCol.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        countCol.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        percentageCol.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo1Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo2Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo3Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo4Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo5Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
-        lo6Col.prefWidthProperty().bind(tableView.widthProperty().divide(9));
+        data.addAll(
+                new Activity("Katılım",0,0,0,0,0,0,0,0 ),
+                new Activity("Laboratuvar/Uygulama",0,0,0,0,0,0,0,0 ),
+                new Activity("Arazi Çalışması", 0,0,0,0,0,0,0,0),
+                new Activity("Küçük Sınav/Stüdyo Kritiğ", 0,0,0,0,0,0,0,0),
+                new Activity("Ödev",  0,0,0,0,0,0,0,0),
+                new Activity("Sunum/Jüri Önünde Sunum", 0,0,0,0,0,0,0,0),
+                new Activity("Proje", 0,0,0,0,0,0,0,0),
+                new Activity("Seminer/Çalıştay", 0,0,0,0,0,0,0,0),
+                new Activity("Sözlü Sınav", 0,0,0,0,0,0,0,0),
+                new Activity("Ara Sınavı",0,0,0,0,0,0,0,0),
+                new Activity("Final Sınavı",0,0,0,0,0,0,0,0),
+                new Activity("Toplam", 0,0,0,0,0,0,0,0));
+
+
+
 
         TableView<workLoad> table1 = new TableView<>();
-        data1.addAll(new workLoad("Sınıf Dışı Ders Çalışması",14,2,18),
-                new workLoad("Sınıf Dışı Ders Çalışması",14,2,18),
-                new workLoad("Arazi Çalışması",14,2,18),
-                new workLoad("Küçük Sınav/Stüdyo Kritiği",14,2,18),
-                new workLoad("Ödev",14,2,18),
-                new workLoad("Sunum/Jüri Önünde Sunum",14,2,18),
-                new workLoad("Proje",14,2,18),
-                new workLoad("Seminer/Çalıştay",14,2,18),
-                new workLoad("Sözlü Sınav",14,2,18),
-                new workLoad("Ara Sınav",14,2,18),
-                new workLoad("Final Sınavı",14,2,18),
-                new workLoad("toplam",14,2,18)
+        table1.setEditable(true);
+
+        data1.addAll(new workLoad("Sınıf Dışı Ders Çalışması",0,0,0),
+                new workLoad("Sınıf Dışı Ders Çalışması",0,0,0),
+                new workLoad("Arazi Çalışması",0,0,0),
+                new workLoad("Küçük Sınav/Stüdyo Kritiği",0,0,0),
+                new workLoad("Ödev",0,0,0),
+                new workLoad("Sunum/Jüri Önünde Sunum",0,0,0),
+                new workLoad("Proje",0,0,0),
+                new workLoad("Seminer/Çalıştay",0,0,0),
+                new workLoad("Sözlü Sınav",0,0,0),
+                new workLoad("Ara Sınav",0,0,0),
+                new workLoad("Final Sınavı",0,0,0),
+                new workLoad("toplam",0,0,0)
 
         );
         TableColumn<workLoad, String> activityCol = new TableColumn<>("Yarıyıl Aktiviteleri");
         activityCol.setCellValueFactory(cellData -> cellData.getValue().activity);
+        activityCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        TableColumn<workLoad, Number> countCol1 = new TableColumn<>("Sayı");
-        countCol1.setCellValueFactory(cellData -> cellData.getValue().count);
 
-        TableColumn<workLoad, Number>hourCol = new TableColumn<>("Süre (Saat) ");
-        hourCol.setCellValueFactory(cellData -> cellData.getValue().hour);
+        TableColumn<workLoad,Integer> countCol1 = new TableColumn<>("Sayı");
+        countCol1.setCellValueFactory(cellData -> cellData.getValue().count.asObject());
+        countCol1.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        countCol1.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
 
-        TableColumn<workLoad, Number> workloadCol= new TableColumn<>("İş yükü");
-        workloadCol.setCellValueFactory(cellData -> cellData.getValue().workloud);
+
+
+        TableColumn<workLoad, Integer>hourCol = new TableColumn<>("Süre (Saat) ");
+        hourCol.setCellValueFactory(cellData -> cellData.getValue().hour.asObject());
+        hourCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        hourCol.setOnEditCommit(event -> event.getRowValue().setHour(event.getNewValue()));
+
+
+        TableColumn<workLoad, Integer> workloadCol= new TableColumn<>("İş yükü");
+        workloadCol.setCellValueFactory(cellData -> cellData.getValue().workloud.asObject());
+        workloadCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        workloadCol.setOnEditCommit(event -> event.getRowValue().setWorkloud(event.getNewValue()));
+
 
         table1.getColumns().addAll(activityCol, countCol1,hourCol,workloadCol);
         table1.setItems(data1);
@@ -340,11 +412,31 @@ public class TurkishSyllabus extends Application {
         TableColumn<Competency, String> descColumn = new TableColumn<>("Program Yeterlilikleri/Çıktıları");
         descColumn.setCellValueFactory(cellData -> cellData.getValue().description);
 
-        TableColumn<Competency, Number> level1Column = createNumericColumn("1", "level1");
-        TableColumn<Competency, Number> level2Column = createNumericColumn("2", "level2");
-        TableColumn<Competency, Number> level3Column = createNumericColumn("3", "level3");
-        TableColumn<Competency, Number> level4Column = createNumericColumn("4", "level4");
-        TableColumn<Competency, Number> level5Column = createNumericColumn("5", "level5");
+        TableColumn<Competency,Integer> level1Column = new TableColumn<>("1");
+        level1Column.setCellValueFactory(cellData -> cellData.getValue().level1.asObject());
+        level1Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level1Column.setOnEditCommit(event -> event.getRowValue().setLevel1(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level2Column = new TableColumn<>("2");
+        level2Column.setCellValueFactory(cellData -> cellData.getValue().level2.asObject());
+        level2Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level2Column.setOnEditCommit(event -> event.getRowValue().setLevel2(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level3Column = new TableColumn<>("3");
+        level3Column.setCellValueFactory(cellData -> cellData.getValue().level3.asObject());
+        level3Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level3Column.setOnEditCommit(event -> event.getRowValue().setLevel3(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level4Column = new TableColumn<>("4");
+        level4Column.setCellValueFactory(cellData -> cellData.getValue().level4.asObject());
+        level4Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level4Column.setOnEditCommit(event -> event.getRowValue().setLevel4(event.getNewValue()));
+
+        TableColumn<Competency,Integer> level5Column = new TableColumn<>("5");
+        level5Column.setCellValueFactory(cellData -> cellData.getValue().level5.asObject());
+        level5Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        level5Column.setOnEditCommit(event -> event.getRowValue().setLevel5(event.getNewValue()));
+
 
         TableColumn<Competency, String> loColumn = new TableColumn<>("LO#");
         loColumn.setCellValueFactory(cellData -> cellData.getValue().lo);
@@ -506,6 +598,7 @@ public class TurkishSyllabus extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
 
 
 
