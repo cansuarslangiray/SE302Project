@@ -10,6 +10,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -25,13 +27,44 @@ public class FirstScene extends Application {
         VBox helpVBox = new VBox(10);
         helpVBox.setAlignment(Pos.CENTER);
         helpVBox.setPadding(new Insets(20));
+        TextFlow textFlow = new TextFlow();
 
-        Label helpLabel = new Label("Bu ekranda yardım talimatları bulunacak.");
-        helpLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text head=new Text("Welcome to Version Control System\n");
+        head.setFont(Font.font("Arial",FontWeight.BOLD,18));
 
-        helpVBox.getChildren().addAll(helpLabel);
+        Text feature1 = new Text("1. You can press Add First Version of Turkish Syllabus to add Turkish Syllabus.\n");
+        feature1.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-        Scene helpScene = new Scene(helpVBox, 400, 200);
+        Text feature1_1 = new Text(" 1.1 When you are in the Turkish Syllabus screen, fill in the blanks in Turkish and press 'Gönder' at the end.\n");
+
+        Text feature2 = new Text("2. You can press Add First Version of English Syllabus to add English Syllabus.\n");
+        feature2.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+
+        Text feature2_1 = new Text(" 2.1 When you are in the English Syllabus screen, fill in the blanks in English and press 'Submit' at the end.\n");
+
+        Text feature3 = new Text("3. You can press Version of Syllabus to see all versions you committed.\n");
+        feature3.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+
+        Text feature4 = new Text("4. You can click File button at the top menu to open up a new menu.\n");
+        feature4.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+
+        Text feature4_1 = new Text(" 4.1 When you press open you can select and view any syllabus you generated.\n");
+
+        Text feature4_2 = new Text(" 4.2 When you press compare you can select two syllabuses and see their differences.\n");
+
+        Text feature4_3 = new Text(" 4.3 When you press edit you can select a syllabus and edit its texts.\n");
+
+        Text feature4_4 = new Text(" 4.4 When you press exit you close the application.\n");
+
+        textFlow.getChildren().addAll(head ,feature1, feature1_1, feature2, feature2_1, feature3, feature4, feature4_1, feature4_2, feature4_3, feature4_4);
+
+        Label helpLabelTurkish = new Label();
+        helpLabelTurkish.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        helpLabelTurkish.setWrapText(true);
+        helpLabelTurkish.setGraphic(textFlow);
+        helpVBox.getChildren().addAll(helpLabelTurkish);
+
+        Scene helpScene = new Scene(helpVBox, 800, 300);
 
         helpStage.setScene(helpScene);
         helpStage.setTitle("HELP");
