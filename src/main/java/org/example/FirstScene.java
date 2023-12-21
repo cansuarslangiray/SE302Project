@@ -45,18 +45,22 @@ public class FirstScene extends Application {
         Text feature3 = new Text("3. You can press Version of Syllabus to see all versions you committed.\n");
         feature3.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-        Text feature4 = new Text("4. You can click File button at the top menu to open up a new menu.\n");
+        Text feature4 = new Text("4. You can press View Version of Syllabus to see selected version.\n");
         feature4.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-        Text feature4_1 = new Text(" 4.1 When you press open you can select and view any syllabus you generated.\n");
 
-        Text feature4_2 = new Text(" 4.2 When you press compare you can select two syllabuses and see their differences.\n");
+        Text feature5 = new Text("5. You can click File button at the top menu to open up a new menu.\n");
+        feature5.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-        Text feature4_3 = new Text(" 4.3 When you press edit you can select a syllabus and edit its texts.\n");
+        Text feature5_1 = new Text(" 5.1 When you press open you can select and view any syllabus you generated.\n");
 
-        Text feature4_4 = new Text(" 4.4 When you press exit you close the application.\n");
+        Text feature5_2 = new Text(" 5.2 When you press compare you can select two syllabuses and see their differences.\n");
 
-        textFlow.getChildren().addAll(head ,feature1, feature1_1, feature2, feature2_1, feature3, feature4, feature4_1, feature4_2, feature4_3, feature4_4);
+        Text feature5_3 = new Text(" 5.3 When you press edit you can select a syllabus and edit its texts.\n");
+
+        Text feature5_4 = new Text(" 5.4 When you press exit you close the application.\n");
+
+        textFlow.getChildren().addAll(head ,feature1, feature1_1, feature2, feature2_1, feature3, feature4,feature5, feature5_1, feature5_2, feature5_3, feature5_4);
 
         Label helpLabelTurkish = new Label();
         helpLabelTurkish.setFont(Font.font("Arial", FontWeight.BOLD, 16));
