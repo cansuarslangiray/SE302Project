@@ -86,4 +86,95 @@ public class Lecture {
         this.workloadTable = workloadTable;
         this.outcomeTable = outcomeTable;
     }
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public String getTheoryHours() {
+        return theoryHours;
+    }
+
+    public String getApplicationHours() {
+        return applicationHours;
+    }
+
+    public String getLocalCredit() {
+        return localCredit;
+    }
+
+    public String getEcts() {
+        return ects;
+    }
+
+    public String getPrerequisites() {
+        return prerequisites;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getCourseLevel() {
+        return courseLevel;
+    }
+
+    public String getDeliveryMode() {
+        return deliveryMode;
+    }
+
+    public String getTeachingMethods() {
+        return teachingMethods;
+    }
+
+    public String getCoordinator() {
+        return coordinator;
+    }
+
+    public String getLecturer() {
+        return lecturer;
+    }
+
+    public String getAssistants() {
+        return assistants;
+    }
+
+    public String getCourseCategory() {
+        return courseCategory;
+    }
+
+    public List<Lesson> getWeeklySubject() {
+        return weeklySubject;
+    }
+
+    public String getBook() {
+        return book;
+    }
+
+    public String getMaterials() {
+        return materials;
+    }
+
+    public List<Activity> getAssessmentTable() {
+        return assessmentTable;
+    }
+
+    public List<workLoad> getWorkloadTable() {
+        return workloadTable;
+    }
+
+    public List<Competency> getOutcomeTable() {
+        return outcomeTable;
+    }
 }
