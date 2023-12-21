@@ -120,7 +120,8 @@ public class FirstScene extends Application {
         englishButton.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
         Button listVersions = createButton("Version Of SYLLABUS");
         listVersions.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
-
+        Button viewVersions = createButton("View Version Of SYLLABUS");
+        viewVersions.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
 
         turkishButton.setOnAction(e -> {
             TurkishSyllabus app = new TurkishSyllabus(null, false);
@@ -137,10 +138,15 @@ public class FirstScene extends Application {
             listVersion1.start(primaryStage);
         });
 
+        viewVersions.setOnAction(e -> {
+           ViewVersion viewVersion = new ViewVersion();
+            viewVersion.start(primaryStage);
+        });
+
 
         VBox buttonsVBox = new VBox(10);
         buttonsVBox.setAlignment(Pos.CENTER);
-        buttonsVBox.getChildren().addAll(turkishButton, englishButton, listVersions);
+        buttonsVBox.getChildren().addAll(turkishButton, englishButton, listVersions,viewVersions);
 
 
         borderPane.setTop(menuBar);

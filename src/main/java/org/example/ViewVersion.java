@@ -1,25 +1,101 @@
 package org.example;
 
+
 import com.google.gson.Gson;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
-import java.util.Scanner;
 
-public class ViewVersion {
+public class ViewVersion extends Application {
+    private Stage primaryStage;
+    private TextField courseCodeField;
+    private TextField versionNumberField;
+    private TextArea outputArea;
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the course code: ");
-        String courseCode = scanner.nextLine();
-        System.out.println("Please enter the version number that you want to view: ");
-        int counter = scanner.nextInt();
-        String path = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + File.separator + "Syllabus" + File.separator + courseCode + "/" + courseCode + counter + ".json";
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        primaryStage.setTitle("View Syllabus Version");
+
+
+        VBox vBox = createVBox();
+        vBox.setStyle("-fx-background-color: lavender;");
+
+        Scene scene = new Scene(vBox, 400, 300);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
+    private VBox createVBox() {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(20, 20, 20, 20));
+        vBox.setSpacing(10);
+
+        GridPane grid = createGridPane();
+        Button backButton = new Button("Back");
+        backButton.setAlignment(Pos.BOTTOM_RIGHT);
+        backButton.setOnAction(e -> goBackToMainScene());
+
+        vBox.getChildren().addAll(grid, backButton);
+
+        return vBox;
+    }
+
+    private GridPane createGridPane() {
+        GridPane grid = new GridPane();
+        grid.setVgap(10);
+        grid.setHgap(10);
+
+        Label courseCodeLabel = new Label("Course Code:");
+        GridPane.setConstraints(courseCodeLabel, 0, 0);
+        courseCodeField = new TextField();
+        GridPane.setConstraints(courseCodeField, 1, 0);
+
+        Label versionNumberLabel = new Label("Version Number:");
+        GridPane.setConstraints(versionNumberLabel, 0, 1);
+        versionNumberField = new TextField();
+        GridPane.setConstraints(versionNumberField, 1, 1);
+
+        Button viewButton = new Button("View Syllabus");
+        GridPane.setConstraints(viewButton, 1, 2);
+        viewButton.setOnAction(e -> onViewButtonClicked());
+
+        outputArea = new TextArea();
+        outputArea.setEditable(false);
+        GridPane.setConstraints(outputArea, 0, 3, 2, 1);
+
+        grid.getChildren().addAll(courseCodeLabel, courseCodeField, versionNumberLabel, versionNumberField, viewButton, outputArea);
+
+        return grid;
+    }
+
+    private void onViewButtonClicked() {
+        String courseCode = courseCodeField.getText();
+        String versionNumberText = versionNumberField.getText();
+
         try {
+            int versionNumber = Integer.parseInt(versionNumberText);
+
+            String path = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() +
+                    File.separator + "Syllabus" + File.separator + courseCode + "/" + courseCode + versionNumber + ".json";
             File file = new File(path);
 
             if (!file.exists()) {
-                System.out.println("File does not exist: " + file.getAbsolutePath());
+                showErrorAlert("File not found", "File does not exist: " + file.getAbsolutePath());
                 return;
             }
 
@@ -29,54 +105,73 @@ public class ViewVersion {
                 if (syllabus != null) {
                     printSyllabus(syllabus);
                 } else {
-                    showError("Failed to parse syllabus.");
+                    showErrorAlert("Parse Error", "Failed to parse syllabus.");
                 }
             } catch (IOException e) {
-                showError("Error reading file: " + e.getMessage());
+                showErrorAlert("IO Error", "Error reading file: " + e.getMessage());
             }
-        } catch (Exception e) {
-            showError("An unexpected error occurred: " + e.getMessage());
-        } finally {
-            scanner.close();
+        } catch (NumberFormatException e) {
+            showErrorAlert("Invalid Number", "Invalid version number. Please enter a valid number.");
         }
     }
 
-    private static void printSyllabus(SyllabusVersioning syllabus) {
-        System.out.println("Details of Version/ Versiyon Detayları:");
-        System.out.println("Lecturer's name/ Öğretmen Adı: " + syllabus.getName());
-        System.out.println("Reason/ Sebep: " + syllabus.getReason());
-        System.out.println("Time/ Zaman: " + syllabus.getTime());
-
-        Lecture lecture = syllabus.getLecture();
-        if (lecture != null) {
-            System.out.println("Details of the Lecture/ Dersin Detayları:");
-            System.out.println("Type/ Tür: " + lecture.getType());
-            System.out.println("Course Level/ Ders Seviyesi: " + lecture.getCourseLevel());
-            System.out.println("Mode/ Mod: " + lecture.getDeliveryMode());
-            System.out.println("Course Category/ Ders Kategorisi: " + lecture.getCourseCategory());
-            System.out.println("Language/ Dil: " + lecture.getLanguage());
-            System.out.println("Course Name/ Ders Adı: " + lecture.getCourseName());
-            System.out.println("Code/ Ders Kodu: " + lecture.getCourseCode());
-            System.out.println("Term/ Dönem: " + lecture.getTerm());
-            System.out.println("Theory/ Teori: " + lecture.getTheoryHours());
-            System.out.println("Application/ Uygulama: " + lecture.getApplicationHours());
-            System.out.println("Local Credits/ Yerel Krediler: " + lecture.getLocalCredit());
-            System.out.println("ECTS/ AKTS: " + lecture.getEcts());
-            System.out.println("Prerequisites/ Önkoşullar: " + lecture.getPrerequisites());
-            System.out.println("Teaching Method/ Öğretme Yöntemi: " + lecture.getTeachingMethods());
-            System.out.println("Course Coordinator/ Ders Koordinatörü: " + lecture.getCoordinator());
-            System.out.println("Course Lecturer/ Ders Öğretmeni: " + lecture.getLecturer());
-            System.out.println("Assistant/ Asistan: " + lecture.getAssistants());
-            System.out.println("Weekly Subject/ Haftalık Plan: " + lecture.getWeeklySubject());
-            System.out.println("Book/ Kitap: " + lecture.getBook());
-            System.out.println("Materials/ Materyaller:" + lecture.getMaterials());
-            System.out.println("Assessments/ Değerlendirmeler: " + lecture.getAssessmentTable());
-            System.out.println("Workload/ İş yükü " + lecture.getWorkloadTable());
-            System.out.println("Outcomes/ Kazanımlar: " + lecture.getOutcomeTable());
-        }
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
-    private static void showError(String errorMessage) {
-        System.err.println(errorMessage);
+    private void printSyllabus(SyllabusVersioning syllabus) {
+        Platform.runLater(() -> {
+
+            outputArea.setText("Details of Version/ Versiyon Detayları:\n" +
+                    "Lecturer's name/ Öğretmen Adı: " + syllabus.getName() + "\n" +
+                    "Reason/ Sebep: " + syllabus.getReason() + "\n" +
+                    "Time/ Zaman: " + syllabus.getTime() + "\n\n" +
+                    "Details of the Lecture/ Dersin Detayları::\n" +
+                    "Type/ Tür: " + syllabus.getLecture().getType() + "\n" +
+                    "Course Level/ Ders Seviyesi: " + syllabus.getLecture().getCourseLevel() + "\n" +
+                    "Mode/ Mod: " + syllabus.getLecture().getDeliveryMode() + "\n" +
+                    "Course Category/ Ders Kategorisi: " + syllabus.getLecture().getCourseCategory() + "\n" +
+                    "Language/ Dil: " + syllabus.getLecture().getLanguage() + "\n" +
+                    "Course Name/ Ders Adı: " + syllabus.getLecture().getCourseName() + "\n" +
+                    "Code/ Ders Kodu: " + syllabus.getLecture().getCourseCode() + "\n" +
+                    "Term/ Dönem: " + syllabus.getLecture().getTerm() + "\n" +
+                    "Theory/ Teori: " + syllabus.getLecture().getTheoryHours() + "\n" +
+                    "Application/ Uygulama: " + syllabus.getLecture().getApplicationHours() + "\n" +
+                    "Local Credits/ Yerel Krediler: " + syllabus.getLecture().getLocalCredit() + "\n" +
+                    "ECTS/ AKTS: " + syllabus.getLecture().getEcts() + "\n" +
+                    "Prerequisites/ Önkoşullar: " + syllabus.getLecture().getPrerequisites() + "\n" +
+                    "Teaching Method/ Öğretme Yöntemi: " + syllabus.getLecture().getTeachingMethods() + "\n" +
+                    "Course Coordinator/ Ders Koordinatörü: " + syllabus.getLecture().getCoordinator() + "\n" +
+                    "Course Lecturer/ Ders Öğretmeni: " + syllabus.getLecture().getLecturer() + "\n" +
+                    "Assistant/ Asistan: " + syllabus.getLecture().getAssistants() + "\n" +
+                    "Weekly Subject/ Haftalık Plan: " + syllabus.getLecture().getWeeklySubject() + "\n" +
+                    "Book/ Kitap: " + syllabus.getLecture().getBook() + "\n" +
+                    "Materials/ Materyaller: " + syllabus.getLecture().getMaterials() + "\n" +
+                    "Assessments/ Değerlendirmeler: " + syllabus.getLecture().getAssessmentTable() + "\n" +
+                    "Workload/ İş yükü: " + syllabus.getLecture().getWorkloadTable() + "\n" +
+                    "Outcomes/ Kazanımlar: " + syllabus.getLecture().getOutcomeTable());
+        });
+    }
+
+    private void showError(String errorMessage) {
+        Platform.runLater(() -> {
+            outputArea.setText(errorMessage);
+        });
+    }
+
+
+    private void updateOutput(String message) {
+        Platform.runLater(() -> {
+            outputArea.setText(message);
+        });
+    }
+    private void goBackToMainScene() {
+
+        FirstScene firstScene = new FirstScene();
+        firstScene.start(primaryStage);
     }
 }
