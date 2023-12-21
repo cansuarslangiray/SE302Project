@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
@@ -23,6 +25,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
+
+import static org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Ansi.Style.bold;
 
 public class EnglishSyllabus extends Application {
     Lecture lecture;
@@ -232,6 +236,9 @@ public class EnglishSyllabus extends Application {
         gridPane.add(submitButton, 0, 18, 2, 1);
 
 
+
+
+     /*
         TableView<Lesson> tableView1 = new TableView<>();
         tableView1.setItems(lessons);
         tableView1.setEditable(true);
@@ -243,6 +250,7 @@ public class EnglishSyllabus extends Application {
             Lesson lesson = event.getRowValue();
             lesson.setWeek(event.getNewValue());
         });
+
 
         TableColumn<Lesson, String> topics = new TableColumn<>("Konular");
         //  topics.setCellValueFactory(cellData -> cellData.getValue().topics);
@@ -422,8 +430,256 @@ public class EnglishSyllabus extends Application {
 
         table12.getColumns().addAll(descColumn, level1Column, level2Column, level3Column, level4Column, level5Column, loColumn);
         table12.setItems(competencies);
+*/ GridPane gridPane2 = new GridPane();
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
 
-        VBox vBox = new VBox(gridPane, tableView1, gridPane1, table, vBox1, table1, vBox2, table12, submitButton);
+        for (int row = 0; row < 17; row++) {
+            for (int col = 0; col < 3; col++) {
+                TextField textField = new TextField();
+                textField.setPromptText(" " );
+                if ((col== 0)&& (row==0)) {
+                    // Row 1 için
+                    textField.setText("Week");
+                    textField.setStyle("-fx-font-family: Arial;");
+                    textField.setEditable(true);
+                } else if (col == 1&&row==0) {
+                    // Row 2 için
+                    textField.setText("Hazırlık");
+                    textField.setStyle("-fx-font-family: Arial;");
+                    textField.setEditable(true);
+                } else if (col == 2&&row==0) {
+                    // Row 3 için
+                    textField.setText("Konular");
+                    textField.setStyle("-fx-font-family: Arial;");
+                    textField.setEditable(true);
+                } else {
+                    textField.setPromptText("");
+                }
+                if (col == 0 && row > 0) {
+                    // İlk sütuna 1'den 16'ya kadar sayıları yazdır
+                    textField.setText(String.valueOf(row));
+                    textField.setEditable(true);
+                }
+
+                textField.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                textField.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+
+                gridPane2.add(textField, col, row);
+            }
+        }GridPane gridPane3 = new GridPane();
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        int rowCount = 14;
+        int colCount = 7;
+       int narrowWidth=5;
+
+
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < colCount; col++) {
+                TextField textField1 = new TextField();
+                textField1.setEditable(true);
+                textField1.setPromptText(" ");
+
+                // Özel durumlar için kontrol ekle
+                if (col == 0 && row == 0) {
+                    textField1.setText("Semester Activities");
+                } else if (col == 1 && row == 0) {
+                    textField1.setText("Number");
+                } else if (col == 2 && row == 0) {
+                    textField1.setText("Weighting");}
+                else if (col == 3 && row == 0) {
+                    textField1.setText("LO1");}
+                else if (col == 4 && row == 0) {
+                    textField1.setText("LO2");}
+                else if (col == 5 && row == 0) {
+                    textField1.setText("LO3");}
+                else if (col == 6 && row == 0) {
+                    textField1.setText("LO4");}
+                else {
+                    textField1.setText("" );
+                }
+                 if(col==0&&row==1){
+                     textField1.setText("Participation\n");
+
+                 }
+                if(col==0&&row==2){
+                    textField1.setText("Laboratory/Application");}
+                if(col==0&&row==3){
+                    textField1.setText("Field Work");}
+                if(col==0&&row==4){
+                    textField1.setText("Quiz/Studio Critique\n");
+                }  if(col==0&&row==5){
+                    textField1.setText("Homework/Assignment");
+                }  if(col==0&&row==6){
+                    textField1.setText("Presentation/Jury");
+                }  if(col==0&&row==7){
+                    textField1.setText("Project");
+                }  if(col==0&&row==8){
+                    textField1.setText("Portfolio");
+                }  if(col==0&&row==9){
+                    textField1.setText("Seminar/Workshop");
+                }  if(col==0&&row==10){
+                    textField1.setText("Oral Exam");
+                }  if(col==0&&row==11){
+                    textField1.setText("Midterm");
+                }  if(col==0&&row==12){
+                    textField1.setText("Final Exam");
+                }if(col==0&&row==13){
+                    textField1.setText("Total");
+                }
+                textField1.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                if (col >= 3 && col <= 8) {
+                    textField1.setPrefColumnCount(narrowWidth);
+
+                }
+                if (col >= 0 && col <= 8&&row==0) {
+                    textField1.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                   ;}else {
+                    textField1.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                }
+
+                    textField1.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+
+                gridPane3.add(textField1, col, row);
+            }
+        }
+
+        int rowCount1 = 15;
+        int colCount1 = 4;
+        int narrowWidth1=5;
+
+        GridPane gridPane4 = new GridPane();
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        
+
+        for (int row = 0; row < rowCount1; row++) {
+            for (int col = 0; col < colCount1; col++) {
+                TextField textField2 = new TextField();
+                textField2.setEditable(true);
+                textField2.setPromptText(" ");
+
+                // Özel durumlar için kontrol ekle
+                if (col == 0 && row == 0) {
+                    textField2.setText("Semester Activities");
+                } else if (col == 1 && row == 0) {
+                    textField2.setText("Number");
+                } else if (col == 2 && row == 0) {
+                    textField2.setText("Duration(Hours)");}
+                else if (col == 3 && row == 0) {
+                    textField2.setText("Workload");}
+                else {
+                    textField2.setText("" );
+                }
+                if(col==0&&row==1){
+                    textField2.setText("Participation\n");
+
+                }
+                if(col==0&&row==2){
+                    textField2.setText("Laboratory/Application");}
+                if(col==0&&row==3){
+                    textField2.setText("Field Work");}
+                if(col==0&&row==4){
+                    textField2.setText("Quiz/Studio Critique\n");
+                }  if(col==0&&row==5){
+                    textField2.setText("Homework/Assignment");
+                }  if(col==0&&row==6){
+                    textField2.setText("Presentation/Jury");
+                }  if(col==0&&row==7){
+                    textField2.setText("Project");
+                }  if(col==0&&row==8){
+                    textField2.setText("Portfolio");
+                }  if(col==0&&row==9){
+                    textField2.setText("Seminar/Workshop");
+                }  if(col==0&&row==10){
+                    textField2.setText("Oral Exam");
+                }  if(col==0&&row==11){
+                    textField2.setText("Midterm");
+                }  if(col==0&&row==12){
+                    textField2.setText("Final Exam");
+                }if(col==0&&row==13){
+                    textField2.setText("Total");
+                }
+                textField2.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                if (col >= 3 && col <= 5) {
+                    textField2.setPrefColumnCount(narrowWidth1);
+
+                }
+                if (col >= 0 && col <= 8&&row==0) {
+                    textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                    ;}else {
+                    textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                }
+
+                textField2.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+
+                gridPane4.add(textField2, col, row);
+            }
+        }
+        int rowCount2 = 14;
+        int colCount2 = 7;
+        int narrowWidth2=5;
+
+        GridPane gridPane5 = new GridPane();
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+
+        for (int row = 0; row < rowCount2; row++) {
+            for (int col = 0; col < colCount2; col++) {
+                TextField textField2 = new TextField();
+                textField2.setEditable(true);
+                textField2.setPromptText(" ");
+
+
+                if (col == 0 && row == 0) {
+                    textField2.setText("#");
+                } else if (col == 1 && row == 0) {
+                    textField2.setText("Program Competencies/Outcomes");
+                } else if (col == 2 && row == 0) {
+                    textField2.setText("1");}
+                else if (col == 3 && row == 0) {
+                    textField2.setText("2");}
+                else if (col == 4 && row == 0) {
+                    textField2.setText("3");}
+                    else if (col == 5 && row == 0) {
+                        textField2.setText("4");}
+                else if (col == 6 && row == 0) {
+                    textField2.setText("5");}
+                else {
+                    textField2.setText("" );
+                }
+
+                textField2.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                if (col >= 2 && col <= 8) {
+                    textField2.setPrefColumnCount(narrowWidth2);
+
+                }  if (col == 0&&row>0) {
+                    textField2.setText(String.valueOf(row));}
+                if (col == 0 ) {
+                    textField2.setPrefColumnCount(narrowWidth2);
+
+                }if(col==1){
+                    textField2.setPrefWidth(400);
+                }
+                if (col >= 0 && col <= 8&&row==0) {
+                    textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                    ;}else {
+                    textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                }
+
+                textField2.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+
+                gridPane5.add(textField2, col, row);
+            }
+        }
+        VBox vBox = new VBox(gridPane, gridPane2,gridPane1,gridPane3,vBox1, gridPane4,vBox2,gridPane5, submitButton);
 
         int numberOfLines = 3;
 
@@ -611,6 +867,7 @@ public class EnglishSyllabus extends Application {
         stage.setScene(scene1);
         stage.show();
     }
+    
 
 
     private TableColumn<Competency, Number> createNumericColumn(String columnName, String property) {

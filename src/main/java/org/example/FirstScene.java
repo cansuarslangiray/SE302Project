@@ -46,7 +46,6 @@ public class FirstScene extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Syllabus");
 
-
         BorderPane borderPane = new BorderPane();
 
 
@@ -54,13 +53,17 @@ public class FirstScene extends Application {
 
 
         Menu fileMenu = new Menu("File");
+        fileMenu.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
         Menu helpMenu = new Menu("HELP");
+        helpMenu.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
         MenuItem help=new MenuItem("HELP");
+        help.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
 
         help.setOnAction(e->showHelpScene());
 
 
         MenuItem openItem = new MenuItem("Open");
+        openItem.setStyle( "-fx-padding: 3px;-fx-font-weight: bold;");
         MenuItem CompareItem = new MenuItem("Compare");
         MenuItem editItem = new MenuItem("Edit");
         MenuItem exitItem = new MenuItem("Exit");
@@ -79,8 +82,11 @@ public class FirstScene extends Application {
 
 
         Button turkishButton = createButton("ADD First Version Of TURKISH SYLLABUS");
+        turkishButton.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
         Button englishButton = createButton("Add First Version OF ENGLISH SYLLABUS");
+        englishButton.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
         Button listVersions = createButton("Version Of SYLLABUS");
+        listVersions.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
 
 
         turkishButton.setOnAction(e -> {
