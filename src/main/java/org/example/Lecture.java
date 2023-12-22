@@ -4,7 +4,6 @@ package org.example;
 import java.util.List;
 
 public class Lecture {
-
     public String courseName;
     public String courseCode;
     public String term;
@@ -29,6 +28,8 @@ public class Lecture {
     public List<Activity> assessmentTable;
     public List<workLoad> workloadTable;
     public List<Competency> outcomeTable;
+
+
 
     @Override
     public String toString() {

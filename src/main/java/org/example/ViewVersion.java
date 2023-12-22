@@ -1,5 +1,5 @@
-package org.example;
 
+        package org.example;
 
 import com.google.gson.Gson;
 import javafx.application.Application;
@@ -11,9 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.FirstScene;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
+import java.util.List;
 
 public class ViewVersion extends Application {
     private Stage primaryStage;
@@ -30,11 +32,10 @@ public class ViewVersion extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("View Syllabus Version");
 
-
         VBox vBox = createVBox();
         vBox.setStyle("-fx-background-color: lavender;");
 
-        Scene scene = new Scene(vBox, 400, 300);
+        Scene scene = new Scene(vBox, 500, 600);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -102,10 +103,12 @@ public class ViewVersion extends Application {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 Gson gson = new Gson();
                 SyllabusVersioning syllabus = gson.fromJson(reader, SyllabusVersioning.class);
-                if (syllabus != null) {
+
+                // Check if syllabus or lecture is null
+                if (syllabus != null && syllabus.getLecture() != null) {
                     printSyllabus(syllabus);
                 } else {
-                    showErrorAlert("Parse Error", "Failed to parse syllabus.");
+                    showErrorAlert("Invalid Syllabus", "Invalid or null syllabus data.");
                 }
             } catch (IOException e) {
                 showErrorAlert("IO Error", "Error reading file: " + e.getMessage());
@@ -124,53 +127,78 @@ public class ViewVersion extends Application {
     }
 
     private void printSyllabus(SyllabusVersioning syllabus) {
-        Platform.runLater(() -> {
+        try {
+            if (syllabus != null) {
+                Platform.runLater(() -> {
+                    try {
+                        Lecture lecture = syllabus.getLecture();
+                        String weeklySubjectDetails = "";
+                        for (int j = 0; j < lecture.weeklySubject.size(); j++) {
+                            weeklySubjectDetails += "Week " + lecture.weeklySubject.get(j).getWeek() + "\n";
+                            weeklySubjectDetails += "Preparation: " + lecture.weeklySubject.get(j).getPreparation() + "\n";
+                            weeklySubjectDetails += "Topics: " + lecture.weeklySubject.get(j).getTopics() + "\n";
+                        }
+                        List<String> courseCategories = lecture.getCourseCategory();
+                        outputArea.setText("Details of Version/ Versiyon Detayları:\n" +
+                                "Lecturer's name/ Öğretmen Adı: " + syllabus.getName() + "\n" +
+                                "Reason/ Sebep: " + syllabus.getReason() + "\n" +
+                                "Time/ Zaman: " + syllabus.getTime() + "\n\n" +
+                                "Details of the Lecture/ Dersin Detayları:\n" +
+                                "Type/ Tür: " + lecture.getType() + "\n" +
+                                "Course Level/ Ders Seviyesi: " + lecture.getCourseLevel() + "\n" +
+                                "Mode/ Mod: " + lecture.getDeliveryMode() + "\n" +
+                                "Course Category/ Ders Kategorisi: " + printCourseCategories(courseCategories) + "\n" +
+                                "Language/ Dil: " + lecture.getLanguage() + "\n" +
+                                "Course Name/ Ders Adı: " + lecture.getCourseName() + "\n" +
+                                "Code/ Ders Kodu: " + lecture.getCourseCode() + "\n" +
+                                "Term/ Dönem: " + lecture.getTerm() + "\n" +
+                                "Theory/ Teori: " + lecture.getTheoryHours() + "\n" +
+                                "Application/ Uygulama: " + lecture.getApplicationHours() + "\n" +
+                                "Local Credits/ Yerel Krediler: " + lecture.getLocalCredit() + "\n" +
+                                "ECTS/ AKTS: " + lecture.getEcts() + "\n" +
+                                "Prerequisites/ Önkoşullar: " + lecture.getPrerequisites() + "\n" +
+                                "Teaching Method/ Öğretme Yöntemi: " + lecture.getTeachingMethods() + "\n" +
+                                "Course Coordinator/ Ders Koordinatörü: " + lecture.getCoordinator() + "\n" +
+                                "Course Lecturer/ Ders Öğretmeni: " + lecture.getLecturer() + "\n" +
+                                "Assistant/ Asistan: " + lecture.getAssistants() + "\n" +
+                                "Weekly Subject/ Haftalık Plan:\n" + weeklySubjectDetails +
+                                "Book/ Kitap: " + lecture.getBook() + "\n" +
+                                "Materials/ Materyaller: " + lecture.getMaterials() + "\n" +
+                                "Assessments/ Değerlendirmeler: " + lecture.getAssessmentTable() + "\n" +
+                                "Workload/ İş yükü: " + lecture.getWorkloadTable() + "\n" +
+                                "Outcomes/ Kazanımlar: " + lecture.getOutcomeTable());
 
-            outputArea.setText("Details of Version/ Versiyon Detayları:\n" +
-                    "Lecturer's name/ Öğretmen Adı: " + syllabus.getName() + "\n" +
-                    "Reason/ Sebep: " + syllabus.getReason() + "\n" +
-                    "Time/ Zaman: " + syllabus.getTime() + "\n\n" +
-                    "Details of the Lecture/ Dersin Detayları::\n" +
-                    "Type/ Tür: " + syllabus.getLecture().getType() + "\n" +
-                    "Course Level/ Ders Seviyesi: " + syllabus.getLecture().getCourseLevel() + "\n" +
-                    "Mode/ Mod: " + syllabus.getLecture().getDeliveryMode() + "\n" +
-                    "Course Category/ Ders Kategorisi: " + syllabus.getLecture().getCourseCategory() + "\n" +
-                    "Language/ Dil: " + syllabus.getLecture().getLanguage() + "\n" +
-                    "Course Name/ Ders Adı: " + syllabus.getLecture().getCourseName() + "\n" +
-                    "Code/ Ders Kodu: " + syllabus.getLecture().getCourseCode() + "\n" +
-                    "Term/ Dönem: " + syllabus.getLecture().getTerm() + "\n" +
-                    "Theory/ Teori: " + syllabus.getLecture().getTheoryHours() + "\n" +
-                    "Application/ Uygulama: " + syllabus.getLecture().getApplicationHours() + "\n" +
-                    "Local Credits/ Yerel Krediler: " + syllabus.getLecture().getLocalCredit() + "\n" +
-                    "ECTS/ AKTS: " + syllabus.getLecture().getEcts() + "\n" +
-                    "Prerequisites/ Önkoşullar: " + syllabus.getLecture().getPrerequisites() + "\n" +
-                    "Teaching Method/ Öğretme Yöntemi: " + syllabus.getLecture().getTeachingMethods() + "\n" +
-                    "Course Coordinator/ Ders Koordinatörü: " + syllabus.getLecture().getCoordinator() + "\n" +
-                    "Course Lecturer/ Ders Öğretmeni: " + syllabus.getLecture().getLecturer() + "\n" +
-                    "Assistant/ Asistan: " + syllabus.getLecture().getAssistants() + "\n" +
-                    "Weekly Subject/ Haftalık Plan: " + syllabus.getLecture().getWeeklySubject() + "\n" +
-                    "Book/ Kitap: " + syllabus.getLecture().getBook() + "\n" +
-                    "Materials/ Materyaller: " + syllabus.getLecture().getMaterials() + "\n" +
-                    "Assessments/ Değerlendirmeler: " + syllabus.getLecture().getAssessmentTable() + "\n" +
-                    "Workload/ İş yükü: " + syllabus.getLecture().getWorkloadTable() + "\n" +
-                    "Outcomes/ Kazanımlar: " + syllabus.getLecture().getOutcomeTable());
-        });
+                    } catch (Exception e) {
+                        showErrorAlert("Error", "An error occurred while displaying syllabus: " + e.getMessage());
+                    }
+                });
+            } else {
+                showError("Syllabus is null");
+            }
+        } catch (Exception e) {
+            showErrorAlert("Error", "An error occurred in printSyllabus: " + e.getMessage());
+        }
     }
+    private String printCourseCategories(List<String> courseCategories) {
+        StringBuilder categoriesString = new StringBuilder();
 
+        if (courseCategories != null && !courseCategories.isEmpty()) {
+            for (String category : courseCategories) {
+                categoriesString.append("- ").append(category).append("\n");
+            }
+        } else {
+            categoriesString.append("No Course Category selected.\n");
+        }
+
+        return categoriesString.toString();
+    }
     private void showError(String errorMessage) {
         Platform.runLater(() -> {
             outputArea.setText(errorMessage);
         });
     }
 
-
-    private void updateOutput(String message) {
-        Platform.runLater(() -> {
-            outputArea.setText(message);
-        });
-    }
     private void goBackToMainScene() {
-
         FirstScene firstScene = new FirstScene();
         firstScene.start(primaryStage);
     }
