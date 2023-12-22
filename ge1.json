@@ -1,0 +1,124 @@
+{
+  "lecture": {
+    "courseName": "et",
+    "courseCode": "ge",
+    "term": "Fall",
+    "theoryHours": "rf",
+    "applicationHours": "rg",
+    "localCredit": "res",
+    "ects": "gv",
+    "prerequisites": "er",
+    "language": "English",
+    "type": "Elective",
+    "courseLevel": "Undergraduate",
+    "deliveryMode": "Online",
+    "teachingMethods": "ger",
+    "coordinator": "re",
+    "lecturer": "egr",
+    "assistants": "rg",
+    "courseCategory": [
+      "Core Course",
+      "Major Area Course",
+      "Supportive Course"
+    ],
+    "weeklySubject": [
+      {
+        "week": "1",
+        "topics": "gvbe",
+        "preparation": "h"
+      },
+      {
+        "week": "2",
+        "topics": "he",
+        "preparation": "df"
+      },
+      {
+        "week": "3",
+        "topics": "r5g",
+        "preparation": "a"
+      },
+      {
+        "week": "4",
+        "topics": "g",
+        "preparation": ""
+      },
+      {
+        "week": "5",
+        "topics": "",
+        "preparation": "hb"
+      },
+      {
+        "week": "6",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "7",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "8",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "9",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "10",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "11",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "12",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "13",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "14",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "15",
+        "topics": "",
+        "preparation": ""
+      }
+    ],
+    "book": "re",
+    "materials": "qagh",
+    "assessmentTable": [
+      {
+        "name": "Participation",
+        "count": 1,
+        "percentage": 3,
+        "lo1": 3,
+        "lo2": 5,
+        "lo3": 67,
+        "lo4": 8
+      }
+    ],
+    "workloadTable": [
+      {
+        "activity": "2",
+        "count": 23,
+        "hour": 5,
+        "workloud": 34
+      }
+    ],
+    "outcomeTable": []
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "lecture": {
+    "courseName": "dvs",
+    "courseCode": "sdv",
+    "term": "Fall",
+    "theoryHours": "sdf",
+    "applicationHours": "dfvcs",
+    "localCredit": "f",
+    "ects": "df",
+    "prerequisites": "a",
+    "language": "English",
+    "type": "Elective",
+    "courseLevel": "Undergraduate",
+    "deliveryMode": "Online",
+    "teachingMethods": "wsgva",
+    "coordinator": "sdwe",
+    "lecturer": "ewdg",
+    "assistants": "ewd",
+    "courseCategory": [
+      "Supportive Course",
+      "Communication and Management Skills Course"
+    ],
+    "weeklySubject": [
+      {
+        "week": "1",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "2",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "3",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "4",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "5",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "6",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "7",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "8",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "9",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "10",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "11",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "12",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "13",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "14",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "15",
+        "topics": "",
+        "preparation": ""
+      }
+    ],
+    "book": "edw4gf",
+    "materials": "wedf",
+    "assessmentTable": [],
+    "workloadTable": [],
+    "outcomeTable": []
+  }
+}

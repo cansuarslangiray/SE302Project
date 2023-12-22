@@ -59,7 +59,7 @@ public class ListVersion extends Application{
         primaryStage.show();
     }
 
-    private void goBackToMainScene() {
+    public void goBackToMainScene() {
 
         FirstScene firstScene = new FirstScene();
         firstScene.start(primaryStage);

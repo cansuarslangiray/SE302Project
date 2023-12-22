@@ -1,0 +1,106 @@
+{
+  "lecture": {
+    "courseName": "sa",
+    "courseCode": "dxqwa",
+    "term": "Spring",
+    "theoryHours": "caqws",
+    "applicationHours": "saqw",
+    "localCredit": "swqa",
+    "ects": "sqaw",
+    "prerequisites": "s",
+    "language": "English",
+    "type": "Elective",
+    "courseLevel": "Undergraduate",
+    "deliveryMode": "Online",
+    "teachingMethods": "sa",
+    "coordinator": "few",
+    "lecturer": "wseqa",
+    "assistants": "wef",
+    "courseCategory": [
+      "Core Course",
+      "Major Area Course"
+    ],
+    "weeklySubject": [
+      {
+        "week": "1",
+        "topics": "ws",
+        "preparation": ""
+      },
+      {
+        "week": "2",
+        "topics": "wsqadfc",
+        "preparation": "wsd"
+      },
+      {
+        "week": "3",
+        "topics": "",
+        "preparation": "dwqs"
+      },
+      {
+        "week": "4",
+        "topics": "wsqa",
+        "preparation": ""
+      },
+      {
+        "week": "5",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "6",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "7",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "8",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "9",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "10",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "11",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "12",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "13",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "14",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "15",
+        "topics": "",
+        "preparation": ""
+      }
+    ],
+    "book": "wqd",
+    "materials": "dwq",
+    "assessmentTable": [],
+    "workloadTable": [],
+    "outcomeTable": []
+  }
+}

@@ -3,6 +3,7 @@ package org.example;
 
 import javafx.scene.control.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lecture {
@@ -23,7 +24,7 @@ public class Lecture {
     public String coordinator;
     public String lecturer;
     public String assistants;
-    public String courseCategory;
+    public List<String> courseCategory;
     public List<Lesson> weeklySubject;
     public String book;
     public String materials;
@@ -51,7 +52,7 @@ public class Lecture {
                 ", coordinator='" + coordinator + '\'' +
                 ", lecturer='" + lecturer + '\'' +
                 ", assistants='" + assistants + '\'' +
-                ", courseCategory='" + courseCategory + '\'' +
+                ", courseCategory=" + courseCategory +
                 ", weeklySubject=" + weeklySubject +
                 ", book='" + book + '\'' +
                 ", materials='" + materials + '\'' +
@@ -61,7 +62,7 @@ public class Lecture {
                 '}';
     }
 
-    public Lecture(String courseName, String courseCode, String term, String theoryHours, String applicationHours, String localCredit, String ects, String prerequisites, String language, String type, String courseLevel, String deliveryMode, String teachingMethods, String coordinator, String lecturer, String assistants, String courseCategory, List<Lesson> weeklySubject, String book, String materials, List<Activity> assessmentTable, List<workLoad> workloadTable, List<Competency> outcomeTable) {
+    public Lecture(String courseName, String courseCode, String term, String theoryHours, String applicationHours, String localCredit, String ects, String prerequisites, String language, String type, String courseLevel, String deliveryMode, String teachingMethods, String coordinator, String lecturer, String assistants, List<String> courseCategory, List<Lesson> weeklySubject, String book, String materials, List<Activity> assessmentTable, List<workLoad> workloadTable, List<Competency> outcomeTable) {
         this.courseName = courseName;
         this.courseCode = courseCode;
         this.term = term;

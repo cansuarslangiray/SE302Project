@@ -1,0 +1,345 @@
+{
+  "lecture": {
+    "courseName": "ws",
+    "courseCode": "fwsqaf",
+    "term": "Spring",
+    "theoryHours": "fws",
+    "applicationHours": "fsaw",
+    "localCredit": "fsa",
+    "ects": "wqaf",
+    "prerequisites": "fsw",
+    "language": "Turkish",
+    "type": "Required",
+    "courseLevel": "Associate Degree",
+    "deliveryMode": " Face-to-Face",
+    "teachingMethods": "fwsqa",
+    "coordinator": "wf",
+    "lecturer": "fws",
+    "assistants": "wq",
+    "courseCategory": [
+      "Transferable Skill Course",
+      "Communication and Management Skills Course"
+    ],
+    "weeklySubject": [
+      {
+        "week": "1",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "2",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "3",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "4",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "5",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "6",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "7",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "8",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "9",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "10",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "11",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "12",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "13",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "14",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "15",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "1",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "2",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "3",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "4",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "5",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "6",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "7",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "8",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "9",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "10",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "11",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "12",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "13",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "14",
+        "topics": "",
+        "preparation": ""
+      },
+      {
+        "week": "15",
+        "topics": "",
+        "preparation": ""
+      }
+    ],
+    "book": "fqwca",
+    "materials": "eqfr",
+    "assessmentTable": [
+      {
+        "name": "Participation",
+        "count": 2,
+        "percentage": 2,
+        "lo1": 5,
+        "lo2": 4,
+        "lo3": 5,
+        "lo4": 3
+      },
+      {
+        "name": "Laboratory/Application",
+        "count": 34,
+        "percentage": 2,
+        "lo1": 5,
+        "lo2": 3,
+        "lo3": 4,
+        "lo4": 2
+      },
+      {
+        "name": "Field Work",
+        "count": 2,
+        "percentage": 24,
+        "lo1": 32,
+        "lo2": 2,
+        "lo3": 4,
+        "lo4": 2
+      },
+      {
+        "name": "Quiz/Studio Critique",
+        "count": 2,
+        "percentage": 3,
+        "lo1": 2,
+        "lo2": 211,
+        "lo3": 4,
+        "lo4": 1
+      },
+      {
+        "name": "Homework/Assignment",
+        "count": 2,
+        "percentage": 4,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 33,
+        "lo4": 4
+      },
+      {
+        "name": "Presentation/Jury",
+        "count": 2,
+        "percentage": 2,
+        "lo1": 32,
+        "lo2": 2,
+        "lo3": 21,
+        "lo4": 23
+      },
+      {
+        "name": "Project",
+        "count": 23,
+        "percentage": 2,
+        "lo1": 3,
+        "lo2": 3,
+        "lo3": 1,
+        "lo4": 1
+      },
+      {
+        "name": "Portfolio",
+        "count": 32,
+        "percentage": 1,
+        "lo1": 21,
+        "lo2": 43,
+        "lo3": 1,
+        "lo4": 1
+      },
+      {
+        "name": "Seminar/Workshop",
+        "count": 2,
+        "percentage": 433,
+        "lo1": 2,
+        "lo2": 1,
+        "lo3": 1,
+        "lo4": 1
+      },
+      {
+        "name": "Oral Exam",
+        "count": 342,
+        "percentage": 2,
+        "lo1": 2,
+        "lo2": 2,
+        "lo3": 321,
+        "lo4": 3
+      },
+      {
+        "name": "Midterm",
+        "count": 2,
+        "percentage": 2,
+        "lo1": 3,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 45
+      },
+      {
+        "name": "Final Exam",
+        "count": 543,
+        "percentage": 2,
+        "lo1": 3,
+        "lo2": 3,
+        "lo3": 66,
+        "lo4": 4
+      }
+    ],
+    "workloadTable": [
+      {
+        "activity": "6",
+        "count": 3,
+        "hour": 3,
+        "workloud": 5
+      },
+      {
+        "activity": "5",
+        "count": 43,
+        "hour": 34,
+        "workloud": 4
+      },
+      {
+        "activity": "13",
+        "count": 2,
+        "hour": 2,
+        "workloud": 2
+      },
+      {
+        "activity": "2",
+        "count": 3,
+        "hour": 2,
+        "workloud": 4
+      },
+      {
+        "activity": "2",
+        "count": 3,
+        "hour": 6,
+        "workloud": 34
+      },
+      {
+        "activity": "4",
+        "count": 7,
+        "hour": 3,
+        "workloud": 2
+      },
+      {
+        "activity": "5",
+        "count": 2,
+        "hour": 2,
+        "workloud": 3
+      },
+      {
+        "activity": "5",
+        "count": 4,
+        "hour": 2,
+        "workloud": 5
+      },
+      {
+        "activity": "3",
+        "count": 3,
+        "hour": 3,
+        "workloud": 1
+      }
+    ],
+    "outcomeTable": []
+  }
+}

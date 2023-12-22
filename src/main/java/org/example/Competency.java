@@ -16,14 +16,14 @@ public class Competency {
     public int level5;
     public String lo;
 
-    public Competency(String description, int level1, int level2, int level3, int level4, int level5, String lo) {
+    public Competency(String description, int level1, int level2, int level3, int level4, int level5) {
         this.description = description;
         this.level1 = level1;
         this.level2 = level2;
         this.level3 = level3;
         this.level4 = level4;
         this.level5 = level5;
-        this.lo = lo;
+
     }
 
     public void setDescription(String description) {

@@ -13,10 +13,9 @@ public class Activity {
     public int lo2;
     public int lo3;
     public int lo4;
-    public int lo5;
-    public int lo6;
 
-    public Activity(String name, int count, int percentage, int lo1, int lo2, int lo3, int lo4, int lo5, int lo6) {
+
+    public Activity(String name, int count, int percentage, int lo1, int lo2, int lo3, int lo4) {
         this.name = name;
         this.count = count;
         this.percentage = percentage;
@@ -24,8 +23,7 @@ public class Activity {
         this.lo2 = lo2;
         this.lo3 = lo3;
         this.lo4 = lo4;
-        this.lo5 = lo5;
-        this.lo6 = lo6;
+
     }
 
     public String getName() {
@@ -60,11 +58,4 @@ public class Activity {
         this.lo4 = lo4;
     }
 
-    public void setLo5(int lo5) {
-        this.lo5 = lo5;
-    }
-
-    public void setLo6(int lo6) {
-        this.lo6 = lo6;
-    }
 }

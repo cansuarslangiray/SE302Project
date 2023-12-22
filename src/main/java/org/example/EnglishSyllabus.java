@@ -7,65 +7,48 @@ import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-
-import static org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Ansi.Style.bold;
 
 public class EnglishSyllabus extends Application {
     Lecture lecture;
     boolean isSaved;
+    private Stage primaryStage;
 
     public EnglishSyllabus(Lecture lecture, boolean isSaved) {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
+
     String changedBy;
-    String changeReason ;
-    String changeDate ;
-    private ObservableList<Activity> data = FXCollections.observableArrayList();
-    private ObservableList<workLoad> data1 = FXCollections.observableArrayList();
-    private final ObservableList<Competency> competencies = FXCollections.observableArrayList(
-            new Competency("Matematik, Fen Bilimleri ve Bilgisayar Mühendisliği konularında yeterli bilgi sahibidir...", 0, 0, 1, 0, 0, "1,2")
-            // ... Add other competencies here
-    );
-    private final ObservableList<Lesson> lessons = FXCollections.observableArrayList(
-            new Lesson("1", "", ""),
-            new Lesson("2", "", ""),
-            new Lesson("3", "", ""),
-            new Lesson("4", "", ""),
-            new Lesson("5", "", ""),
-            new Lesson("6", "", ""),
-            new Lesson("7", "", ""),
-            new Lesson("8", "", ""),
-            new Lesson("9", "", ""),
-            new Lesson("10", "", ""),
-            new Lesson("11", "", ""),
-            new Lesson("12", "", ""),
-            new Lesson("13", "", ""),
-            new Lesson("14", "", ""),
-            new Lesson("15", "", ""),
-            new Lesson("16", "", "")
-    );
+    String changeReason;
+    String changeDate;
+    private List<Activity> activities = new ArrayList<>();
+    private List<workLoad> workLoads = new ArrayList<>();
+    private List<Competency> competencies = new ArrayList<>();
+    private List<Lesson> lessons = new ArrayList<>();
+    List<String> selectedCategories = new ArrayList<>();
 
     @Override
     public void start(Stage stage) {
+        this.primaryStage = stage;
         stage.setTitle("Course Form");
 
         GridPane gridPane = new GridPane();
@@ -78,8 +61,8 @@ public class EnglishSyllabus extends Application {
         gridPane1.setVgap(10);
         gridPane1.setHgap(10);
 
-        Label titleLabel = new Label("IZMIR UNIVERSITY OF ECONOMICS\n" +
-                "COURSE OUTLINE FORM");
+        Label titleLabel = new Label("           IZMIR UNIVERSITY OF ECONOMICS\n" +
+                "                COURSE OUTLINE FORM");
         titleLabel.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 20;");
         titleLabel.setAlignment(Pos.CENTER);
 
@@ -183,19 +166,22 @@ public class EnglishSyllabus extends Application {
         gridPane.add(assistantsTextField, 1, 17);
 
         gridPane.add(new Label("Course Category"), 0, 18);
-        ToggleGroup levelToggleGroup1 = new ToggleGroup();
-        RadioButton levelUndergraduateRadioButton1 = new RadioButton("Core Course");
-        levelUndergraduateRadioButton.setToggleGroup(levelToggleGroup1);
-        RadioButton levelGraduateRadioButton1 = new RadioButton("Major Area Course");
-        levelGraduateRadioButton1.setToggleGroup(levelToggleGroup1);
-        RadioButton levelGraduateRadioButton2 = new RadioButton("Supportive Course");
-        levelGraduateRadioButton2.setToggleGroup(levelToggleGroup1);
-        RadioButton levelGraduateRadioButton3 = new RadioButton("Communication and Management Skills Course\n");
-        levelGraduateRadioButton3.setToggleGroup(levelToggleGroup1);
-        RadioButton levelGraduateRadioButton4 = new RadioButton("Transferable Skill Course");
-        levelGraduateRadioButton4.setToggleGroup(levelToggleGroup1);
-        VBox levelBox1 = new VBox(10, levelUndergraduateRadioButton1, levelGraduateRadioButton1, levelGraduateRadioButton2, levelGraduateRadioButton3, levelGraduateRadioButton4);
-        gridPane.add(levelBox1, 1, 18);
+
+        CheckBox coreCourseCheckBox = new CheckBox("Core Course");
+        CheckBox majorAreaCourseCheckBox = new CheckBox("Major Area Course");
+        CheckBox supportiveCourseCheckBox = new CheckBox("Supportive Course");
+        CheckBox communicationCourseCheckBox = new CheckBox("Communication and Management Skills Course");
+        CheckBox transferableSkillCheckBox = new CheckBox("Transferable Skill Course");
+
+        VBox categoryBox = new VBox(10, coreCourseCheckBox, majorAreaCourseCheckBox, supportiveCourseCheckBox, communicationCourseCheckBox, transferableSkillCheckBox);
+        gridPane.add(categoryBox, 1, 18);
+
+        coreCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(coreCourseCheckBox, selectedCategories));
+        majorAreaCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(majorAreaCourseCheckBox, selectedCategories));
+        supportiveCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(supportiveCourseCheckBox, selectedCategories));
+        communicationCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(communicationCourseCheckBox, selectedCategories));
+        transferableSkillCheckBox.setOnAction(event -> handleCheckBoxSelection(transferableSkillCheckBox, selectedCategories));
+
 
         Label orangeLabel1 = new Label("2. WEEKLY SUBJECTS AND REQUIRED MATERIALS");
         orangeLabel1.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
@@ -231,455 +217,356 @@ public class EnglishSyllabus extends Application {
         gridPane1.setConstraints(orangeLabel2, 0, 3, 2, 2);
         gridPane1.getChildren().add(orangeLabel2);
 
+        Button backButton = new Button("Back to Main Scene");
+
+        backButton.setOnAction(e -> goBackToMainScene());
+        GridPane backButongrid = new GridPane();
+        backButongrid.setHgap(10);
+        backButongrid.setVgap(10);
+        backButongrid.add(backButton, 10, 19, 2, 1);
+        gridPane.add(backButongrid, 10, 18, 2, 1);
 
         Button submitButton = new Button("Submit");
         gridPane.add(submitButton, 0, 18, 2, 1);
 
-
-
-
-     /*
-        TableView<Lesson> tableView1 = new TableView<>();
-        tableView1.setItems(lessons);
-        tableView1.setEditable(true);
-
-        TableColumn<Lesson, String> week = new TableColumn<>("Hafta");
-        // week.setCellValueFactory(cellData -> cellData.getValue().week);
-        week.setCellFactory(TextFieldTableCell.forTableColumn());
-        week.setOnEditCommit(event -> {
-            Lesson lesson = event.getRowValue();
-            lesson.setWeek(event.getNewValue());
-        });
-
-
-        TableColumn<Lesson, String> topics = new TableColumn<>("Konular");
-        //  topics.setCellValueFactory(cellData -> cellData.getValue().topics);
-        topics.setCellFactory(TextFieldTableCell.forTableColumn());
-        topics.setOnEditCommit(event -> {
-            Lesson lesson = event.getRowValue();
-            lesson.setTopics(event.getNewValue());
-        });
-
-        TableColumn<Lesson, String> preparation = new TableColumn<>("Ön Hazırlık");
-        // preparation.setCellValueFactory(cellData -> cellData.getValue().preparation);
-        preparation.setCellFactory(TextFieldTableCell.forTableColumn());
-        preparation.setOnEditCommit(event -> {
-            Lesson lesson = event.getRowValue();
-            lesson.setPreparation(event.getNewValue());
-        });
-
-        tableView1.getColumns().addAll(week, topics, preparation);
-
-
-        week.prefWidthProperty().bind(tableView1.widthProperty().divide(3));
-        topics.prefWidthProperty().bind(tableView1.widthProperty().divide(3));
-        preparation.prefWidthProperty().bind(tableView1.widthProperty().divide(3));
-
-
-        TableView<Activity> table = new TableView<>();
-        table.setEditable(true);
-
-        TableColumn<Activity, String> nameCol = new TableColumn<>("Yarıyıl Aktiviteleri");
-        // nameCol.setCellValueFactory(cellData -> cellData.getValue().name);
-        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-
-
-        TableColumn<Activity, Integer> countCol = new TableColumn<>("Sayı");
-        //  countCol.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
-        countCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        countCol.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
-
-
-        TableColumn<Activity, Integer> percentageCol = new TableColumn<>("Katkı Payı %");
-        // percentageCol.setCellValueFactory(cellData -> cellData.getValue().percentage.asObject());
-        percentageCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        percentageCol.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
-
-        TableColumn<Activity, Integer> lo1Col = new TableColumn<>("LO1");
-        //  lo1Col.setCellValueFactory(cellData -> cellData.getValue().lo1.asObject());
-        lo1Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        lo1Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
-
-        TableColumn<Activity, Integer> lo2Col = new TableColumn<>("LO2");
-        //  lo2Col.setCellValueFactory(cellData -> cellData.getValue().lo2.asObject());
-        lo2Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        lo2Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
-
-
-        TableColumn<Activity, Integer> lo3Col = new TableColumn<>("LO3");
-        // lo3Col.setCellValueFactory(cellData -> cellData.getValue().lo3.asObject());
-        lo3Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        lo3Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
-
-        TableColumn<Activity, Integer> lo4Col = new TableColumn<>("LO4");
-        //  lo4Col.setCellValueFactory(cellData -> cellData.getValue().lo4.asObject());
-        lo4Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        lo4Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
-
-        TableColumn<Activity, Integer> lo5Col = new TableColumn<>("LO5");
-        //  lo5Col.setCellValueFactory(cellData -> cellData.getValue().lo5.asObject());
-        lo5Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        lo5Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
-
-        TableColumn<Activity, Integer> lo6Col = new TableColumn<>("LO6");
-        //  lo6Col.setCellValueFactory(cellData -> cellData.getValue().lo6.asObject());
-        lo6Col.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        lo6Col.setOnEditCommit(event -> event.getRowValue().setLo5(event.getNewValue()));
-
-        table.getColumns().addAll(nameCol, countCol, percentageCol, lo1Col, lo2Col, lo3Col, lo4Col, lo5Col, lo6Col);
-        table.setItems(data);
-
-
-        data.addAll(
-                new Activity("Participation", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Laboratory/Application", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Field Work", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Quiz/Studio Critique", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Homework/Assignment", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Presentation/Jury", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Project", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Portfolio", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Seminar/Workshop", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Oral Exam", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Midterm Exam", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Final Exam", 0, 0, 0, 0, 0, 0, 0, 0),
-                new Activity("Toplam", 0, 0, 0, 0, 0, 0, 0, 0));
-
-
-        TableView<workLoad> table1 = new TableView<>();
-        table1.setEditable(true);
-
-        data1.addAll(
-                new workLoad("Study Hours out of Class", 0, 0, 0),
-                new workLoad("Field Work", 0, 0, 0),
-                new workLoad("Quiz/Studio Critique", 0, 0, 0),
-                new workLoad("Homework/Assignment", 0, 0, 0),
-                new workLoad("Presentation/Jury", 0, 0, 0),
-                new workLoad("Project", 0, 0, 0),
-                new workLoad("Portfolio", 0, 0, 0),
-                new workLoad("Seminar/Workshop", 0, 0, 0),
-                new workLoad("Oral Exam", 0, 0, 0),
-                new workLoad("Midterm Exam", 0, 0, 0),
-                new workLoad("Final Exam", 0, 0, 0),
-                new workLoad("Total", 0, 0, 0)
-        );
-        TableColumn<workLoad, String> activityCol = new TableColumn<>("Yarıyıl Aktiviteleri");
-        //  activityCol.setCellValueFactory(cellData -> cellData.getValue().activity);
-        activityCol.setCellFactory(TextFieldTableCell.forTableColumn());
-
-
-        TableColumn<workLoad, Integer> countCol1 = new TableColumn<>("Sayı");
-        //  countCol1.setCellValueFactory(cellData -> cellData.getValue().count.asObject());
-        countCol1.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        countCol1.setOnEditCommit(event -> event.getRowValue().setCount(event.getNewValue()));
-
-
-        TableColumn<workLoad, Integer> hourCol = new TableColumn<>("Süre (Saat) ");
-        //  hourCol.setCellValueFactory(cellData -> cellData.getValue().hour.asObject());
-        hourCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        hourCol.setOnEditCommit(event -> event.getRowValue().setHour(event.getNewValue()));
-
-
-        TableColumn<workLoad, Integer> workloadCol = new TableColumn<>("İş yükü");
-        //  workloadCol.setCellValueFactory(cellData -> cellData.getValue().workloud.asObject());
-        workloadCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        workloadCol.setOnEditCommit(event -> event.getRowValue().setWorkloud(event.getNewValue()));
-
-
-        table1.getColumns().addAll(activityCol, countCol1, hourCol, workloadCol);
-        table1.setItems(data1);
-        activityCol.prefWidthProperty().bind(table1.widthProperty().divide(4));
-        countCol1.prefWidthProperty().bind(table1.widthProperty().divide(4));
-        hourCol.prefWidthProperty().bind(table1.widthProperty().divide(4));
-        workloadCol.prefWidthProperty().bind(table1.widthProperty().divide(4));
-
-
-        TableView<Competency> table12 = new TableView<>();
-
-        TableColumn<Competency, String> descColumn = new TableColumn<>("Program Yeterlilikleri/Çıktıları");
-        //  descColumn.setCellValueFactory(cellData -> cellData.getValue().description);
-
-        TableColumn<Competency, Integer> level1Column = new TableColumn<>("1");
-        // level1Column.setCellValueFactory(cellData -> cellData.getValue().level1.asObject());
-        level1Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        level1Column.setOnEditCommit(event -> event.getRowValue().setLevel1(event.getNewValue()));
-
-        TableColumn<Competency, Integer> level2Column = new TableColumn<>("2");
-        //  level2Column.setCellValueFactory(cellData -> cellData.getValue().level2.asObject());
-        level2Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        level2Column.setOnEditCommit(event -> event.getRowValue().setLevel2(event.getNewValue()));
-
-        TableColumn<Competency, Integer> level3Column = new TableColumn<>("3");
-        //  level3Column.setCellValueFactory(cellData -> cellData.getValue().level3.asObject());
-        level3Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        level3Column.setOnEditCommit(event -> event.getRowValue().setLevel3(event.getNewValue()));
-
-        TableColumn<Competency, Integer> level4Column = new TableColumn<>("4");
-        //  level4Column.setCellValueFactory(cellData -> cellData.getValue().level4.asObject());
-        level4Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        level4Column.setOnEditCommit(event -> event.getRowValue().setLevel4(event.getNewValue()));
-
-        TableColumn<Competency, Integer> level5Column = new TableColumn<>("5");
-        //  level5Column.setCellValueFactory(cellData -> cellData.getValue().level5.asObject());
-        level5Column.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        level5Column.setOnEditCommit(event -> event.getRowValue().setLevel5(event.getNewValue()));
-
-
-        TableColumn<Competency, String> loColumn = new TableColumn<>("LO#");
-        //  loColumn.setCellValueFactory(cellData -> cellData.getValue().lo);
-
-        table12.getColumns().addAll(descColumn, level1Column, level2Column, level3Column, level4Column, level5Column, loColumn);
-        table12.setItems(competencies);
-*/ GridPane gridPane2 = new GridPane();
-        gridPane.setHgap(0);
-        gridPane.setVgap(0);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-
+        GridPane gridPane2 = new GridPane();
+        gridPane2.setHgap(0);
+        gridPane2.setVgap(0);
+        gridPane2.setPadding(new Insets(10, 10, 10, 10));
+        List<TextField> lessonsTextField = new ArrayList<>();
         for (int row = 0; row < 17; row++) {
+            TextField week = null;
+            TextField preparation = null;
+            TextField topics = null;
             for (int col = 0; col < 3; col++) {
-                TextField textField = new TextField();
-                textField.setPromptText(" " );
-                if ((col== 0)&& (row==0)) {
-                    // Row 1 için
-                    textField.setText("Week");
-                    textField.setStyle("-fx-font-family: Arial;");
-                    textField.setEditable(true);
-                } else if (col == 1&&row==0) {
-                    // Row 2 için
-                    textField.setText("Hazırlık");
-                    textField.setStyle("-fx-font-family: Arial;");
-                    textField.setEditable(true);
-                } else if (col == 2&&row==0) {
-                    // Row 3 için
-                    textField.setText("Konular");
-                    textField.setStyle("-fx-font-family: Arial;");
-                    textField.setEditable(true);
+                if ((col == 0) && (row == 0)) {
+                    week = new TextField();
+                    week.setEditable(false);
+                    week.setText("Week");
+                    week.setStyle("-fx-font-family: Arial;");
+                    gridPane2.add(week, col, row);
+                } else if (col == 1 && row == 0) {
+                    preparation = new TextField();
+                    preparation.setEditable(false);
+                    preparation.setText("Required Materials");
+                    preparation.setStyle("-fx-font-family: Arial;");
+                    gridPane2.add(preparation, col, row);
+                } else if (col == 2 && row == 0) {
+                    topics = new TextField();
+                    topics.setEditable(false);
+                    topics.setText("Subjects");
+                    topics.setStyle("-fx-font-family: Arial;");
+                    gridPane2.add(topics, col, row);
                 } else {
-                    textField.setPromptText("");
+                    if (col == 0) {
+                        week = new TextField();
+                        week.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                        week.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        lessonsTextField.add(week);
+                        gridPane2.add(week, col, row);
+                    } else if (col == 1) {
+                        preparation = new TextField();
+                        preparation.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                        preparation.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        lessonsTextField.add(preparation);
+                        gridPane2.add(preparation, col, row);
+                    } else {
+                        topics = new TextField();
+                        topics.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                        topics.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        lessonsTextField.add(topics);
+                        gridPane2.add(topics, col, row);
+                    }
                 }
                 if (col == 0 && row > 0) {
-                    // İlk sütuna 1'den 16'ya kadar sayıları yazdır
-                    textField.setText(String.valueOf(row));
-                    textField.setEditable(true);
+                    week.setText(String.valueOf(row));
                 }
-
-                textField.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-                textField.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-
-                gridPane2.add(textField, col, row);
-            }
-        }GridPane gridPane3 = new GridPane();
-        gridPane.setHgap(0);
-        gridPane.setVgap(0);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-
-        int rowCount = 14;
-        int colCount = 7;
-       int narrowWidth=5;
-
-
-        for (int row = 0; row < rowCount; row++) {
-            for (int col = 0; col < colCount; col++) {
-                TextField textField1 = new TextField();
-                textField1.setEditable(true);
-                textField1.setPromptText(" ");
-
-                // Özel durumlar için kontrol ekle
-                if (col == 0 && row == 0) {
-                    textField1.setText("Semester Activities");
-                } else if (col == 1 && row == 0) {
-                    textField1.setText("Number");
-                } else if (col == 2 && row == 0) {
-                    textField1.setText("Weighting");}
-                else if (col == 3 && row == 0) {
-                    textField1.setText("LO1");}
-                else if (col == 4 && row == 0) {
-                    textField1.setText("LO2");}
-                else if (col == 5 && row == 0) {
-                    textField1.setText("LO3");}
-                else if (col == 6 && row == 0) {
-                    textField1.setText("LO4");}
-                else {
-                    textField1.setText("" );
-                }
-                 if(col==0&&row==1){
-                     textField1.setText("Participation\n");
-
-                 }
-                if(col==0&&row==2){
-                    textField1.setText("Laboratory/Application");}
-                if(col==0&&row==3){
-                    textField1.setText("Field Work");}
-                if(col==0&&row==4){
-                    textField1.setText("Quiz/Studio Critique\n");
-                }  if(col==0&&row==5){
-                    textField1.setText("Homework/Assignment");
-                }  if(col==0&&row==6){
-                    textField1.setText("Presentation/Jury");
-                }  if(col==0&&row==7){
-                    textField1.setText("Project");
-                }  if(col==0&&row==8){
-                    textField1.setText("Portfolio");
-                }  if(col==0&&row==9){
-                    textField1.setText("Seminar/Workshop");
-                }  if(col==0&&row==10){
-                    textField1.setText("Oral Exam");
-                }  if(col==0&&row==11){
-                    textField1.setText("Midterm");
-                }  if(col==0&&row==12){
-                    textField1.setText("Final Exam");
-                }if(col==0&&row==13){
-                    textField1.setText("Total");
-                }
-                textField1.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
-                if (col >= 3 && col <= 8) {
-                    textField1.setPrefColumnCount(narrowWidth);
-
-                }
-                if (col >= 0 && col <= 8&&row==0) {
-                    textField1.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-                   ;}else {
-                    textField1.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-                }
-
-                    textField1.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-
-                gridPane3.add(textField1, col, row);
             }
         }
 
-        int rowCount1 = 15;
-        int colCount1 = 4;
-        int narrowWidth1=5;
+        GridPane gridPane3 = new GridPane();
+        gridPane3.setHgap(0);
+        gridPane3.setVgap(0);
+        gridPane3.setPadding(new Insets(10, 10, 10, 10));
 
-        GridPane gridPane4 = new GridPane();
-        gridPane.setHgap(0);
-        gridPane.setVgap(0);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-        
+        int rowCount = 14;
+        int colCount = 7;
+        int narrowWidth = 5;
 
-        for (int row = 0; row < rowCount1; row++) {
-            for (int col = 0; col < colCount1; col++) {
-                TextField textField2 = new TextField();
-                textField2.setEditable(true);
-                textField2.setPromptText(" ");
+        List<TextField> activitiesTextField = new ArrayList<>();
+
+        for (int row = 0; row < rowCount; row++) {
+
+            for (int col = 0; col < colCount; col++) {
+                TextField textField = new TextField();
+                textField.setEditable(false);
+                TextField textField1 = new TextField();
+                textField1.setEditable(true);
+
 
                 // Özel durumlar için kontrol ekle
                 if (col == 0 && row == 0) {
-                    textField2.setText("Semester Activities");
+                    textField.setText("Semester Activities");
                 } else if (col == 1 && row == 0) {
-                    textField2.setText("Number");
+                    textField.setText("Number");
                 } else if (col == 2 && row == 0) {
-                    textField2.setText("Duration(Hours)");}
-                else if (col == 3 && row == 0) {
-                    textField2.setText("Workload");}
-                else {
-                    textField2.setText("" );
+                    textField.setText("Weighting");
+                } else if (col == 3 && row == 0) {
+                    textField.setText("LO1");
+                } else if (col == 4 && row == 0) {
+                    textField.setText("LO2");
+                } else if (col == 5 && row == 0) {
+                    textField.setText("LO3");
+                } else if (col == 6 && row == 0) {
+                    textField.setText("LO4");
+                } else if (col == 0 && row == 1) {
+                    textField.setText("Participation\n");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 2) {
+                    textField.setText("Laboratory/Application");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 3) {
+                    textField.setText("Field Work");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 4) {
+                    textField.setText("Quiz/Studio Critique\n");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 5) {
+                    textField.setText("Homework/Assignment");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 6) {
+                    textField.setText("Presentation/Jury");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 7) {
+                    textField.setText("Project");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 8) {
+                    textField.setText("Portfolio");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 9) {
+                    textField.setText("Seminar/Workshop");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 10) {
+                    textField.setText("Oral Exam");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 11) {
+                    textField.setText("Midterm");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 12) {
+                    textField.setText("Final Exam");
+                    activitiesTextField.add(textField);
+                } else if (col == 0 && row == 13) {
+                    textField.setText("Total");
+                    activitiesTextField.add(textField);
+                } else {
+                    gridPane3.add(textField1, col, row);
+                    activitiesTextField.add(textField1);
                 }
-                if(col==0&&row==1){
-                    textField2.setText("Participation\n");
+                textField.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                textField1.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                if (col >= 3 && col <= 8) {
+                    textField.setPrefColumnCount(narrowWidth);
 
                 }
-                if(col==0&&row==2){
-                    textField2.setText("Laboratory/Application");}
-                if(col==0&&row==3){
-                    textField2.setText("Field Work");}
-                if(col==0&&row==4){
+                if (col >= 0 && col <= 8 && row == 0) {
+                    textField.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                } else {
+                    textField.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                }
+
+
+                textField.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                textField1.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+
+                if (row == 0 || col == 0) {
+                    gridPane3.add(textField, col, row);
+                }
+
+
+            }
+        }
+
+        int rowCount1 = 14;
+        int colCount1 = 4;
+        int narrowWidth1 = 5;
+
+        GridPane gridPane4 = new GridPane();
+        gridPane4.setHgap(0);
+        gridPane4.setVgap(0);
+        gridPane4.setPadding(new Insets(10, 10, 10, 10));
+
+        List<TextField> workloadTextFields = new ArrayList<>();
+        for (int row = 0; row < rowCount1; row++) {
+            for (int col = 0; col < colCount1; col++) {
+                TextField textField2 = new TextField();
+                textField2.setEditable(false);
+                TextField textField3 = new TextField();
+                textField3.setEditable(true);
+
+
+                if (col == 0 && row == 0) {
+                    textField2.setText("Semester Activities");
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 1 && row == 0) {
+                    textField2.setText("Number");
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 2 && row == 0) {
+                    textField2.setText("Duration(Hours)");
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 3 && row == 0) {
+                    textField2.setText("Workload");
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 1) {
+                    textField2.setText("Participation\n");
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+
+                } else if (col == 0 && row == 2) {
+                    textField2.setText("Laboratory/Application");
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 3) {
+                    textField2.setText("Field Work");
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 4) {
                     textField2.setText("Quiz/Studio Critique\n");
-                }  if(col==0&&row==5){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 5) {
                     textField2.setText("Homework/Assignment");
-                }  if(col==0&&row==6){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 6) {
                     textField2.setText("Presentation/Jury");
-                }  if(col==0&&row==7){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 7) {
                     textField2.setText("Project");
-                }  if(col==0&&row==8){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 8) {
                     textField2.setText("Portfolio");
-                }  if(col==0&&row==9){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 9) {
                     textField2.setText("Seminar/Workshop");
-                }  if(col==0&&row==10){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 10) {
                     textField2.setText("Oral Exam");
-                }  if(col==0&&row==11){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 11) {
                     textField2.setText("Midterm");
-                }  if(col==0&&row==12){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 12) {
                     textField2.setText("Final Exam");
-                }if(col==0&&row==13){
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+                } else if (col == 0 && row == 13) {
                     textField2.setText("Total");
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+
+                } else {
+                    workloadTextFields.add(textField3);
+                    gridPane4.add(textField3, col, row);
                 }
                 textField2.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
                 if (col >= 3 && col <= 5) {
                     textField2.setPrefColumnCount(narrowWidth1);
 
                 }
-                if (col >= 0 && col <= 8&&row==0) {
+                if (col >= 0 && col <= 8 && row == 0) {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-                    ;}else {
+                    ;
+                } else {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                 }
 
                 textField2.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                textField3.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
 
-                gridPane4.add(textField2, col, row);
             }
         }
         int rowCount2 = 14;
         int colCount2 = 7;
-        int narrowWidth2=5;
+        int narrowWidth2 = 5;
 
         GridPane gridPane5 = new GridPane();
-        gridPane.setHgap(0);
-        gridPane.setVgap(0);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane5.setHgap(0);
+        gridPane5.setVgap(0);
+        gridPane5.setPadding(new Insets(10, 10, 10, 10));
 
-
+        List<TextField> outcomeTextField = new ArrayList<>();
         for (int row = 0; row < rowCount2; row++) {
             for (int col = 0; col < colCount2; col++) {
                 TextField textField2 = new TextField();
-                textField2.setEditable(true);
-                textField2.setPromptText(" ");
-
-
+                textField2.setEditable(false);
+                TextField textField3 = new TextField();
+                textField3.setEditable(true);
                 if (col == 0 && row == 0) {
                     textField2.setText("#");
+                    gridPane5.add(textField2, col, row);
                 } else if (col == 1 && row == 0) {
-                    textField2.setText("Program Competencies/Outcomes");
+                    textField2.setText("Program Yeterlilikleri/Çıktıları");
+                    gridPane5.add(textField2, col, row);
                 } else if (col == 2 && row == 0) {
-                    textField2.setText("1");}
-                else if (col == 3 && row == 0) {
-                    textField2.setText("2");}
-                else if (col == 4 && row == 0) {
-                    textField2.setText("3");}
-                    else if (col == 5 && row == 0) {
-                        textField2.setText("4");}
-                else if (col == 6 && row == 0) {
-                    textField2.setText("5");}
-                else {
-                    textField2.setText("" );
+                    textField2.setText("1");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 3 && row == 0) {
+                    textField2.setText("2");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 4 && row == 0) {
+                    textField2.setText("3");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 5 && row == 0) {
+                    textField2.setText("4");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 6 && row == 0) {
+                    textField2.setText("5");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 0 && row > 0) {
+                    textField2.setText(String.valueOf(row));
+                    gridPane5.add(textField2, col, row);
+                } else {
+                    gridPane5.add(textField3, col, row);
+                    outcomeTextField.add(textField3);
+
                 }
 
                 textField2.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                textField3.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
                 if (col >= 2 && col <= 8) {
                     textField2.setPrefColumnCount(narrowWidth2);
 
-                }  if (col == 0&&row>0) {
-                    textField2.setText(String.valueOf(row));}
-                if (col == 0 ) {
+                }
+                if (col == 0 && row > 0) {
+                    textField2.setText(String.valueOf(row));
+                }
+                if (col == 0) {
                     textField2.setPrefColumnCount(narrowWidth2);
 
-                }if(col==1){
+                }
+                if (col == 1) {
                     textField2.setPrefWidth(400);
                 }
-                if (col >= 0 && col <= 8&&row==0) {
+                if (col >= 0 && col <= 8 && row == 0) {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-                    ;}else {
+                    ;
+                } else {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                 }
 
                 textField2.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                textField3.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
 
-                gridPane5.add(textField2, col, row);
+
             }
         }
-        VBox vBox = new VBox(gridPane, gridPane2,gridPane1,gridPane3,vBox1, gridPane4,vBox2,gridPane5, submitButton);
+        VBox vBox = new VBox(gridPane, gridPane2, gridPane1, gridPane3, vBox1, gridPane4, vBox2, gridPane5, submitButton);
 
         int numberOfLines = 3;
 
@@ -697,10 +584,10 @@ public class EnglishSyllabus extends Application {
         if (isSaved) {
             courseNameTextField.setText(lecture.courseName);
             courseCodeTextField.setText(lecture.courseCode);
-            if (lecture.term.equals("Güz")) {
-                termChoiceBox.setValue("Güz");
+            if (lecture.term.equals("Fall")) {
+                termChoiceBox.setValue("Fall");
             } else {
-                termChoiceBox.setValue("Bahar");
+                termChoiceBox.setValue("Spring");
             }
             theoryHoursTextField.setText(lecture.theoryHours);
             applicationHoursTextField.setText(lecture.applicationHours);
@@ -709,29 +596,29 @@ public class EnglishSyllabus extends Application {
             preTextField.setText(lecture.prerequisites);
             String lectureLanguage = lecture.language;
             switch (lectureLanguage) {
-                case "Türkçe":
+                case "Turkish":
                     languageToggleGroup.selectToggle(languageTurkishRadioButton);
                     break;
-                case "İngilizce":
+                case "English":
                     languageToggleGroup.selectToggle(languageEnglishRadioButton);
                     break;
-                case "İkinci Yabancı Dil":
+                case "Second Foreign Language\n":
                     languageToggleGroup.selectToggle(languageOtherRadioButton);
                     break;
             }
-            if (lecture.type.equals("Zorunlu")) {
+            if (lecture.type.equals("Required")) {
                 typeToggleGroup.selectToggle(typeMandatoryRadioButton);
             } else {
                 typeToggleGroup.selectToggle(typeElectiveRadioButton);
             }
 
-            if (lecture.courseLevel.equals("Lisans")) {
+            if (lecture.courseLevel.equals("Associate Degree")) {
                 levelToggleGroup.selectToggle(levelGraduateRadioButton);
             } else {
                 levelToggleGroup.selectToggle(levelUndergraduateRadioButton);
             }
 
-            if (lecture.deliveryMode.equals("Yüz Yüze")) {
+            if (lecture.deliveryMode.equals("Face-to-Face")) {
                 deliveryToggleGroup.selectToggle(deliveryFaceToFaceRadioButton);
             } else {
                 deliveryToggleGroup.selectToggle(deliveryOnlineRadioButton);
@@ -740,186 +627,258 @@ public class EnglishSyllabus extends Application {
             coordinatorTextField.setText(lecture.coordinator);
             instructionalStaffTextField.setText(lecture.lecturer);
             assistantsTextField.setText(lecture.assistants);
-            String lectureCategory = lecture.courseCategory;
-
-            for (int j = 0; j < lecture.weeklySubject.size(); j++) {
-                lessons.add(lecture.weeklySubject.get(j));
+            for (int i = 0; i < lecture.courseCategory.size(); i++) {
+                System.out.println(lecture.courseCategory.get(i));
+                switch (lecture.courseCategory.get(i)) {
+                    case "Core Course":
+                        coreCourseCheckBox.setSelected(true);
+                        coreCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(coreCourseCheckBox, selectedCategories));
+                        break;
+                    case "Major Area Course":
+                        majorAreaCourseCheckBox.setSelected(true);
+                        majorAreaCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(majorAreaCourseCheckBox, selectedCategories));
+                        break;
+                    case "Supportive Course":
+                        supportiveCourseCheckBox.setSelected(true);
+                        supportiveCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(supportiveCourseCheckBox, selectedCategories));
+                        break;
+                    case "Communication and Management Skills Course":
+                        communicationCourseCheckBox.setSelected(true);
+                        communicationCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(communicationCourseCheckBox, selectedCategories));
+                        break;
+                    default:
+                        transferableSkillCheckBox.setSelected(true);
+                        transferableSkillCheckBox.setOnAction(event -> handleCheckBoxSelection(transferableSkillCheckBox, selectedCategories));
+                        break;
+                }
             }
+            for (int j = 0; j < lecture.weeklySubject.size(); j++) {
+                int i=j*3;
+                if(i==lessonsTextField.size()-3){
+                    break;
+                }
+                    lessonsTextField.get(i).setText(lecture.weeklySubject.get(j).getWeek());
+                System.out.println(lecture.weeklySubject.get(j).getWeek().toString());
+                    lessonsTextField.get(i+1).setText(lecture.weeklySubject.get(j).getPreparation());
+                System.out.println(lecture.weeklySubject.get(j).getPreparation().toString());
+                    lessonsTextField.get(i + 2).setText(lecture.weeklySubject.get(j).getTopics());
+                System.out.println(lecture.weeklySubject.get(j).getTopics().toString());
+
+
+            }
+
+            lessons.addAll(lecture.weeklySubject);
             Book.setText(lecture.book);
             Material.setText(lecture.materials);
-            for (int j = 0; j < lecture.assessmentTable.size(); j++) {
-                data.add(lecture.assessmentTable.get(j));
-            }
-            for (int j = 0; j < lecture.workloadTable.size(); j++) {
-                data1.add(lecture.workloadTable.get(j));
-            }
-            for (int j = 0; j < lecture.outcomeTable.size(); j++) {
-                competencies.add(lecture.outcomeTable.get(j));
-            }
+            activities.addAll(lecture.assessmentTable);
+            workLoads.addAll(lecture.workloadTable);
+            competencies.addAll(lecture.outcomeTable);
 
 
         }
         submitButton.setOnAction(event -> {
-                    /*if (courseNameTextField.getText().isEmpty() || termChoiceBox.getValue() == null ||
-                            typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
-                            deliveryToggleGroup.getSelectedToggle() == null) {
-
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setHeaderText(null);
-                        alert.setTitle("Uyarı");
-                        alert.setContentText("Lütfen tüm alanları doldurun!");
-                        alert.showAndWait();
-                    } else {*/
-            showInputDialog();
-
-            RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
-            RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
-            RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
-            RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
-            RadioButton selectedCategory = (RadioButton) levelToggleGroup1.getSelectedToggle();
-
-            Lecture lecture = new Lecture(
-                    courseNameTextField.getText(),
-                    courseCodeTextField.getText(),
-                    termChoiceBox.getValue().toString(),
-                    theoryHoursTextField.getText(),
-                    applicationHoursTextField.getText(),
-                    localCreditTextField.getText(),
-                    ectsTextField.getText(),
-                    preTextField.getText(),
-                    selectedLanguage.getText(),
-                    selectedType.getText(),
-                    selectedLevel.getText(),
-                    selectedDelivery.getText(),
-                    teachingMethodsTextArea.getText(),
-                    coordinatorTextField.getText(),
-                    instructionalStaffTextField.getText(),
-                    assistantsTextField.getText(),
-                    selectedCategory.getText(),
-                    lessons,
-                    Book.getText(),
-                    Material.getText(),
-                    data,
-                    data1,
-                    competencies
-            );
-            String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
-            String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
-            File directory = new File(syllabusPath);
-            if (!directory.exists()) {
-                directory.mkdirs();
+            for (int j = 0; j < lessonsTextField.size() - 3; j += 3) {
+                lessons.add(new Lesson(lessonsTextField.get(j).getText(),
+                        lessonsTextField.get(j + 1).getText(),
+                        lessonsTextField.get(j + 2).getText()));
             }
-            String courseCode = courseCodeTextField.getText();
-            String courseCodePath = syllabusPath + File.separator + courseCode;
-            File directory2 = new File(courseCodePath);
-            if (!directory2.exists()) {
-                directory2.mkdirs();
-            }
-            String path = courseCodePath;
-            File file = new File(path);
-            try {
-                if (file.exists()) {
-                    System.out.println("Dosya zaten mevcut.");
-                } else {
-                    if (file.mkdir()) {
-                        System.out.println("Dosya olusturldu.");
-                    } else {
-                        System.out.println("Failed to create directory.");
-                    }
+
+            for (int i = 0; i < activitiesTextField.size() - 7; i += 7) {
+                try {
+                    activities.add(new Activity(
+                            activitiesTextField.get(i).getText(),
+                            Integer.parseInt(activitiesTextField.get(i + 1).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 2).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 3).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 4).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 5).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 6).getText())
+                    ));
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Uyarı");
+                    alert.setContentText("Lütfen tüm alanları doldurun!");
+                    Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    alertStage.setOnCloseRequest(event1 -> {
+                        alert.close();
+                    });
+                    alert.showAndWait();
                 }
-                Gson gson = new Gson();
-                String lectureString = gson.toJson(lecture);
-                DirectoryChooser directoryChooser = new DirectoryChooser();
-                directoryChooser.setTitle("Select Folder to Save JSON File");
-                File selectedDirectory = directoryChooser.showDialog(new Stage());
-                if (selectedDirectory != null) {
-                    TextInputDialog dialog = new TextInputDialog("output");
-                    dialog.setTitle("Enter File Name");
-                    dialog.setHeaderText(null);
-                    dialog.setContentText("Please enter the name of the JSON file:");
-                    Optional<String> result = dialog.showAndWait();
-                    if (result.isPresent()) {
-                        String fileName = result.get().isEmpty() ? "output" : result.get();
-                        String jsonFilePath = selectedDirectory.getAbsolutePath() + File.separator + fileName + ".json";
-                        try (FileWriter fileWriter = new FileWriter(jsonFilePath)) {
-                            fileWriter.write(lectureString);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+            }
+            for (int k = 0; k < workloadTextFields.size() - 4; k += 4) {
+                try {
+                    workLoads.add(new workLoad(
+                            workloadTextFields.get(k).getText(),
+                            Integer.parseInt(workloadTextFields.get(k + 1).getText()),
+                            Integer.parseInt(workloadTextFields.get(k + 2).getText()),
+                            Integer.parseInt(workloadTextFields.get(k + 3).getText())
+                    ));
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Uyarı");
+                    alert.setContentText("Lütfen tüm alanları doldurun!");
+                    Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    alertStage.setOnCloseRequest(event1 -> {
+                        alert.close();
+                    });
+                    alert.showAndWait();
+                }
+            }
+            for (int k = 0; k < outcomeTextField.size() - 6; k += 6) {
+                try {
+
+                    competencies.add(new Competency(
+                            outcomeTextField.get(k).getText(),
+                            Integer.parseInt(outcomeTextField.get(k + 1).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 2).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 3).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 4).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 5).getText())
+                    ));
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Uyarı");
+                    alert.setContentText("Lütfen tüm alanları doldurun!");
+                    Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    alertStage.setOnCloseRequest(event1 -> {
+                        alert.close();
+                    });
+                    alert.showAndWait();
+
+                }
+            }
+            if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
+                    applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
+                    languageToggleGroup.getSelectedToggle() == null ||
+                    typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
+                    deliveryToggleGroup.getSelectedToggle() == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setTitle("Uyarı");
+                alert.setContentText("Lütfen tüm alanları doldurun!");
+                Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                alertStage.setOnCloseRequest(event1 -> {
+                    alert.close();
+                });
+                alert.showAndWait();
+
+
+            } else {
+                showInputDialog();
+
+                RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
+                RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
+                RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
+                RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
+
+
+                Lecture lecture = new Lecture(
+                        courseNameTextField.getText(),
+                        courseCodeTextField.getText(),
+                        termChoiceBox.getValue().toString(),
+                        theoryHoursTextField.getText(),
+                        applicationHoursTextField.getText(),
+                        localCreditTextField.getText(),
+                        ectsTextField.getText(),
+                        preTextField.getText(),
+                        selectedLanguage.getText(),
+                        selectedType.getText(),
+                        selectedLevel.getText(),
+                        selectedDelivery.getText(),
+                        teachingMethodsTextArea.getText(),
+                        coordinatorTextField.getText(),
+                        instructionalStaffTextField.getText(),
+                        assistantsTextField.getText(),
+                        selectedCategories,
+                        lessons,
+                        Book.getText(),
+                        Material.getText(),
+                        activities,
+                        workLoads,
+                        competencies
+                );
+                String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
+                String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
+                File directory = new File(syllabusPath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                String courseCode = courseCodeTextField.getText();
+                String courseCodePath = syllabusPath + File.separator + courseCode;
+                File directory2 = new File(courseCodePath);
+                if (!directory2.exists()) {
+                    directory2.mkdirs();
+                }
+                String path = courseCodePath;
+                File file = new File(path);
+                try {
+                    if (file.exists()) {
+                        System.out.println("Dosya zaten mevcut.");
+                    } else {
+                        if (file.mkdir()) {
+                            System.out.println("Dosya olusturldu.");
+                        } else {
+                            System.out.println("Failed to create directory.");
                         }
                     }
+                    Gson gson = new Gson();
+                    String lectureString = gson.toJson(lecture);
+                    DirectoryChooser directoryChooser = new DirectoryChooser();
+                    directoryChooser.setTitle("Select Folder to Save JSON File");
+                    File selectedDirectory = directoryChooser.showDialog(new Stage());
+                    if (selectedDirectory != null) {
+                        TextInputDialog dialog = new TextInputDialog("output");
+                        dialog.setTitle("Enter File Name");
+                        dialog.setHeaderText(null);
+                        dialog.setContentText("Please enter the name of the JSON file:");
+                        Optional<String> result = dialog.showAndWait();
+                        if (result.isPresent()) {
+                            String fileName = result.get().isEmpty() ? "output" : result.get();
+                            String jsonFilePath = selectedDirectory.getAbsolutePath() + File.separator + fileName + ".json";
+                            try (FileWriter fileWriter = new FileWriter(jsonFilePath)) {
+                                fileWriter.write(lectureString);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
+                    String jsonString = gson.toJson(versioning);
+                    File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
+                    int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
+                    String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        writer.write(jsonString);
+                        System.out.println("JSON successfully written to the file: " + filePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
-               SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
-               String jsonString = gson.toJson(versioning);
-                File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
-                int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
-                String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
-                try (FileWriter writer = new FileWriter(filePath)) {
-                    writer.write(jsonString);
-                    System.out.println("JSON successfully written to the file: " + filePath);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
             }
+
         });
+
         Scene scene1 = new Scene(new StackPane(scrollPane), 1200, 800);
         stage.setScene(scene1);
         stage.show();
     }
-    
 
+    private void handleCheckBoxSelection(CheckBox checkBox, List<String> selectedList) {
+        if (checkBox.isSelected()) {
+            selectedList.add(checkBox.getText());
+        } else {
+            selectedList.remove(checkBox.getText());
+        }
 
-    private TableColumn<Competency, Number> createNumericColumn(String columnName, String property) {
-        TableColumn<Competency, Number> column = new TableColumn<>(columnName);
-        column.setCellValueFactory(new PropertyValueFactory<>(property));
-
-        column.setCellFactory(tc -> {
-            TableCell<Competency, Number> cell = new TableCell<Competency, Number>() {
-                private final CheckBox checkBox = new CheckBox();
-
-                {
-                    checkBox.setOnAction(event -> {
-                        int selectedIndex = getIndex();
-                        Competency selectedCompetency = getTableView().getItems().get(selectedIndex);
-                        int value = checkBox.isSelected() ? 1 : 0;
-                        switch (property) {
-                            case "level1Property":
-                                selectedCompetency.setLevel1(value);
-                                break;
-                            case "level2Property":
-                                selectedCompetency.setLevel2(value);
-                                break;
-                            case "level3Property":
-                                selectedCompetency.setLevel3(value);
-                                break;
-                            case "level4Property":
-                                selectedCompetency.setLevel4(value);
-                                break;
-                            case "level5Property":
-                                selectedCompetency.setLevel5(value);
-                                break;
-                            // Add other cases if needed
-                        }
-                    });
-                }
-
-                @Override
-                protected void updateItem(Number item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        checkBox.setSelected(item.intValue() == 1);
-                        setGraphic(checkBox);
-                    }
-                }
-            };
-            return cell;
-        });
-
-        return column;
+        // Seçilen kategorileri görmek için ekrana yazdırabilirsiniz
+        System.out.println("Selected Categories: " + selectedList);
     }
+
 
     public void showInputDialog() {
 
@@ -958,8 +917,15 @@ public class EnglishSyllabus extends Application {
         });
 
     }
-        public static void main (String[]args){
-            launch(args);
-        }
+
+    public void goBackToMainScene() {
+
+        FirstScene firstScene = new FirstScene();
+        firstScene.start(primaryStage);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }
