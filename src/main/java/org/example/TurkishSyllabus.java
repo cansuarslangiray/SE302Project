@@ -528,6 +528,14 @@ public class TurkishSyllabus extends Application {
                 gridPane5.add(textField2, col, row);
             }
         }
+        Button backButton1 = new Button("Ana ekrana Geri Dön!!");
+        backButton1.setOnAction(e -> goBackToMainScene());
+        GridPane backButongrid = new GridPane();
+        backButongrid.setHgap(10);
+        backButongrid.setVgap(10);
+        backButongrid.add(backButton1, 10, 19, 2, 1);
+        gridPane.add(backButongrid, 10, 18, 2, 1);
+
         VBox vBox = new VBox(gridPane, gridPane2,gridPane1,gridPane3,vBox1, gridPane4,vBox2,gridPane5, submitButton);
 
         int numberOfLines = 3;
@@ -840,9 +848,17 @@ public class TurkishSyllabus extends Application {
 
         inputStage.showAndWait();
     }
+    Stage primaryStage=new Stage();
+    public void goBackToMainScene() {
+
+        FirstScene firstScene = new FirstScene();
+        firstScene.start(primaryStage);
+    }
 
 
     public static void main(String[] args) {
         launch(args);
     }
 }
+
+

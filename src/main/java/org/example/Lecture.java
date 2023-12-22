@@ -1,9 +1,6 @@
 package org.example;
 
 
-import javafx.scene.control.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Lecture {
@@ -151,7 +148,7 @@ public class Lecture {
         return assistants;
     }
 
-    public String getCourseCategory() {
+    public List<String> getCourseCategory() {
         return courseCategory;
     }
 

@@ -216,7 +216,6 @@ public class EnglishSyllabus extends Application {
         orangeLabel2.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         gridPane1.setConstraints(orangeLabel2, 0, 3, 2, 2);
         gridPane1.getChildren().add(orangeLabel2);
-
         Button backButton = new Button("Back to Main Scene");
 
         backButton.setOnAction(e -> goBackToMainScene());
