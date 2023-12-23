@@ -45,3 +45,100 @@ This class represents a Difference object and is used to track value changes in 
 This class allows you to compare two different curricula and identify their differences. The Comparator class reads curriculum files in JSON format using the Lecture and Difference classes, detects their differences, and shows these differences to the user.
 ![Screenshot_11](https://github.com/cansuarslangiray/SE302Project/assets/105562039/82e0509d-4703-47a3-9ac1-84d2871d3c5b)
 ##### Figure 4: Comparator screen view
+## Tests
+#### Syllabus Comparator
+###### Test Scenario 1
+In this project, the findDifferences method of the Comparator class is tested. Below is the test scenario and a JUnit test implementation steps containing this scenario.
+
+@Test
+    void testFindDifferences() {
+        Lecture syllabus1 = new Lecture(/* required parameters */);
+        Lecture syllabus2 = new Lecture(/* required parameters */);
+        Comparator comparator = new Comparator();
+        List<Difference> differences = comparator.findDifferences(syllabus1, syllabus2);
+        assertFalse(differences.isEmpty(), "Differences list should not be empty.");
+        assertTrue(differences.stream().anyMatch(diff ->
+                diff.getField().equals("Course Name") &&
+                diff.getOldValue().equals(/* expected old value */) &&
+                diff.getNewValue().equals(/* expected new value */)),
+                "Expected difference not found in the list.");
+    }
+}
+##### Test Implementation
+1. Two different course curricula are created.
+2. These two curricula are compared using the Comparator class.
+3. Expected differences between the two curricula are identified.
+4. As a result of the test, expected differences were found. The system works consistently.
+#### Saving a JSON File
+###### Test Scenario 2
+This project saves data in JSON format to a file after the user fills out a certain form in a JavaFX application. Below is a test scenario and implementation to test this process.
+1. @Test
+void testSaveJsonFile() {
+    TextField courseCodeTextField = lookup("#courseCodeTextField").query();
+    courseCodeTextField.setText("CS101");
+    //Fill in other form fields
+   // Example: lookup("#fieldName").query().setText("Value");
+    clickOn("#saveButton");
+    assertText("#outputArea", "Saved successfully.");
+}
+2. @Test
+void testSaveJsonFileWithInvalidData() {
+    // Example: lookup("#fieldName").query().setText("");
+    clickOn("#saveButton");
+    assertText("#errorMessage", "Please fill in all fields.");
+}
+3. @Test
+void testSaveJsonFileWhenFileExists() {
+    TextField courseCodeTextField = lookup("#courseCodeTextField").query();
+    courseCodeTextField.setText("CS101");
+    lookup("#fieldName").query().setText("Value");
+    clickOn("#saveButton");
+    assertText("#errorMessage", "This file already exists. Choose another file name.");
+}
+4. @Test
+void testSaveJsonFileWithoutFileName() {
+    TextField courseCodeTextField = lookup("#courseCodeTextField").query();
+    courseCodeTextField.setText("CS101");
+    lookup("#fieldName").query().setText("Value");
+    clickOn("#saveButton");
+    assertText("#errorMessage", "Please enter the file name.");
+}
+##### Test Implementation 1
+1. After the user fills out the form completely, he/she clicks the "Save" button.
+2. A file selection window opens. This window allows the user to select the folder in which to save the JSON file. The folder is selected.
+3. An input window appears for the user to enter the name of the JSON file to save. The user can make the naming he/she wishes, otherwise "output" is used as the default naming.
+4. As a result, the system successfully saves a correct JSON file in the specified folder.
+###### Test Implementation 2
+1. After filling out the form with missing or incorrect information, the user clicks the "Save" button.
+2. The system detects errors in the form and displays appropriate error notifications to the user. For example error messages such as "Course Code cannot be left blank", and "Invalid values".
+3. In case of any errors, the system has not created any files. The system works consistently.
+###### Test Implementation 3
+1. The form is filled with complete and accurate information.
+2. Click on the "Save" button.
+3. While there is a file with the same course code and version number, an attempt is made to save it using the same code and number.
+4. The system displays an error message informing the user that the file already exists and that they must select another file name. For example: "This filename is already in use, please select another filename."
+5. When the error message is received, no file is created. The system works consistently.
+###### Test Implementation 4
+1. The form is filled out without entering the file name.
+2. A suitable folder is selected.
+3. Click on the "Save" button.
+4. The system displays a warning message to the user stating that he/she neglected to enter the file name. For example: "Please enter the file name."
+5. When the warning message is received, no file is created.
+#### Viewing Syllabus
+###### Test Scenario 3
+In this project, the user is displayed a Syllabus with a specific course code and version number. Additionally, a valid file is opened and the Syllabus information is displayed correctly. Below is a test scenario and implementation to test this process.
+@Test
+void testViewSyllabus() {
+    interact(() -> {
+        lookup("#courseCodeField").queryTextInputControl().replaceText("ABC123");
+        lookup("#versionNumberField").queryTextInputControl().replaceText("1");
+        clickOn("#viewButton");
+    });
+    assertFileExists("Syllabus/ABC123/ABC1231.json");
+    assertText("#outputArea", "Details of Version/ Versiyon Detayları:\n...");
+}
+##### Test Implementation
+1. The "Course Code" and "Version Number" fields are filled in.
+2. Click on the "View Syllabus" button.
+3. The existence of a file with the specified course code and version number is checked. For example Syllabus/ABC123/ABC1231.json
+4. As a result, it has been verified that the Syllabus is displayed correctly. The syllabus' student information, course details, weekly subject plan, and other information are presented to the user completely and accurately.
