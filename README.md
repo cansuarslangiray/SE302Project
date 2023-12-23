@@ -29,6 +29,9 @@ This class represents curriculum information. The class has features that includ
 This class is a Java class that represents the weekly topics and preparatory information of a course. The class has features that include each week's number, that week's topics, and preparation information. It also has getter and setter methods for accessing and assigning values to these properties. It can be used to keep class, weekly subject, and preparation information.
 * ListVersion Class:
 This class represents a scene used to list different versions in a JavaFX application. The class displays a list of objects derived from the application or the EnglishSyllabus class using a ListView. The user can select from this list and return to the main scene by clicking the "Back to Main Scene" button. The class also includes a method to return the FirstScene class that represents the starting point of the application.
+
+![Screenshot_13](https://github.com/cansuarslangiray/SE302Project/assets/105562039/54a55aa7-1af5-40ee-8ee1-85d365f0cfa2)
+##### Figure 2: ListVersion screen view
 * SyllabusVersioning Class.
 This class is a Java class that represents different versions of the curriculum. Each version has properties that include a name, reason for change, creation time, and information about the corresponding course. The class represents the object in a readable way with the toString method. It also has getter methods that return the name of the version, reason for change, creation time, and information about the relevant course.
 * TurkishSyllabus Class:
@@ -43,7 +46,7 @@ This class is a Java class that represents the workload of a course. It contains
 This class represents a Difference object and is used to track value changes in fields within the application. It contains basic information about the change: field name, old value, and new value. The toString method creates a text string describing the change.
 * Comparator Class:
 This class allows you to compare two different curricula and identify their differences. The Comparator class reads curriculum files in JSON format using the Lecture and Difference classes, detects their differences, and shows these differences to the user.
-![Screenshot_11](https://github.com/cansuarslangiray/SE302Project/assets/105562039/82e0509d-4703-47a3-9ac1-84d2871d3c5b)
+![Screenshot_14](https://github.com/cansuarslangiray/SE302Project/assets/105562039/44085ffa-a4f4-4a06-8c0c-78a4662a5a9a)
 ##### Figure 4: Comparator screen view
 ## Tests
 #### Syllabus Comparator
