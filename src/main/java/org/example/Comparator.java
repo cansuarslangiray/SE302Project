@@ -128,7 +128,7 @@ public class Comparator extends Application implements java.util.Comparator<Lect
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("View Syllabus Version");
+        primaryStage.setTitle("Compare Syllabus Versions");
 
         VBox vBox = createVBox();
         vBox.setStyle("-fx-background-color: lavender;");
