@@ -29,7 +29,7 @@ public class FirstScene extends Application {
         helpVBox.setPadding(new Insets(20));
         TextFlow textFlow = new TextFlow();
 
-        Text head=new Text("Welcome to Version Control System\n");
+        Text head=new Text("Welcome to Syllabus Conversion and Management Application! \n");
         head.setFont(Font.font("Arial",FontWeight.BOLD,18));
 
         Text feature1 = new Text("1. You can press Add First Version of Turkish Syllabus to add Turkish Syllabus.\n");
@@ -42,25 +42,27 @@ public class FirstScene extends Application {
 
         Text feature2_1 = new Text(" 2.1 When you are in the English Syllabus screen, fill in the blanks in English and press 'Submit' at the end.\n");
 
-        Text feature3 = new Text("3. You can press Version of Syllabus to see all versions you committed.\n");
+        Text feature3 = new Text("3. You can press List Versions of Syllabus to see all versions you committed.\n");
         feature3.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
         Text feature4 = new Text("4. You can press View Version of Syllabus to see selected version.\n");
         feature4.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-
-        Text feature5 = new Text("5. You can click File button at the top menu to open up a new menu.\n");
+        Text feature5 = new Text("5. You can press Compare Versions of Syllabus to compare two versions.\n");
         feature5.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-        Text feature5_1 = new Text(" 5.1 When you press open you can select and view any syllabus you generated.\n");
+        Text feature6 = new Text("6. You can click File button at the top menu to open up a new menu.\n");
+        feature6.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
 
-        Text feature5_2 = new Text(" 5.2 When you press compare you can select two syllabuses and see their differences.\n");
+        Text feature6_1 = new Text(" 6.1 When you press open you can select and view any syllabus you generated.\n");
 
-        Text feature5_3 = new Text(" 5.3 When you press edit you can select a syllabus and edit its texts.\n");
+        Text feature6_2 = new Text(" 6.2 When you press compare you can select two syllabuses and see their differences.\n");
 
-        Text feature5_4 = new Text(" 5.4 When you press exit you close the application.\n");
+        Text feature6_3 = new Text(" 6.3 When you press edit you can select a syllabus and edit its texts.\n");
 
-        textFlow.getChildren().addAll(head ,feature1, feature1_1, feature2, feature2_1, feature3, feature4,feature5, feature5_1, feature5_2, feature5_3, feature5_4);
+        Text feature6_4 = new Text(" 6.4 When you press exit you close the application.\n");
+
+        textFlow.getChildren().addAll(head ,feature1, feature1_1, feature2, feature2_1, feature3, feature4,feature5,feature6, feature6_1, feature6_2, feature6_3, feature6_4);
 
         Label helpLabelTurkish = new Label();
         helpLabelTurkish.setFont(Font.font("Arial", FontWeight.BOLD, 16));
@@ -118,14 +120,16 @@ public class FirstScene extends Application {
         menuBar.getMenus().addAll(fileMenu, helpMenu);
 
 
-        Button turkishButton = createButton("ADD First Version Of TURKISH SYLLABUS");
+        Button turkishButton = createButton("Add First Version Of TURKISH SYLLABUS");
         turkishButton.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
-        Button englishButton = createButton("Add First Version OF ENGLISH SYLLABUS");
+        Button englishButton = createButton("Add First Version Of ENGLISH SYLLABUS");
         englishButton.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
-        Button listVersions = createButton("Version Of SYLLABUS");
+        Button listVersions = createButton("List Versions Of SYLLABUS");
         listVersions.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
         Button viewVersions = createButton("View Version Of SYLLABUS");
         viewVersions.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
+        Button compareVersions = createButton("Compare Versions Of SYLLABUS");
+        compareVersions.setStyle( "-fx-padding: 5px;-fx-font-weight: bold;");
 
         turkishButton.setOnAction(e -> {
             TurkishSyllabus app = new TurkishSyllabus(null, false);
@@ -146,18 +150,21 @@ public class FirstScene extends Application {
            ViewVersion viewVersion = new ViewVersion();
             viewVersion.start(primaryStage);
         });
-
+        compareVersions.setOnAction(e -> {
+            Comparator compareVersion = new Comparator();
+            compareVersion.start(primaryStage);
+        });
 
         VBox buttonsVBox = new VBox(10);
         buttonsVBox.setAlignment(Pos.CENTER);
-        buttonsVBox.getChildren().addAll(turkishButton, englishButton, listVersions,viewVersions);
+        buttonsVBox.getChildren().addAll(turkishButton, englishButton, listVersions,viewVersions,compareVersions);
 
 
         borderPane.setTop(menuBar);
         borderPane.setCenter(buttonsVBox);
 
 
-        BackgroundFill backgroundFill = new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill backgroundFill = new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, Insets.EMPTY);
         Background background = new Background(backgroundFill);
         borderPane.setBackground(background);
 

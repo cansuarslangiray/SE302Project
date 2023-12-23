@@ -147,6 +147,7 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         GridPane grid = createGridPane();
         Button backButton = new Button("Back");
         backButton.setAlignment(Pos.BOTTOM_RIGHT);
+        backButton.setOnAction(e -> goBackToMainScene());
         vBox.getChildren().addAll(grid, backButton);
 
         return vBox;
@@ -270,7 +271,10 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         }
         outputArea.setText(sb.toString()); // Assuming 'outputArea' is accessible
     }
-
+    private void goBackToMainScene() {
+        FirstScene firstScene = new FirstScene();
+        firstScene.start(primaryStage);
+    }
 }
 /*public class SyllabusComparatorForTurkishSyllabus implements java.util.Comparator<TurkishSyllabus> {
     @Override
