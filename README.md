@@ -17,8 +17,12 @@ This class represents an activity object and contains basic information about th
 This class represents a competency object and contains basic information about the competency. Includes competency description and numerical values for five different levels. It also uses the StringProperty and IntegerProperty properties so that this information can be bound to JavaFX properties.
 * EnglishSyllabus Class:
 This class creates the view in a sample syllabus pdf using JavaFX components.
+![Screenshot_5](https://github.com/cansuarslangiray/SE302Project/assets/105562039/4635e334-a4b3-4021-9996-0797937c18be)
+##### Figure 1: EnglishSyllabus screen view
 * First Scene Class:
 This class represents the starting point of a JavaFX application and visually represents a curriculum management system. The application allows adding Turkish and English curricula, viewing versions, and performing file operations. It also includes a function to display a help window with information about the application via the help menu. The application can load and edit Turkish or English curriculum by reading JSON files. It allows user interaction through menus and buttons and can switch to different screens. This class manages the application's main window and user interactions.
+![Screenshot_3](https://github.com/cansuarslangiray/SE302Project/assets/105562039/54ed6b78-c43f-4e7e-b39e-d21f0fb0bfc5)
+##### Figure 2: FirstScene screen view
 * Lecture Class:
 This class represents curriculum information. The class has features that include basic information such as the name of a course, code, period, theoretical and practice hours, local credit, ECTS credit, prerequisites, language, type, course level, delivery mode, teaching methods, coordinator, lecturer, and assistants. It also contains lists representing the weekly topics of the course, an evaluation table, a workload table, and a competency table. The toString method is used to return the content of the class in a readable form. The class also provides access to each property via getter methods. The class has a first-class constructor to convert data in JSON format to this object and convert this object to JSON format.
 * Lesson Class:
@@ -31,5 +35,13 @@ This class is a Java class that represents different versions of the curriculum.
 This class creates the view in a sample syllabus pdf using JavaFX components.
 * ViewVersion Class:
 This class represents a scene used to display a specific version of a specific lesson in a JavaFX application. After entering the course code and version number, the user can view the details of the relevant version by clicking the "View Syllabus" button. Details displayed include the teacher's name, the reason for the change, creation time, course details, and weekly topics. Additionally, if the user logs in incorrectly, error messages are displayed and the opportunity to return to the main stage is provided with the "Back" button.
+![Screenshot_10](https://github.com/cansuarslangiray/SE302Project/assets/105562039/66bdde39-cba3-48ef-9a33-84796158dbd4)
+##### Figure 3: ViewVersion screen view
 * workLoad Class:
 This class is a Java class that represents the workload of a course. It contains details of the studies carried out for the learning activities of the relevant course. Each workload element has attributes that include the name of an activity, the number of occurrences of the activity, the total duration of the activity, and the overall workload of the activity. Setter methods are used to assign values to these properties. The class assigns initial values to these properties with the constructor method.
+* Difference Class:
+This class represents a Difference object and is used to track value changes in fields within the application. It contains basic information about the change: field name, old value, and new value. The toString method creates a text string describing the change.
+* Comparator Class:
+This class allows you to compare two different curricula and identify their differences. The Comparator class reads curriculum files in JSON format using the Lecture and Difference classes, detects their differences, and shows these differences to the user.
+![Screenshot_11](https://github.com/cansuarslangiray/SE302Project/assets/105562039/82e0509d-4703-47a3-9ac1-84d2871d3c5b)
+##### Figure 4: Comparator screen view
