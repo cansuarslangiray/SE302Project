@@ -138,10 +138,41 @@ public class ViewVersion extends Application {
                     try {
                         Lecture lecture = syllabus.getLecture();
                         String weeklySubjectDetails = "";
+                        String assessmentTableDetails = "";
+                        String workloadTableDetails="";
+                        String outcomeTableDetails="";
                         for (int j = 0; j < lecture.weeklySubject.size(); j++) {
                             weeklySubjectDetails += "Week " + lecture.weeklySubject.get(j).getWeek() + "\n";
                             weeklySubjectDetails += "Preparation: " + lecture.weeklySubject.get(j).getPreparation() + "\n";
                             weeklySubjectDetails += "Topics: " + lecture.weeklySubject.get(j).getTopics() + "\n";
+                        }
+
+                        for (int j = 0; j < lecture.assessmentTable.size(); j++) {
+                            System.out.println(j);
+                            assessmentTableDetails += lecture.assessmentTable.get(j).getName()+"\n";;
+                            assessmentTableDetails+="Number: " + lecture.assessmentTable.get(j).getCount() + "\n";
+                            assessmentTableDetails += "Weighting: " + lecture.assessmentTable.get(j).getPercentage() + "\n";
+                            assessmentTableDetails +="LO1: " + lecture.assessmentTable.get(j).getLo1() + "\n";
+                            assessmentTableDetails += "LO2: " + lecture.assessmentTable.get(j).getLo2() + "\n";
+                            assessmentTableDetails += "LO3: " + lecture.assessmentTable.get(j).getLo3() + "\n";
+                            assessmentTableDetails += "LO4: " + lecture.assessmentTable.get(j).getLo4() + "\n";
+                        }
+                        for (int j = 0; j < lecture.workloadTable.size(); j++) {
+                            workloadTableDetails += lecture.workloadTable.get(j).getActivity()+"\n";
+                            workloadTableDetails+="Number:  " + lecture.workloadTable.get(j).getCount()+"\n" ;
+                            workloadTableDetails+= "Duration(Hours): " + lecture.workloadTable.get(j).getHour()+ "\n";
+                            workloadTableDetails += "Workload: " + lecture.workloadTable.get(j).getWorkloud() + "\n";
+
+                        }
+                        for (int j = 0; j < lecture.outcomeTable.size(); j++) {
+                            outcomeTableDetails+=j;
+                           outcomeTableDetails += "Program Competencies/Outcomes: "+ lecture.outcomeTable.get(j).getDescription() + "\n";
+                            outcomeTableDetails +="1: " +lecture.outcomeTable.get(j).getLevel1()+ "\n";
+                            outcomeTableDetails += "2: "+lecture.outcomeTable.get(j).getLevel2()+ "\n";
+                            outcomeTableDetails += "3: "+lecture.outcomeTable.get(j).getLevel3()+ "\n";
+                            outcomeTableDetails += "4: "+lecture.outcomeTable.get(j).getLevel4()+ "\n";
+                            outcomeTableDetails +="5: " +lecture.outcomeTable.get(j).getLevel5()+ "\n";
+
                         }
                         List<String> courseCategories = lecture.getCourseCategory();
                         outputArea.setText("Details of Version/ Versiyon Detayları:\n" +
@@ -169,9 +200,9 @@ public class ViewVersion extends Application {
                                 "Weekly Subject/ Haftalık Plan:\n" + weeklySubjectDetails +
                                 "Book/ Kitap: " + lecture.getBook() + "\n" +
                                 "Materials/ Materyaller: " + lecture.getMaterials() + "\n" +
-                                "Assessments/ Değerlendirmeler: " + lecture.getAssessmentTable() + "\n" +
-                                "Workload/ İş yükü: " + lecture.getWorkloadTable() + "\n" +
-                                "Outcomes/ Kazanımlar: " + lecture.getOutcomeTable());
+                                "Assessments/ Değerlendirmeler: " + assessmentTableDetails + "\n" +
+                                "Workload/ İş yükü: " + workloadTableDetails + "\n" +
+                                "Outcomes/ Kazanımlar: " + outcomeTableDetails);
 
                     } catch (Exception e) {
                         showErrorAlert("Error", "An error occurred while displaying syllabus: " + e.getMessage());
