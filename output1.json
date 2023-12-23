@@ -1,0 +1,286 @@
+{
+  "courseName": "sewd",
+  "courseCode": "ews",
+  "term": "Fall",
+  "theoryHours": "efw",
+  "applicationHours": "ewf",
+  "localCredit": "efw",
+  "ects": "we",
+  "prerequisites": "ewf",
+  "language": "English",
+  "type": "Elective",
+  "courseLevel": "Undergraduate",
+  "deliveryMode": "Online",
+  "teachingMethods": "efw",
+  "coordinator": "few",
+  "lecturer": "efw",
+  "assistants": "efw",
+  "courseCategory": [
+    "Core Course",
+    "Major Area Course"
+  ],
+  "weeklySubject": [
+    {
+      "week": "1",
+      "topics": "efw",
+      "preparation": "efw"
+    },
+    {
+      "week": "2",
+      "topics": "ewf",
+      "preparation": "efw"
+    },
+    {
+      "week": "3",
+      "topics": "efw",
+      "preparation": "efw"
+    },
+    {
+      "week": "4",
+      "topics": "few",
+      "preparation": "efw"
+    },
+    {
+      "week": "5",
+      "topics": "efw",
+      "preparation": "few"
+    },
+    {
+      "week": "6",
+      "topics": "few",
+      "preparation": "efw"
+    },
+    {
+      "week": "7",
+      "topics": "few",
+      "preparation": "fwe"
+    },
+    {
+      "week": "8",
+      "topics": "few",
+      "preparation": "w"
+    },
+    {
+      "week": "9",
+      "topics": "efw",
+      "preparation": "ewfef"
+    },
+    {
+      "week": "10",
+      "topics": "efw",
+      "preparation": "ewf"
+    },
+    {
+      "week": "11",
+      "topics": "fe",
+      "preparation": "few"
+    },
+    {
+      "week": "12",
+      "topics": "fwe",
+      "preparation": "efw"
+    },
+    {
+      "week": "13",
+      "topics": "fewfew",
+      "preparation": "efw"
+    },
+    {
+      "week": "14",
+      "topics": "few",
+      "preparation": "wf"
+    },
+    {
+      "week": "15",
+      "topics": "wfe",
+      "preparation": "efwe"
+    }
+  ],
+  "book": "few",
+  "materials": "fwe",
+  "assessmentTable": [
+    {
+      "name": "Participation",
+      "count": 2,
+      "percentage": 1,
+      "lo1": 3,
+      "lo2": 3,
+      "lo3": 21,
+      "lo4": 21
+    },
+    {
+      "name": "Laboratory/Application",
+      "count": 2,
+      "percentage": 1,
+      "lo1": 3,
+      "lo2": 3,
+      "lo3": 21,
+      "lo4": 21
+    },
+    {
+      "name": "Field Work",
+      "count": 2,
+      "percentage": 1,
+      "lo1": 1,
+      "lo2": 322,
+      "lo3": 212,
+      "lo4": 21
+    },
+    {
+      "name": "Quiz/Studio Critique",
+      "count": 2,
+      "percentage": 11,
+      "lo1": 1,
+      "lo2": 1,
+      "lo3": 21,
+      "lo4": 21
+    },
+    {
+      "name": "Homework/Assignment",
+      "count": 2,
+      "percentage": 1,
+      "lo1": 1,
+      "lo2": 11,
+      "lo3": 21,
+      "lo4": 1221
+    },
+    {
+      "name": "Presentation/Jury",
+      "count": 2,
+      "percentage": 1,
+      "lo1": 112,
+      "lo2": 2,
+      "lo3": 12,
+      "lo4": 21
+    },
+    {
+      "name": "Project",
+      "count": 2,
+      "percentage": 21,
+      "lo1": 2,
+      "lo2": 2,
+      "lo3": 12,
+      "lo4": 21
+    },
+    {
+      "name": "Portfolio",
+      "count": 2,
+      "percentage": 12,
+      "lo1": 2,
+      "lo2": 2,
+      "lo3": 21,
+      "lo4": 12
+    },
+    {
+      "name": "Seminar/Workshop",
+      "count": 2,
+      "percentage": 1,
+      "lo1": 22,
+      "lo2": 21,
+      "lo3": 2,
+      "lo4": 12
+    },
+    {
+      "name": "Oral Exam",
+      "count": 2,
+      "percentage": 2,
+      "lo1": 21,
+      "lo2": 12,
+      "lo3": 12,
+      "lo4": 21
+    },
+    {
+      "name": "Midterm",
+      "count": 2,
+      "percentage": 21,
+      "lo1": 12,
+      "lo2": 12,
+      "lo3": 2,
+      "lo4": 21
+    },
+    {
+      "name": "Final Exam",
+      "count": 2,
+      "percentage": 22,
+      "lo1": 21,
+      "lo2": 21,
+      "lo3": 21,
+      "lo4": 2112
+    }
+  ],
+  "workloadTable": [
+    {
+      "activity": "Participation",
+      "count": 12,
+      "hour": 1,
+      "workloud": 221
+    },
+    {
+      "activity": "Laboratory/Application",
+      "count": 21,
+      "hour": 212,
+      "workloud": 21
+    },
+    {
+      "activity": "Field Work",
+      "count": 21,
+      "hour": 21,
+      "workloud": 21
+    },
+    {
+      "activity": "Quiz/Studio Critique",
+      "count": 21,
+      "hour": 21,
+      "workloud": 12
+    },
+    {
+      "activity": "Homework/Assignment",
+      "count": 212121,
+      "hour": 21,
+      "workloud": 2112
+    },
+    {
+      "activity": "Presentation/Jury",
+      "count": 1221,
+      "hour": 2121,
+      "workloud": 1212
+    },
+    {
+      "activity": "Project",
+      "count": 1212,
+      "hour": 12,
+      "workloud": 21
+    },
+    {
+      "activity": "Portfolio",
+      "count": 21,
+      "hour": 12,
+      "workloud": 12
+    },
+    {
+      "activity": "Seminar/Workshop",
+      "count": 2121,
+      "hour": 12,
+      "workloud": 12
+    },
+    {
+      "activity": "Oral Exam",
+      "count": 21,
+      "hour": 21,
+      "workloud": 21
+    },
+    {
+      "activity": "Midterm",
+      "count": 21,
+      "hour": 1,
+      "workloud": 12
+    },
+    {
+      "activity": "Final Exam",
+      "count": 21,
+      "hour": 212,
+      "workloud": 21
+    }
+  ],
+  "outcomeTable": []
+}

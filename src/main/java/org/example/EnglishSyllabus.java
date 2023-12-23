@@ -23,6 +23,7 @@ import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PipedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,9 +32,10 @@ public class EnglishSyllabus extends Application {
     Lecture lecture;
     boolean isSaved;
     private Stage primaryStage;
-    boolean activitesTableCompeleted;
-    boolean workloadTableCompeleted;
-    boolean outcometablecompleted;
+    boolean activitesTableCompeleted =true;
+    boolean workloadTableCompeleted=true;
+    boolean outcometablecompleted=true;
+    boolean lessontablecompleted=true;
     public EnglishSyllabus(Lecture lecture, boolean isSaved) {
         this.lecture = lecture;
         this.isSaved = isSaved;
@@ -244,43 +246,48 @@ public class EnglishSyllabus extends Application {
                     week = new TextField();
                     week.setEditable(false);
                     week.setText("Week");
-                    week.setStyle("-fx-font-family: Arial;");
+                    week.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                    week.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                     gridPane2.add(week, col, row);
                 } else if (col == 1 && row == 0) {
                     preparation = new TextField();
                     preparation.setEditable(false);
                     preparation.setText("Required Materials");
-                    preparation.setStyle("-fx-font-family: Arial;");
+                    preparation.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                    preparation.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                     gridPane2.add(preparation, col, row);
                 } else if (col == 2 && row == 0) {
                     topics = new TextField();
                     topics.setEditable(false);
                     topics.setText("Subjects");
-                    topics.setStyle("-fx-font-family: Arial;");
+                    topics.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                    topics.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                     gridPane2.add(topics, col, row);
                 } else {
                     if (col == 0) {
                         week = new TextField();
                         week.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-                        week.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        week.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
                         lessonsTextField.add(week);
                         gridPane2.add(week, col, row);
                     } else if (col == 1) {
                         preparation = new TextField();
                         preparation.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-                        preparation.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        preparation.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
                         lessonsTextField.add(preparation);
                         gridPane2.add(preparation, col, row);
                     } else {
                         topics = new TextField();
                         topics.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-                        topics.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        topics.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
                         lessonsTextField.add(topics);
                         gridPane2.add(topics, col, row);
                     }
                 }
                 if (col == 0 && row > 0) {
                     week.setText(String.valueOf(row));
+                    week.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                    week.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                 }
             }
         }
@@ -303,9 +310,6 @@ public class EnglishSyllabus extends Application {
                 textField.setEditable(false);
                 TextField textField1 = new TextField();
                 textField1.setEditable(true);
-
-
-                // Özel durumlar için kontrol ekle
                 if (col == 0 && row == 0) {
                     textField.setText("Semester Activities");
                 } else if (col == 1 && row == 0) {
@@ -505,35 +509,49 @@ public class EnglishSyllabus extends Application {
         for (int row = 0; row < rowCount2; row++) {
             for (int col = 0; col < colCount2; col++) {
                 TextField textField2 = new TextField();
-                textField2.setEditable(true);
-                textField2.setPromptText(" ");
+                textField2.setEditable(false);
+                TextField textField3 = new TextField();
+                textField3.setEditable(true);
 
 
                 if (col == 0 && row == 0) {
                     textField2.setText("#");
+                    gridPane5.add(textField2, col, row);
                 } else if (col == 1 && row == 0) {
                     textField2.setText("Program Competencies/Outcomes");
+                    gridPane5.add(textField2, col, row);
                 } else if (col == 2 && row == 0) {
-                    textField2.setText("1");}
-                else if (col == 3 && row == 0) {
-                    textField2.setText("2");}
-                else if (col == 4 && row == 0) {
-                    textField2.setText("3");}
-                else if (col == 5 && row == 0) {
-                    textField2.setText("4");}
-                else if (col == 6 && row == 0) {
-                    textField2.setText("5");}
-                else {
-                    textField2.setText("" );
+                    textField2.setText("1");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 3 && row == 0) {
+                    textField2.setText("2");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 4 && row == 0) {
+                    textField2.setText("3");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 5 && row == 0) {
+                    textField2.setText("4");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 6 && row == 0) {
+                    textField2.setText("5");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 0 && row > 0) {
+                    textField2.setText(String.valueOf(row));
+                    gridPane5.add(textField2, col, row);
+                } else {
+                    gridPane5.add(textField3, col, row);
+                    outcomeTextField.add(textField3);
                 }
 
                 textField2.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                textField3.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+
                 if (col >= 2 && col <= 8) {
+
                     textField2.setPrefColumnCount(narrowWidth2);
+                    textField3.setPrefColumnCount(narrowWidth2);
 
                 }
-
-
                 if (col == 0&&row>0) {
                     textField2.setText(String.valueOf(row));}
                 if (col == 0 ) {
@@ -544,13 +562,15 @@ public class EnglishSyllabus extends Application {
                 }
                 if (col >= 0 && col <= 8&&row==0) {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                    textField3.setFont(Font.font("Arial", FontWeight.BOLD, 16));
                     ;}else {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
                 }
 
                 textField2.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                textField3.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
 
-                gridPane5.add(textField2, col, row);
             }
         }
         VBox vBox = new VBox(gridPane, gridPane2, gridPane1, gridPane3, vBox1, gridPane4, vBox2, gridPane5, submitButton);
@@ -656,6 +676,7 @@ public class EnglishSyllabus extends Application {
             Material.setText(lecture.materials);
             int i = 0;
             for (int j = 0; j < lecture.assessmentTable.size(); j++) {
+
                 activitiesTextField.get(i).setText(lecture.assessmentTable.get(j).getName());
                 activitiesTextField.get(i + 1).setText(String.valueOf(lecture.assessmentTable.get(j).getCount()));
                 activitiesTextField.get(i + 2).setText(String.valueOf(lecture.assessmentTable.get(j).getPercentage()));
@@ -697,13 +718,27 @@ public class EnglishSyllabus extends Application {
         }
 
         submitButton.setOnAction(event -> {
+            for (int j = 0; j < lessonsTextField.size(); j ++) {
+                if (lessonsTextField.get(j).getText().isEmpty()) {
+                    lessontablecompleted = false;
+                    break;
+                }
+                lessontablecompleted=true;
+            }
             for (int j = 0; j < lessonsTextField.size() - 3; j += 3) {
+
                 lessons.add(
                         new Lesson(lessonsTextField.get(j).getText(),
-                        lessonsTextField.get(j + 1).getText(),
-                        lessonsTextField.get(j + 2).getText()));
+                                lessonsTextField.get(j + 1).getText(),
+                                lessonsTextField.get(j + 2).getText()));
             }
-
+            for (int i = 0; i < activitiesTextField.size(); i ++) {
+                if(activitiesTextField.get(i).getText().isEmpty()){
+                    activitesTableCompeleted=false;
+                    break;
+                }
+                activitesTableCompeleted=true;
+            }
             for (int i = 0; i < activitiesTextField.size() - 7; i += 7) {
                 try {
                     activities.add(new Activity(
@@ -715,10 +750,16 @@ public class EnglishSyllabus extends Application {
                             Integer.parseInt(activitiesTextField.get(i + 5).getText()),
                             Integer.parseInt(activitiesTextField.get(i + 6).getText())
                     ));
-                    activitesTableCompeleted=true;
                 } catch (NumberFormatException e) {
-                   activitesTableCompeleted=false;
+
                 }
+            }
+            for (int k = 0; k < workloadTextFields.size() ;k ++) {
+                if (workloadTextFields.get(k).getText().isEmpty()) {
+                    workloadTableCompeleted = false;
+                    break;
+                }
+                workloadTableCompeleted=true;
             }
             for (int k = 0; k < workloadTextFields.size() - 4; k += 4) {
                 try {
@@ -728,10 +769,17 @@ public class EnglishSyllabus extends Application {
                             Integer.parseInt(workloadTextFields.get(k + 2).getText()),
                             Integer.parseInt(workloadTextFields.get(k + 3).getText())
                     ));
-                    workloadTableCompeleted=true;
+
                 } catch (NumberFormatException e) {
-                   workloadTableCompeleted=false;
+
                 }
+            }
+            for (int k = 0; k < outcomeTextField.size() ; k ++) {
+                if(outcomeTextField.get(k).getText().isEmpty()){
+                    outcometablecompleted=false;
+                    break;
+                }
+                outcometablecompleted=true;
             }
             for (int k = 0; k < outcomeTextField.size() - 6; k += 6) {
                 try {
@@ -744,16 +792,16 @@ public class EnglishSyllabus extends Application {
                             Integer.parseInt(outcomeTextField.get(k + 4).getText()),
                             Integer.parseInt(outcomeTextField.get(k + 5).getText())
                     ));
-                    outcometablecompleted=true;
+
                 } catch (NumberFormatException e) {
-                    outcometablecompleted=false;
+
                 }
             }
             if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
                     applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
                     languageToggleGroup.getSelectedToggle() == null ||
                     typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
-                    deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted|| !activitesTableCompeleted||!outcometablecompleted) {
+                    deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted|| !activitesTableCompeleted||!outcometablecompleted||!lessontablecompleted) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Uyarı");

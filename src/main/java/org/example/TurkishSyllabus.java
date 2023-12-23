@@ -39,6 +39,8 @@ public class TurkishSyllabus extends Application {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
+    boolean lessontablecompleted=true;
+
     boolean activitesTableCompeleted;
     boolean workloadTableCompeleted;
     boolean outcometablecompleted;
@@ -53,6 +55,7 @@ public class TurkishSyllabus extends Application {
     private final List<Lesson> lessons = new ArrayList<>();
     @Override
     public void start(Stage stage) {
+        this.primaryStage = stage;
         stage.setTitle("Ders Formu");
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20, 20, 20, 20));
@@ -215,7 +218,14 @@ public class TurkishSyllabus extends Application {
         orangeLabel2.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         gridPane1.setConstraints(orangeLabel2, 0, 3, 2, 2);
         gridPane1.getChildren().add(orangeLabel2 );
+        Button backButton = new Button("Ana menuye geri don");
 
+        backButton.setOnAction(e -> goBackToMainScene());
+        GridPane backButongrid = new GridPane();
+        backButongrid.setHgap(10);
+        backButongrid.setVgap(10);
+        backButongrid.add(backButton, 10, 19, 2, 1);
+        gridPane.add(backButongrid, 10, 18, 2, 1);
 
         Button submitButton = new Button("Gönder");
         gridPane.add(submitButton, 0, 18, 2, 1);
@@ -235,42 +245,49 @@ public class TurkishSyllabus extends Application {
                     week.setEditable(false);
                     week.setText("Week");
                     week.setStyle("-fx-font-family: Arial;");
+                    week.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                    week.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                     gridPane2.add(week, col, row);
                 } else if (col == 1 && row == 0) {
                     preparation = new TextField();
                     preparation.setEditable(false);
                     preparation.setText("Ön Hazırlık");
                     preparation.setStyle("-fx-font-family: Arial;");
+                    preparation.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                    preparation.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
                     gridPane2.add(preparation, col, row);
                 } else if (col == 2 && row == 0) {
                     topics = new TextField();
                     topics.setEditable(false);
                     topics.setText("Konular");
                     topics.setStyle("-fx-font-family: Arial;");
+                    topics.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                    topics.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                     gridPane2.add(topics, col, row);
                 } else {
                     if (col == 0) {
                         week = new TextField();
                         week.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-                        week.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        week.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
                         lessonsTextField.add(week);
                         gridPane2.add(week, col, row);
                     } else if (col == 1) {
                         preparation = new TextField();
                         preparation.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-                        preparation.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        preparation.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
                         lessonsTextField.add(preparation);
                         gridPane2.add(preparation, col, row);
                     } else {
                         topics = new TextField();
                         topics.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
-                        topics.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                        topics.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
                         lessonsTextField.add(topics);
                         gridPane2.add(topics, col, row);
                     }
                 }
                 if (col == 0 && row > 0) {
                     week.setText(String.valueOf(row));
+                    week.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                     week.setEditable(true);
                 }
             }
@@ -410,46 +427,64 @@ public class TurkishSyllabus extends Application {
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 1) {
                     textField2.setText("Teorik Ders Saati\n");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
 
                 } else if (col == 0 && row == 2) {
                     textField2.setText("Laboratuvar /Uygulama Ders Saati");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 3) {
-                    textField2.setText("Sınıf Dışı Ders Çalışması");
+                    textField2.setText("Sınıf Dışı Ders Çalışmas");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 4) {
-                    textField2.setText("Küçük Sınav/Stüdyo Kritiği\n");
+                    textField2.setText("Arazi Çalışması\n\n");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 5) {
-                    textField2.setText("Ödev");
+                    textField2.setText("Küçük Sınav/Stüdyo Kritiği");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 6) {
-                    textField2.setText("Sunum/Jüri Önünde Sunum");
+                    textField2.setText("Ödev");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 7) {
-                    textField2.setText("Proje");
+                    textField2.setText("Sunum/Jüri Önünde Sunum\n");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 8) {
                     textField2.setText("Portfolyo");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 9) {
-                    textField2.setText("Seminer/Çalıştay");
+                    textField2.setText("Proje");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 10) {
-                    textField2.setText("Sözlü Sınav");
+                    textField2.setText("Seminer/Çalıştay\n");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 11) {
-                    textField2.setText("Ara Sınav");
+                    textField2.setText("Sözlü Sınav");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 12) {
-                    textField2.setText("Final Sınavı");
+                    textField2.setText("Ara Sınav");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 13) {
-                    textField2.setText("Total");
+                    textField2.setText("Final Sınavı\n");
+                    workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
 
-                } else {
+                } else if (col == 0 && row == 14) {
+                    textField2.setText("Total\n");
+                    workloadTextFields.add(textField2);
+                    gridPane4.add(textField2, col, row);
+
+                }else {
                     workloadTextFields.add(textField3);
                     gridPane4.add(textField3, col, row);
                 }
@@ -479,7 +514,6 @@ public class TurkishSyllabus extends Application {
         gridPane5.setVgap(0);
         gridPane5.setPadding(new Insets(10, 10, 10, 10));
 
-
         List<TextField> outcomeTextField = new ArrayList<>();
         for (int row = 0; row < rowCount2; row++) {
             for (int col = 0; col < colCount2; col++) {
@@ -487,6 +521,8 @@ public class TurkishSyllabus extends Application {
                 textField2.setEditable(false);
                 TextField textField3 = new TextField();
                 textField3.setEditable(true);
+
+
                 if (col == 0 && row == 0) {
                     textField2.setText("#");
                     gridPane5.add(textField2, col, row);
@@ -514,48 +550,39 @@ public class TurkishSyllabus extends Application {
                 } else {
                     gridPane5.add(textField3, col, row);
                     outcomeTextField.add(textField3);
-
                 }
 
                 textField2.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
                 textField3.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+
                 if (col >= 2 && col <= 8) {
+
                     textField2.setPrefColumnCount(narrowWidth2);
+                    textField3.setPrefColumnCount(narrowWidth2);
 
                 }
-                if (col == 0 && row > 0) {
-                    textField2.setText(String.valueOf(row));
-                }
-                if (col == 0) {
+                if (col == 0&&row>0) {
+                    textField2.setText(String.valueOf(row));}
+                if (col == 0 ) {
                     textField2.setPrefColumnCount(narrowWidth2);
 
-                }
-                if (col == 1) {
+                }if(col==1){
                     textField2.setPrefWidth(400);
                 }
-                if (col >= 0 && col <= 8 && row == 0) {
+                if (col >= 0 && col <= 8&&row==0) {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-                    ;
-                } else {
+                    textField3.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                    ;}else {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
                 }
 
                 textField2.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
                 textField3.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
 
-
             }
         }
-        Button backButton1 = new Button("Ana ekrana Geri Dön!!");
-        backButton1.setOnAction(e -> goBackToMainScene());
-        GridPane backButongrid = new GridPane();
-        backButongrid.setHgap(10);
-        backButongrid.setVgap(10);
-        backButongrid.add(backButton1, 10, 19, 2, 1);
-        gridPane.add(backButongrid, 10, 18, 2, 1);
-
-        VBox vBox = new VBox(gridPane, gridPane2,gridPane1,gridPane3,vBox1, gridPane4,vBox2,gridPane5, submitButton);
-
+        VBox vBox = new VBox(gridPane, gridPane2, gridPane1, gridPane3, vBox1, gridPane4, vBox2, gridPane5, submitButton);
         int numberOfLines = 3;
 
         for (int i = 0; i < numberOfLines; i++) {
@@ -659,15 +686,6 @@ public class TurkishSyllabus extends Application {
 
 
             }
-
-            for(int j=0;j<lecture.weeklySubject.size();j++){
-                lessons.get(j).setWeek(lecture.weeklySubject.get(j).getWeek());
-                lessons.get(j).setTopics(lecture.weeklySubject.get(j).getTopics());
-                lessons.get(j).setPreparation(lecture.weeklySubject.get(j).getPreparation());
-
-            }
-            Book.setText(lecture.book);
-            Material.setText(lecture.materials);
             for (int j = 0; j < lecture.weeklySubject.size(); j++) {
                 int i = j * 3;
                 if (i == lessonsTextField.size() - 3) {
@@ -685,6 +703,7 @@ public class TurkishSyllabus extends Application {
             Material.setText(lecture.materials);
             int i = 0;
             for (int j = 0; j < lecture.assessmentTable.size(); j++) {
+
                 activitiesTextField.get(i).setText(lecture.assessmentTable.get(j).getName());
                 activitiesTextField.get(i + 1).setText(String.valueOf(lecture.assessmentTable.get(j).getCount()));
                 activitiesTextField.get(i + 2).setText(String.valueOf(lecture.assessmentTable.get(j).getPercentage()));
@@ -723,15 +742,29 @@ public class TurkishSyllabus extends Application {
 
 
 
-
-        }       submitButton.setOnAction(event -> {
+        }
+        submitButton.setOnAction(event -> {
+            for (int j = 0; j < lessonsTextField.size(); j ++) {
+                if (lessonsTextField.get(j).getText().isEmpty()) {
+                    lessontablecompleted = false;
+                    break;
+                }
+                lessontablecompleted=true;
+            }
             for (int j = 0; j < lessonsTextField.size() - 3; j += 3) {
+
                 lessons.add(
                         new Lesson(lessonsTextField.get(j).getText(),
                                 lessonsTextField.get(j + 1).getText(),
                                 lessonsTextField.get(j + 2).getText()));
             }
-
+            for (int i = 0; i < activitiesTextField.size(); i ++) {
+                if(activitiesTextField.get(i).getText().isEmpty()){
+                    activitesTableCompeleted=false;
+                    break;
+                }
+                activitesTableCompeleted=true;
+            }
             for (int i = 0; i < activitiesTextField.size() - 7; i += 7) {
                 try {
                     activities.add(new Activity(
@@ -743,10 +776,16 @@ public class TurkishSyllabus extends Application {
                             Integer.parseInt(activitiesTextField.get(i + 5).getText()),
                             Integer.parseInt(activitiesTextField.get(i + 6).getText())
                     ));
-                    activitesTableCompeleted=true;
                 } catch (NumberFormatException e) {
-                    activitesTableCompeleted=false;
+
                 }
+            }
+            for (int k = 0; k < workloadTextFields.size() ;k ++) {
+                if (workloadTextFields.get(k).getText().isEmpty()) {
+                    workloadTableCompeleted = false;
+                    break;
+                }
+                workloadTableCompeleted=true;
             }
             for (int k = 0; k < workloadTextFields.size() - 4; k += 4) {
                 try {
@@ -756,14 +795,20 @@ public class TurkishSyllabus extends Application {
                             Integer.parseInt(workloadTextFields.get(k + 2).getText()),
                             Integer.parseInt(workloadTextFields.get(k + 3).getText())
                     ));
-                    workloadTableCompeleted=true;
+
                 } catch (NumberFormatException e) {
-                    workloadTableCompeleted=false;
+
                 }
+            }
+            for (int k = 0; k < outcomeTextField.size() ; k ++) {
+                if(outcomeTextField.get(k).getText().isEmpty()){
+                    outcometablecompleted=false;
+                    break;
+                }
+                outcometablecompleted=true;
             }
             for (int k = 0; k < outcomeTextField.size() - 6; k += 6) {
                 try {
-
                     competencies.add(new Competency(
                             outcomeTextField.get(k).getText(),
                             Integer.parseInt(outcomeTextField.get(k + 1).getText()),
@@ -772,16 +817,16 @@ public class TurkishSyllabus extends Application {
                             Integer.parseInt(outcomeTextField.get(k + 4).getText()),
                             Integer.parseInt(outcomeTextField.get(k + 5).getText())
                     ));
-                    outcometablecompleted=true;
+
                 } catch (NumberFormatException e) {
-                    outcometablecompleted=false;
+
                 }
             }
             if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
                     applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
                     languageToggleGroup.getSelectedToggle() == null ||
                     typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
-                    deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted|| !activitesTableCompeleted||!outcometablecompleted) {
+                    deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted|| !activitesTableCompeleted||!outcometablecompleted||!lessontablecompleted) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Uyarı");
