@@ -55,13 +55,10 @@ public class ListVersion extends Application {
         fileNames = FXCollections.observableArrayList();
         versionListView.setItems(fileNames);
 
-        fileContentTextArea = new TextArea();
-        fileContentTextArea.setEditable(false);
-
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(20));
-        vBox.getChildren().addAll(versionListView, searchBox, fileContentTextArea, backButton);
+        vBox.getChildren().addAll(versionListView, searchBox,  backButton);
 
         versionListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -85,7 +82,6 @@ public class ListVersion extends Application {
     private void listVersions(String courseCode) {
         fileNames.clear();
 
-        // Construct the path to the directory based on the course code
         String directoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() +
                 File.separator + "Syllabus" + File.separator + courseCode;
 
@@ -96,7 +92,6 @@ public class ListVersion extends Application {
             return;
         }
 
-        // List all files with .json extension in the directory
         File[] files = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
 
         if (files != null) {
@@ -106,11 +101,10 @@ public class ListVersion extends Application {
 
     private void displayFileContent(String courseCode, String fileName) {
         try {
-            // Construct the path based on the course code and file name
+
             String filePath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath() +
                     File.separator + "Syllabus" + File.separator + courseCode + File.separator + fileName;
 
-            // Read the content of the file
             StringBuilder fileContent = new StringBuilder();
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                 String line;
@@ -119,7 +113,6 @@ public class ListVersion extends Application {
                 }
             }
 
-            // Display the content in the TextArea
             fileContentTextArea.setText(fileContent.toString());
         } catch (IOException e) {
             showErrorAlert("Error", "Error reading file: " + e.getMessage());
@@ -127,7 +120,7 @@ public class ListVersion extends Application {
     }
 
     private void showErrorAlert(String title, String content) {
-        // Implement logic to show an alert with the provided title and content
+
     }
 
     public static void main(String[] args) {
