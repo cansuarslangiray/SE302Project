@@ -17,7 +17,9 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -367,10 +369,11 @@ public class EnglishSyllabus extends Application {
                     gridPane3.add(textField1, col, row);
                     activitiesTextField.add(textField1);
                 }
-                textField.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
                 textField1.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
-                if (col >= 3 && col <= 8) {
-                    textField.setPrefColumnCount(narrowWidth);
+                textField1.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                if (col >= 3 && col <= 6) {
+                    textField1.setPrefColumnCount(narrowWidth);
+                    textField.setPrefWidth(narrowWidth);
 
                 }
                 if (col >= 0 && col <= 8 && row == 0) {
@@ -813,6 +816,7 @@ public class EnglishSyllabus extends Application {
                 alert.showAndWait();
 
 
+
             } else {
                 showInputDialog();
 
@@ -823,6 +827,7 @@ public class EnglishSyllabus extends Application {
 
 
                 Lecture lecture = new Lecture(
+
                         courseNameTextField.getText(),
                         courseCodeTextField.getText(),
                         termChoiceBox.getValue().toString(),
@@ -846,6 +851,7 @@ public class EnglishSyllabus extends Application {
                         activities,
                         workLoads,
                         competencies
+
                 );
                 String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
                 String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
@@ -922,7 +928,7 @@ public class EnglishSyllabus extends Application {
             selectedList.remove(checkBox.getText());
         }
 
-        // Seçilen kategorileri görmek için ekrana yazdırabilirsiniz
+
         System.out.println("Selected Categories: " + selectedList);
     }
 
@@ -938,23 +944,23 @@ public class EnglishSyllabus extends Application {
         inputGridPane.setHgap(10);
 
 
-        Label inputLabel = new Label("değişlik yapan kişi");
+        Label inputLabel = new Label("EDİTOR");
         TextField userInputField = new TextField();
         inputGridPane.add(inputLabel, 0, 0);
         inputGridPane.add(userInputField, 1, 0);
 
-        Label inputLabel1 = new Label("Değişiklik sebebi");
+        Label inputLabel1 = new Label("Change Reason");
         TextField userInputField1 = new TextField();
         inputGridPane.add(inputLabel1, 0, 1);
         inputGridPane.add(userInputField1, 1, 1);
 
-        Label inputLabel2 = new Label("değişiklik Tarihi");
+        Label inputLabel2 = new Label("Change Date");
         TextField userInputField2 = new TextField();
         inputGridPane.add(inputLabel2, 0, 2);
         inputGridPane.add(userInputField2, 1, 2);
 
 
-        Button confirmButton = new Button("Onayla");
+        Button confirmButton = new Button("SUBMIT");
         confirmButton.setOnAction(e -> {
             changedBy = userInputField.getText();
             changeReason = userInputField1.getText();
@@ -962,7 +968,16 @@ public class EnglishSyllabus extends Application {
 
             inputStage.close();
         });
+        inputGridPane.add(confirmButton, 1, 4);
 
+        Scene inputScene1 = new Scene(inputGridPane, 400, 200);
+        inputStage.setScene(inputScene1);
+
+
+        inputStage.initModality(Modality.APPLICATION_MODAL);
+        inputStage.initStyle(StageStyle.UNDECORATED);
+
+        inputStage.showAndWait();
     }
 
     public void goBackToMainScene() {

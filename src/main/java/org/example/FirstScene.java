@@ -101,10 +101,9 @@ public class FirstScene extends Application {
         help.setOnAction(e->showHelpScene());
 
 
-        MenuItem openItem = new MenuItem("Open");
+        MenuItem openItem = new MenuItem("Open/Edit");
         openItem.setStyle( "-fx-padding: 3px;-fx-font-weight: bold;");
         MenuItem CompareItem = new MenuItem("Compare");
-        MenuItem editItem = new MenuItem("Edit");
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(e -> primaryStage.close());
         openItem.setOnAction(e -> showLanguageSelectionPopup());
@@ -117,7 +116,7 @@ public class FirstScene extends Application {
 
 
 
-        fileMenu.getItems().addAll(openItem, CompareItem, editItem, new SeparatorMenuItem(), exitItem);
+        fileMenu.getItems().addAll(openItem, CompareItem, new SeparatorMenuItem(), exitItem);
         helpMenu.getItems().addAll(help);
 
 

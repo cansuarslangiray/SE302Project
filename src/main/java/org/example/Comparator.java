@@ -180,7 +180,7 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         versionNumberField2 = new TextField();
         grid.add(versionNumberField2, 1, 3);
 
-        Button viewButton = new Button("Compare Syllabi");
+        Button viewButton = new Button("Compare Syllabus");
         grid.add(viewButton, 1, 4);
         viewButton.setOnAction(e -> onViewButtonClicked());
 
