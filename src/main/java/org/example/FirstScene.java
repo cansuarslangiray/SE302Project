@@ -108,6 +108,10 @@ public class FirstScene extends Application {
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(e -> primaryStage.close());
         openItem.setOnAction(e -> showLanguageSelectionPopup());
+        CompareItem.setOnAction(e->{
+            Comparator comparator=new Comparator();
+            comparator.start(primaryStage);
+        });
 
 
 
