@@ -10,6 +10,33 @@ public class Competency {
     public int level1;
     public int level2;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public int getLevel1() {
+        return level1;
+    }
+
+    public int getLevel2() {
+        return level2;
+    }
+
+    public int getLevel3() {
+        return level3;
+    }
+
+    public int getLevel4() {
+        return level4;
+    }
+
+    public int getLevel5() {
+        return level5;
+    }
+
+    public String getLo() {
+        return lo;
+    }
 
     public int level3;
     public int level4;

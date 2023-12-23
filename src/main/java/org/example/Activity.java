@@ -26,6 +26,43 @@ public class Activity {
 
     }
 
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "name='" + name + '\'' +
+                ", count=" + count +
+                ", percentage=" + percentage +
+                ", lo1=" + lo1 +
+                ", lo2=" + lo2 +
+                ", lo3=" + lo3 +
+                ", lo4=" + lo4 +
+                '}';
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getPercentage() {
+        return percentage;
+    }
+
+    public int getLo1() {
+        return lo1;
+    }
+
+    public int getLo2() {
+        return lo2;
+    }
+
+    public int getLo3() {
+        return lo3;
+    }
+
+    public int getLo4() {
+        return lo4;
+    }
+
     public String getName() {
         return name;
     }

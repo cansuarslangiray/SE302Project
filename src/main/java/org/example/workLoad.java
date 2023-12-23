@@ -12,6 +12,21 @@ public class workLoad {
     public int hour;
     public int workloud;
 
+    public String getActivity() {
+        return activity;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public int getWorkloud() {
+        return workloud;
+    }
 
     public void setActivity(String activity) {
         this.activity = activity;

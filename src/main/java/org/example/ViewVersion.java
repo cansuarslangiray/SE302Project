@@ -107,15 +107,20 @@ public class ViewVersion extends Application {
                 // Check if syllabus or lecture is null
                 if (syllabus != null && syllabus.getLecture() != null) {
                     printSyllabus(syllabus);
-                } else {
-                    showErrorAlert("Invalid Syllabus", "Invalid or null syllabus data.");
+                    if (syllabus != null) {
+                        // printSyllabus(syllabus);
+
+                    } else {
+                        showErrorAlert("Invalid Syllabus", "Invalid or null syllabus data.");
+                    }
                 }
-            } catch (IOException e) {
-                showErrorAlert("IO Error", "Error reading file: " + e.getMessage());
+            }catch(IOException e){
+                    showErrorAlert("IO Error", "Error reading file: " + e.getMessage());
+                }
+            } catch (NumberFormatException e) {
+                showErrorAlert("Invalid Number", "Invalid version number. Please enter a valid number.");
             }
-        } catch (NumberFormatException e) {
-            showErrorAlert("Invalid Number", "Invalid version number. Please enter a valid number.");
-        }
+
     }
 
     private void showErrorAlert(String title, String message) {

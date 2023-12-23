@@ -1,0 +1,1031 @@
+{
+  "courseName": "edwfcv",
+  "courseCode": "csqaw",
+  "term": "Fall",
+  "theoryHours": "sac",
+  "applicationHours": "asc",
+  "localCredit": "ac",
+  "ects": "ac ",
+  "prerequisites": "edaf",
+  "language": "English",
+  "type": "Elective",
+  "courseLevel": "Undergraduate",
+  "deliveryMode": "Online",
+  "teachingMethods": "efda",
+  "coordinator": "efdc",
+  "lecturer": "asdc",
+  "assistants": "ca",
+  "courseCategory": [
+    "Core Course",
+    "Supportive Course"
+  ],
+  "weeklySubject": [
+    {
+      "week": "1",
+      "topics": "fcvaedw",
+      "preparation": "vwre"
+    },
+    {
+      "week": "2",
+      "topics": "dexv",
+      "preparation": "rfv"
+    },
+    {
+      "week": "3",
+      "topics": "dexaw",
+      "preparation": "wae"
+    },
+    {
+      "week": "4",
+      "topics": "vg",
+      "preparation": "wrgvf"
+    },
+    {
+      "week": "5",
+      "topics": "we",
+      "preparation": "vcwfas"
+    },
+    {
+      "week": "6",
+      "topics": "ewdag",
+      "preparation": "awesd"
+    },
+    {
+      "week": "7",
+      "topics": "tgesd",
+      "preparation": "dxa"
+    },
+    {
+      "week": "8",
+      "topics": "efc",
+      "preparation": "xdv"
+    },
+    {
+      "week": "9",
+      "topics": "eg",
+      "preparation": "trfc"
+    },
+    {
+      "week": "10",
+      "topics": "a",
+      "preparation": "h4te"
+    },
+    {
+      "week": "11",
+      "topics": "wrg",
+      "preparation": "rg"
+    },
+    {
+      "week": "12",
+      "topics": "q",
+      "preparation": "h"
+    },
+    {
+      "week": "13",
+      "topics": "qr",
+      "preparation": "gqv"
+    },
+    {
+      "week": "14",
+      "topics": "qdrvg",
+      "preparation": "req"
+    },
+    {
+      "week": "15",
+      "topics": "qgv",
+      "preparation": "qa"
+    },
+    {
+      "week": "1",
+      "topics": "fcvaedw",
+      "preparation": "vwre"
+    },
+    {
+      "week": "2",
+      "topics": "dexv",
+      "preparation": "rfv"
+    },
+    {
+      "week": "3",
+      "topics": "dexaw",
+      "preparation": "wae"
+    },
+    {
+      "week": "4",
+      "topics": "vg",
+      "preparation": "wrgvf"
+    },
+    {
+      "week": "5",
+      "topics": "we",
+      "preparation": "vcwfas"
+    },
+    {
+      "week": "6",
+      "topics": "ewdag",
+      "preparation": "awesd"
+    },
+    {
+      "week": "7",
+      "topics": "tgesd",
+      "preparation": "dxa"
+    },
+    {
+      "week": "8",
+      "topics": "efc",
+      "preparation": "xdv"
+    },
+    {
+      "week": "9",
+      "topics": "eg",
+      "preparation": "trfc"
+    },
+    {
+      "week": "10",
+      "topics": "a",
+      "preparation": "h4te"
+    },
+    {
+      "week": "11",
+      "topics": "wrg",
+      "preparation": "rg"
+    },
+    {
+      "week": "12",
+      "topics": "q",
+      "preparation": "h"
+    },
+    {
+      "week": "13",
+      "topics": "qr",
+      "preparation": "gqv"
+    },
+    {
+      "week": "14",
+      "topics": "qdrvg",
+      "preparation": "req"
+    },
+    {
+      "week": "15",
+      "topics": "qgv",
+      "preparation": "qa"
+    },
+    {
+      "week": "1",
+      "topics": "fcvaedw",
+      "preparation": "vwre"
+    },
+    {
+      "week": "2",
+      "topics": "dexv",
+      "preparation": "rfv"
+    },
+    {
+      "week": "3",
+      "topics": "dexaw",
+      "preparation": "wae"
+    },
+    {
+      "week": "4",
+      "topics": "vg",
+      "preparation": "wrgvf"
+    },
+    {
+      "week": "5",
+      "topics": "we",
+      "preparation": "vcwfas"
+    },
+    {
+      "week": "6",
+      "topics": "ewdag",
+      "preparation": "awesd"
+    },
+    {
+      "week": "7",
+      "topics": "tgesd",
+      "preparation": "dxa"
+    },
+    {
+      "week": "8",
+      "topics": "efc",
+      "preparation": "xdv"
+    },
+    {
+      "week": "9",
+      "topics": "eg",
+      "preparation": "trfc"
+    },
+    {
+      "week": "10",
+      "topics": "a",
+      "preparation": "h4te"
+    },
+    {
+      "week": "11",
+      "topics": "wrg",
+      "preparation": "rg"
+    },
+    {
+      "week": "12",
+      "topics": "q",
+      "preparation": "h"
+    },
+    {
+      "week": "13",
+      "topics": "qr",
+      "preparation": "gqv"
+    },
+    {
+      "week": "14",
+      "topics": "qdrvg",
+      "preparation": "req"
+    },
+    {
+      "week": "15",
+      "topics": "qgv",
+      "preparation": "qa"
+    }
+  ],
+  "book": "rwqgv",
+  "materials": "qgav",
+  "assessmentTable": [
+    {
+      "name": "Participation",
+      "count": 1,
+      "percentage": 4,
+      "lo1": 5,
+      "lo2": 7,
+      "lo3": 9,
+      "lo4": 7
+    },
+    {
+      "name": "Laboratory/Application",
+      "count": 3,
+      "percentage": 2,
+      "lo1": 5,
+      "lo2": 23,
+      "lo3": 34,
+      "lo4": 5
+    },
+    {
+      "name": "Field Work",
+      "count": 5,
+      "percentage": 7,
+      "lo1": 9,
+      "lo2": 5,
+      "lo3": 43,
+      "lo4": 2
+    },
+    {
+      "name": "Quiz/Studio Critique",
+      "count": 3,
+      "percentage": 47,
+      "lo1": 5,
+      "lo2": 56,
+      "lo3": 7,
+      "lo4": 3
+    },
+    {
+      "name": "Homework/Assignment",
+      "count": 5,
+      "percentage": 7,
+      "lo1": 88,
+      "lo2": 8,
+      "lo3": 67,
+      "lo4": 4
+    },
+    {
+      "name": "Presentation/Jury",
+      "count": 4,
+      "percentage": 2,
+      "lo1": 34,
+      "lo2": 433,
+      "lo3": 4,
+      "lo4": 23
+    },
+    {
+      "name": "Project",
+      "count": 1,
+      "percentage": 3,
+      "lo1": 33,
+      "lo2": 234,
+      "lo3": 3,
+      "lo4": 21
+    },
+    {
+      "name": "Portfolio",
+      "count": 21,
+      "percentage": 4,
+      "lo1": 24,
+      "lo2": 45,
+      "lo3": 4,
+      "lo4": 21
+    },
+    {
+      "name": "Oral Exam",
+      "count": 3,
+      "percentage": 5,
+      "lo1": 1,
+      "lo2": 4,
+      "lo3": 12,
+      "lo4": 23
+    },
+    {
+      "name": "Midterm",
+      "count": 34,
+      "percentage": 32,
+      "lo1": 1,
+      "lo2": 233,
+      "lo3": 321,
+      "lo4": 44
+    },
+    {
+      "name": "Final Exam",
+      "count": 5,
+      "percentage": 3,
+      "lo1": 435,
+      "lo2": 5,
+      "lo3": 2,
+      "lo4": 4
+    },
+    {
+      "name": "Participation",
+      "count": 1,
+      "percentage": 4,
+      "lo1": 5,
+      "lo2": 7,
+      "lo3": 9,
+      "lo4": 7
+    },
+    {
+      "name": "Laboratory/Application",
+      "count": 3,
+      "percentage": 2,
+      "lo1": 5,
+      "lo2": 23,
+      "lo3": 34,
+      "lo4": 5
+    },
+    {
+      "name": "Field Work",
+      "count": 5,
+      "percentage": 7,
+      "lo1": 9,
+      "lo2": 5,
+      "lo3": 43,
+      "lo4": 2
+    },
+    {
+      "name": "Quiz/Studio Critique",
+      "count": 3,
+      "percentage": 47,
+      "lo1": 5,
+      "lo2": 56,
+      "lo3": 7,
+      "lo4": 3
+    },
+    {
+      "name": "Homework/Assignment",
+      "count": 5,
+      "percentage": 7,
+      "lo1": 88,
+      "lo2": 8,
+      "lo3": 67,
+      "lo4": 4
+    },
+    {
+      "name": "Presentation/Jury",
+      "count": 4,
+      "percentage": 2,
+      "lo1": 34,
+      "lo2": 433,
+      "lo3": 4,
+      "lo4": 23
+    },
+    {
+      "name": "Project",
+      "count": 1,
+      "percentage": 3,
+      "lo1": 33,
+      "lo2": 234,
+      "lo3": 3,
+      "lo4": 21
+    },
+    {
+      "name": "Portfolio",
+      "count": 21,
+      "percentage": 4,
+      "lo1": 24,
+      "lo2": 45,
+      "lo3": 4,
+      "lo4": 21
+    },
+    {
+      "name": "Oral Exam",
+      "count": 3,
+      "percentage": 5,
+      "lo1": 1,
+      "lo2": 4,
+      "lo3": 12,
+      "lo4": 23
+    },
+    {
+      "name": "Midterm",
+      "count": 34,
+      "percentage": 32,
+      "lo1": 1,
+      "lo2": 233,
+      "lo3": 321,
+      "lo4": 44
+    },
+    {
+      "name": "Final Exam",
+      "count": 5,
+      "percentage": 3,
+      "lo1": 435,
+      "lo2": 5,
+      "lo3": 2,
+      "lo4": 4
+    },
+    {
+      "name": "Participation",
+      "count": 1,
+      "percentage": 4,
+      "lo1": 5,
+      "lo2": 7,
+      "lo3": 9,
+      "lo4": 7
+    },
+    {
+      "name": "Laboratory/Application",
+      "count": 3,
+      "percentage": 2,
+      "lo1": 5,
+      "lo2": 23,
+      "lo3": 34,
+      "lo4": 5
+    },
+    {
+      "name": "Field Work",
+      "count": 5,
+      "percentage": 7,
+      "lo1": 9,
+      "lo2": 5,
+      "lo3": 43,
+      "lo4": 2
+    },
+    {
+      "name": "Quiz/Studio Critique",
+      "count": 3,
+      "percentage": 47,
+      "lo1": 5,
+      "lo2": 56,
+      "lo3": 7,
+      "lo4": 3
+    },
+    {
+      "name": "Homework/Assignment",
+      "count": 5,
+      "percentage": 7,
+      "lo1": 88,
+      "lo2": 8,
+      "lo3": 67,
+      "lo4": 4
+    },
+    {
+      "name": "Presentation/Jury",
+      "count": 4,
+      "percentage": 2,
+      "lo1": 34,
+      "lo2": 433,
+      "lo3": 4,
+      "lo4": 23
+    },
+    {
+      "name": "Project",
+      "count": 1,
+      "percentage": 3,
+      "lo1": 33,
+      "lo2": 234,
+      "lo3": 3,
+      "lo4": 21
+    },
+    {
+      "name": "Portfolio",
+      "count": 21,
+      "percentage": 4,
+      "lo1": 24,
+      "lo2": 45,
+      "lo3": 4,
+      "lo4": 21
+    },
+    {
+      "name": "Seminar/Workshop",
+      "count": 5,
+      "percentage": 9,
+      "lo1": 55,
+      "lo2": 3,
+      "lo3": 23,
+      "lo4": 2
+    },
+    {
+      "name": "Oral Exam",
+      "count": 3,
+      "percentage": 5,
+      "lo1": 1,
+      "lo2": 4,
+      "lo3": 12,
+      "lo4": 23
+    },
+    {
+      "name": "Midterm",
+      "count": 34,
+      "percentage": 32,
+      "lo1": 1,
+      "lo2": 233,
+      "lo3": 321,
+      "lo4": 44
+    },
+    {
+      "name": "Final Exam",
+      "count": 5,
+      "percentage": 3,
+      "lo1": 435,
+      "lo2": 5,
+      "lo3": 2,
+      "lo4": 4
+    }
+  ],
+  "workloadTable": [
+    {
+      "activity": "1",
+      "count": 3,
+      "hour": 4,
+      "workloud": 4
+    },
+    {
+      "activity": "2",
+      "count": 5,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "34",
+      "count": 12,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "13",
+      "count": 4,
+      "hour": 3,
+      "workloud": 4
+    },
+    {
+      "activity": "42",
+      "count": 3,
+      "hour": 34,
+      "workloud": 5
+    },
+    {
+      "activity": "3",
+      "count": 2,
+      "hour": 3,
+      "workloud": 45
+    },
+    {
+      "activity": "4",
+      "count": 5,
+      "hour": 3,
+      "workloud": 2
+    },
+    {
+      "activity": "2",
+      "count": 3,
+      "hour": 4,
+      "workloud": 5
+    },
+    {
+      "activity": "3",
+      "count": 34,
+      "hour": 2,
+      "workloud": 2
+    },
+    {
+      "activity": "2",
+      "count": 4,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "1",
+      "count": 3,
+      "hour": 4,
+      "workloud": 4
+    },
+    {
+      "activity": "2",
+      "count": 5,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "34",
+      "count": 12,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "13",
+      "count": 4,
+      "hour": 3,
+      "workloud": 4
+    },
+    {
+      "activity": "42",
+      "count": 3,
+      "hour": 34,
+      "workloud": 5
+    },
+    {
+      "activity": "3",
+      "count": 2,
+      "hour": 3,
+      "workloud": 45
+    },
+    {
+      "activity": "4",
+      "count": 5,
+      "hour": 3,
+      "workloud": 2
+    },
+    {
+      "activity": "2",
+      "count": 3,
+      "hour": 4,
+      "workloud": 5
+    },
+    {
+      "activity": "3",
+      "count": 34,
+      "hour": 2,
+      "workloud": 2
+    },
+    {
+      "activity": "2",
+      "count": 4,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "1",
+      "count": 3,
+      "hour": 4,
+      "workloud": 4
+    },
+    {
+      "activity": "2",
+      "count": 5,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "34",
+      "count": 12,
+      "hour": 2,
+      "workloud": 3
+    },
+    {
+      "activity": "13",
+      "count": 4,
+      "hour": 3,
+      "workloud": 4
+    },
+    {
+      "activity": "42",
+      "count": 3,
+      "hour": 34,
+      "workloud": 5
+    },
+    {
+      "activity": "3",
+      "count": 2,
+      "hour": 3,
+      "workloud": 45
+    },
+    {
+      "activity": "4",
+      "count": 5,
+      "hour": 3,
+      "workloud": 2
+    },
+    {
+      "activity": "2",
+      "count": 3,
+      "hour": 4,
+      "workloud": 5
+    },
+    {
+      "activity": "3",
+      "count": 34,
+      "hour": 2,
+      "workloud": 2
+    },
+    {
+      "activity": "2",
+      "count": 4,
+      "hour": 2,
+      "workloud": 3
+    }
+  ],
+  "outcomeTable": [
+    {
+      "description": "s",
+      "level1": 41,
+      "level2": 12,
+      "level3": 12,
+      "level4": 5,
+      "level5": 6
+    },
+    {
+      "description": "ef",
+      "level1": 3,
+      "level2": 23,
+      "level3": 32,
+      "level4": 34,
+      "level5": 45
+    },
+    {
+      "description": "sa",
+      "level1": 5,
+      "level2": 3,
+      "level3": 4454,
+      "level4": 45,
+      "level5": 645
+    },
+    {
+      "description": "feqw",
+      "level1": 3,
+      "level2": 5,
+      "level3": 13,
+      "level4": 43,
+      "level5": 3
+    },
+    {
+      "description": "sfc",
+      "level1": 4,
+      "level2": 4,
+      "level3": 11,
+      "level4": 65,
+      "level5": 3
+    },
+    {
+      "description": "q",
+      "level1": 34,
+      "level2": 35,
+      "level3": 23,
+      "level4": 4,
+      "level5": 2
+    },
+    {
+      "description": "dqs",
+      "level1": 234,
+      "level2": 23,
+      "level3": 32123,
+      "level4": 3,
+      "level5": 1
+    },
+    {
+      "description": "wsdq",
+      "level1": 4,
+      "level2": 4,
+      "level3": 23,
+      "level4": 6,
+      "level5": 34
+    },
+    {
+      "description": "wsd",
+      "level1": 45,
+      "level2": 3,
+      "level3": 3,
+      "level4": 54,
+      "level5": 5
+    },
+    {
+      "description": "wdwqa",
+      "level1": 34,
+      "level2": 3,
+      "level3": 234,
+      "level4": 5,
+      "level5": 9
+    },
+    {
+      "description": "wsd",
+      "level1": 56,
+      "level2": 2,
+      "level3": 3,
+      "level4": 765,
+      "level5": 7
+    },
+    {
+      "description": "wdq",
+      "level1": 4,
+      "level2": 2,
+      "level3": 45,
+      "level4": 45,
+      "level5": 76
+    },
+    {
+      "description": "s",
+      "level1": 41,
+      "level2": 12,
+      "level3": 12,
+      "level4": 5,
+      "level5": 6
+    },
+    {
+      "description": "ef",
+      "level1": 3,
+      "level2": 23,
+      "level3": 32,
+      "level4": 34,
+      "level5": 45
+    },
+    {
+      "description": "sa",
+      "level1": 5,
+      "level2": 3,
+      "level3": 4454,
+      "level4": 45,
+      "level5": 645
+    },
+    {
+      "description": "feqw",
+      "level1": 3,
+      "level2": 5,
+      "level3": 13,
+      "level4": 43,
+      "level5": 3
+    },
+    {
+      "description": "sfc",
+      "level1": 4,
+      "level2": 4,
+      "level3": 11,
+      "level4": 65,
+      "level5": 3
+    },
+    {
+      "description": "q",
+      "level1": 34,
+      "level2": 35,
+      "level3": 23,
+      "level4": 4,
+      "level5": 2
+    },
+    {
+      "description": "dqs",
+      "level1": 234,
+      "level2": 23,
+      "level3": 32123,
+      "level4": 3,
+      "level5": 1
+    },
+    {
+      "description": "wsdq",
+      "level1": 4,
+      "level2": 4,
+      "level3": 23,
+      "level4": 6,
+      "level5": 34
+    },
+    {
+      "description": "wsd",
+      "level1": 45,
+      "level2": 3,
+      "level3": 3,
+      "level4": 54,
+      "level5": 5
+    },
+    {
+      "description": "wdwqa",
+      "level1": 34,
+      "level2": 3,
+      "level3": 234,
+      "level4": 5,
+      "level5": 9
+    },
+    {
+      "description": "wsd",
+      "level1": 56,
+      "level2": 2,
+      "level3": 3,
+      "level4": 765,
+      "level5": 7
+    },
+    {
+      "description": "wdq",
+      "level1": 4,
+      "level2": 2,
+      "level3": 45,
+      "level4": 45,
+      "level5": 76
+    },
+    {
+      "description": "s",
+      "level1": 41,
+      "level2": 12,
+      "level3": 12,
+      "level4": 5,
+      "level5": 6
+    },
+    {
+      "description": "ef",
+      "level1": 3,
+      "level2": 23,
+      "level3": 32,
+      "level4": 34,
+      "level5": 45
+    },
+    {
+      "description": "sa",
+      "level1": 5,
+      "level2": 3,
+      "level3": 4454,
+      "level4": 45,
+      "level5": 645
+    },
+    {
+      "description": "feqw",
+      "level1": 3,
+      "level2": 5,
+      "level3": 13,
+      "level4": 43,
+      "level5": 3
+    },
+    {
+      "description": "sfc",
+      "level1": 4,
+      "level2": 4,
+      "level3": 11,
+      "level4": 65,
+      "level5": 3
+    },
+    {
+      "description": "q",
+      "level1": 34,
+      "level2": 35,
+      "level3": 23,
+      "level4": 4,
+      "level5": 2
+    },
+    {
+      "description": "dqs",
+      "level1": 234,
+      "level2": 23,
+      "level3": 32123,
+      "level4": 3,
+      "level5": 1
+    },
+    {
+      "description": "wsdq",
+      "level1": 4,
+      "level2": 4,
+      "level3": 23,
+      "level4": 6,
+      "level5": 34
+    },
+    {
+      "description": "wsd",
+      "level1": 45,
+      "level2": 3,
+      "level3": 3,
+      "level4": 54,
+      "level5": 5
+    },
+    {
+      "description": "wdwqa",
+      "level1": 34,
+      "level2": 3,
+      "level3": 234,
+      "level4": 5,
+      "level5": 9
+    },
+    {
+      "description": "wsd",
+      "level1": 56,
+      "level2": 2,
+      "level3": 3,
+      "level4": 765,
+      "level5": 7
+    },
+    {
+      "description": "wdq",
+      "level1": 4,
+      "level2": 2,
+      "level3": 45,
+      "level4": 45,
+      "level5": 76
+    }
+  ]
+}

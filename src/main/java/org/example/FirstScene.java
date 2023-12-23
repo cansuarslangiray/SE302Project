@@ -232,7 +232,8 @@ public class FirstScene extends Application {
     }
 
     public static void main(String[] args) {
-        Comparator.main(args); launch(args);
+       // Comparator.main(args);
+        launch(args);
     }
 
 }

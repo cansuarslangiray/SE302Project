@@ -39,6 +39,9 @@ public class TurkishSyllabus extends Application {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
+    boolean activitesTableCompeleted;
+    boolean workloadTableCompeleted;
+    boolean outcometablecompleted;
     String changedBy;
     String changeReason ;
     String changeDate ;
@@ -477,55 +480,70 @@ public class TurkishSyllabus extends Application {
         gridPane5.setPadding(new Insets(10, 10, 10, 10));
 
 
+        List<TextField> outcomeTextField = new ArrayList<>();
         for (int row = 0; row < rowCount2; row++) {
             for (int col = 0; col < colCount2; col++) {
                 TextField textField2 = new TextField();
-                textField2.setEditable(true);
-                textField2.setPromptText(" ");
-
-
+                textField2.setEditable(false);
+                TextField textField3 = new TextField();
+                textField3.setEditable(true);
                 if (col == 0 && row == 0) {
                     textField2.setText("#");
+                    gridPane5.add(textField2, col, row);
                 } else if (col == 1 && row == 0) {
-                    textField2.setText("Program Competencies/Outcomes");
+                    textField2.setText("Program Yeterlilikleri/Çıktıları");
+                    gridPane5.add(textField2, col, row);
                 } else if (col == 2 && row == 0) {
-                    textField2.setText("1");}
-                else if (col == 3 && row == 0) {
-                    textField2.setText("2");}
-                else if (col == 4 && row == 0) {
-                    textField2.setText("3");}
-                else if (col == 5 && row == 0) {
-                    textField2.setText("4");}
-                else if (col == 6 && row == 0) {
-                    textField2.setText("5");}
-                else {
-                    textField2.setText("" );
+                    textField2.setText("1");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 3 && row == 0) {
+                    textField2.setText("2");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 4 && row == 0) {
+                    textField2.setText("3");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 5 && row == 0) {
+                    textField2.setText("4");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 6 && row == 0) {
+                    textField2.setText("5");
+                    gridPane5.add(textField2, col, row);
+                } else if (col == 0 && row > 0) {
+                    textField2.setText(String.valueOf(row));
+                    gridPane5.add(textField2, col, row);
+                } else {
+                    gridPane5.add(textField3, col, row);
+                    outcomeTextField.add(textField3);
+
                 }
 
                 textField2.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
+                textField3.setStyle("-fx-border-width: 1px; -fx-border-color: grey;");
                 if (col >= 2 && col <= 8) {
                     textField2.setPrefColumnCount(narrowWidth2);
 
                 }
-
-
-                if (col == 0&&row>0) {
-                    textField2.setText(String.valueOf(row));}
-                if (col == 0 ) {
+                if (col == 0 && row > 0) {
+                    textField2.setText(String.valueOf(row));
+                }
+                if (col == 0) {
                     textField2.setPrefColumnCount(narrowWidth2);
 
-                }if(col==1){
+                }
+                if (col == 1) {
                     textField2.setPrefWidth(400);
                 }
-                if (col >= 0 && col <= 8&&row==0) {
+                if (col >= 0 && col <= 8 && row == 0) {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-                    ;}else {
+                    ;
+                } else {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
                 }
 
                 textField2.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
+                textField3.setStyle("-fx-border-width: 2px; -fx-border-color: grey;");
 
-                gridPane5.add(textField2, col, row);
+
             }
         }
         Button backButton1 = new Button("Ana ekrana Geri Dön!!");
@@ -551,7 +569,7 @@ public class TurkishSyllabus extends Application {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        /*if (isSaved) {
+        if (isSaved) {
             courseNameTextField.setText(lecture.courseName);
             courseCodeTextField.setText(lecture.courseCode);
             if (lecture.term.equals("Güz")){
@@ -602,7 +620,45 @@ public class TurkishSyllabus extends Application {
             coordinatorTextField.setText(lecture.coordinator);
             instructionalStaffTextField.setText(lecture.lecturer);
             assistantsTextField.setText(lecture.assistants);
-            String lectureCategory = lecture.courseCategory;
+            for (int i = 0; i < lecture.courseCategory.size(); i++) {
+                System.out.println(lecture.courseCategory.get(i));
+                switch (lecture.courseCategory.get(i)) {
+                    case "Core Course":
+                        coreCourseCheckBox.setSelected(true);
+                        coreCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(coreCourseCheckBox, selectedCategories));
+                        break;
+                    case "Major Area Course":
+                        majorAreaCourseCheckBox.setSelected(true);
+                        majorAreaCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(majorAreaCourseCheckBox, selectedCategories));
+                        break;
+                    case "Supportive Course":
+                        supportiveCourseCheckBox.setSelected(true);
+                        supportiveCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(supportiveCourseCheckBox, selectedCategories));
+                        break;
+                    case "Communication and Management Skills Course":
+                        communicationCourseCheckBox.setSelected(true);
+                        communicationCourseCheckBox.setOnAction(event -> handleCheckBoxSelection(communicationCourseCheckBox, selectedCategories));
+                        break;
+                    default:
+                        transferableSkillCheckBox.setSelected(true);
+                        transferableSkillCheckBox.setOnAction(event -> handleCheckBoxSelection(transferableSkillCheckBox, selectedCategories));
+                        break;
+                }
+            }
+            for (int j = 0; j < lecture.weeklySubject.size(); j++) {
+                int i=j*3;
+                if(i==lessonsTextField.size()-3){
+                    break;
+                }
+                lessonsTextField.get(i).setText(lecture.weeklySubject.get(j).getWeek());
+                System.out.println(lecture.weeklySubject.get(j).getWeek().toString());
+                lessonsTextField.get(i+1).setText(lecture.weeklySubject.get(j).getPreparation());
+                System.out.println(lecture.weeklySubject.get(j).getPreparation().toString());
+                lessonsTextField.get(i + 2).setText(lecture.weeklySubject.get(j).getTopics());
+                System.out.println(lecture.weeklySubject.get(j).getTopics().toString());
+
+
+            }
 
             for(int j=0;j<lecture.weeklySubject.size();j++){
                 lessons.get(j).setWeek(lecture.weeklySubject.get(j).getWeek());
@@ -612,178 +668,227 @@ public class TurkishSyllabus extends Application {
             }
             Book.setText(lecture.book);
             Material.setText(lecture.materials);
-            for(int j=0;j<lecture.assessmentTable.size();j++){
-                data.get(j).setCount(lecture.assessmentTable.get(j).count);
-                data.get(j).setLo1(lecture.assessmentTable.get(j).lo1);
-                data.get(j).setLo2(lecture.assessmentTable.get(j).lo2);
-                data.get(j).setLo3(lecture.assessmentTable.get(j).lo3);
-                data.get(j).setLo4(lecture.assessmentTable.get(j).lo4);
-                data.get(j).setLo5(lecture.assessmentTable.get(j).lo5);
-                data.get(j).setLo6(lecture.assessmentTable.get(j).lo6);
-                data.get(j).setPercentage(lecture.assessmentTable.get(j).percentage);
-                data.get(j).setName(lecture.assessmentTable.get(j).getName());
+            for (int j = 0; j < lecture.weeklySubject.size(); j++) {
+                int i = j * 3;
+                if (i == lessonsTextField.size() - 3) {
+                    break;
+                }
+                lessonsTextField.get(i).setText(lecture.weeklySubject.get(j).getWeek());
 
-            }
-            for(int j=0;j<lecture.workloadTable.size();j++){
-                data1.add(lecture.workloadTable.get(j));
-            }
-            for(int j=0;j<lecture.outcomeTable.size();j++){
-                competencies.add(lecture.outcomeTable.get(j));
+                lessonsTextField.get(i + 1).setText(lecture.weeklySubject.get(j).getPreparation());
+
+                lessonsTextField.get(i + 2).setText(lecture.weeklySubject.get(j).getTopics());
             }
 
+            //   lessons.addAll(lecture.weeklySubject);
+            Book.setText(lecture.book);
+            Material.setText(lecture.materials);
+            int i = 0;
+            for (int j = 0; j < lecture.assessmentTable.size(); j++) {
+                activitiesTextField.get(i).setText(lecture.assessmentTable.get(j).getName());
+                activitiesTextField.get(i + 1).setText(String.valueOf(lecture.assessmentTable.get(j).getCount()));
+                activitiesTextField.get(i + 2).setText(String.valueOf(lecture.assessmentTable.get(j).getPercentage()));
+                activitiesTextField.get(i + 3).setText(String.valueOf(lecture.assessmentTable.get(j).getLo1()));
+                activitiesTextField.get(i + 4).setText(String.valueOf(lecture.assessmentTable.get(j).getLo2()));
+                activitiesTextField.get(i + 5).setText(String.valueOf(lecture.assessmentTable.get(j).getLo3()));
+                activitiesTextField.get(i + 6).setText(String.valueOf(lecture.assessmentTable.get(j).getLo4()));
+                j += 7;
+            }
+            //  activities.addAll(lecture.assessmentTable);
+            i = 0;
+            for (int j = 0; j < lecture.workloadTable.size(); j++) {
+                if (i == workloadTextFields.size() - 4) {
+                    break;
+                }
+                workloadTextFields.get(i + 1).setText(String.valueOf(lecture.workloadTable.get(j).getCount()));
+                workloadTextFields.get(i + 2).setText(String.valueOf(lecture.workloadTable.get(j).getHour()));
+                workloadTextFields.get(i + 3).setText(String.valueOf(lecture.workloadTable.get(j).getWorkloud()));
+                i += 4;
+            }
+
+            // workLoads.addAll(lecture.workloadTable);
+            i = 0;
+            for (int j = 0; j < lecture.outcomeTable.size(); j++) {
+                if (i == outcomeTextField.size() - 6) {
+                    break;
+                }
+                outcomeTextField.get(i).setText(lecture.outcomeTable.get(j).getDescription());
+                outcomeTextField.get(i + 1).setText(String.valueOf(lecture.outcomeTable.get(j).getLevel1()));
+                outcomeTextField.get(i + 2).setText(String.valueOf(lecture.outcomeTable.get(j).getLevel2()));
+                outcomeTextField.get(i + 3).setText(String.valueOf(lecture.outcomeTable.get(j).getLevel3()));
+                outcomeTextField.get(i + 4).setText(String.valueOf(lecture.outcomeTable.get(j).getLevel4()));
+                outcomeTextField.get(i + 5).setText(String.valueOf(lecture.outcomeTable.get(j).getLevel5()));
+                i += 6;
+            }
 
 
-        }*/ submitButton.setOnAction(event -> {
-                    if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
-                            applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
-                            languageToggleGroup.getSelectedToggle() == null ||
-                            typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
-                            deliveryToggleGroup.getSelectedToggle() == null) {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setHeaderText(null);
-                        alert.setTitle("Uyarı");
-                        alert.setContentText("Lütfen tüm alanları doldurun!");
-                        alert.showAndWait();
+
+
+        }       submitButton.setOnAction(event -> {
+            for (int j = 0; j < lessonsTextField.size() - 3; j += 3) {
+                lessons.add(
+                        new Lesson(lessonsTextField.get(j).getText(),
+                                lessonsTextField.get(j + 1).getText(),
+                                lessonsTextField.get(j + 2).getText()));
+            }
+
+            for (int i = 0; i < activitiesTextField.size() - 7; i += 7) {
+                try {
+                    activities.add(new Activity(
+                            activitiesTextField.get(i).getText(),
+                            Integer.parseInt(activitiesTextField.get(i + 1).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 2).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 3).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 4).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 5).getText()),
+                            Integer.parseInt(activitiesTextField.get(i + 6).getText())
+                    ));
+                    activitesTableCompeleted=true;
+                } catch (NumberFormatException e) {
+                    activitesTableCompeleted=false;
+                }
+            }
+            for (int k = 0; k < workloadTextFields.size() - 4; k += 4) {
+                try {
+                    workLoads.add(new workLoad(
+                            workloadTextFields.get(k).getText(),
+                            Integer.parseInt(workloadTextFields.get(k + 1).getText()),
+                            Integer.parseInt(workloadTextFields.get(k + 2).getText()),
+                            Integer.parseInt(workloadTextFields.get(k + 3).getText())
+                    ));
+                    workloadTableCompeleted=true;
+                } catch (NumberFormatException e) {
+                    workloadTableCompeleted=false;
+                }
+            }
+            for (int k = 0; k < outcomeTextField.size() - 6; k += 6) {
+                try {
+
+                    competencies.add(new Competency(
+                            outcomeTextField.get(k).getText(),
+                            Integer.parseInt(outcomeTextField.get(k + 1).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 2).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 3).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 4).getText()),
+                            Integer.parseInt(outcomeTextField.get(k + 5).getText())
+                    ));
+                    outcometablecompleted=true;
+                } catch (NumberFormatException e) {
+                    outcometablecompleted=false;
+                }
+            }
+            if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
+                    applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
+                    languageToggleGroup.getSelectedToggle() == null ||
+                    typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
+                    deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted|| !activitesTableCompeleted||!outcometablecompleted) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setTitle("Uyarı");
+                alert.setContentText("Lütfen tüm alanları doldurun!");
+                Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                alertStage.setOnCloseRequest(event1 -> {
+                    alert.close();
+                });
+                alert.showAndWait();
+
+
+            } else {
+                showInputDialog();
+
+                RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
+                RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
+                RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
+                RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
+
+
+                Lecture lecture = new Lecture(
+                        courseNameTextField.getText(),
+                        courseCodeTextField.getText(),
+                        termChoiceBox.getValue().toString(),
+                        theoryHoursTextField.getText(),
+                        applicationHoursTextField.getText(),
+                        localCreditTextField.getText(),
+                        ectsTextField.getText(),
+                        preTextField.getText(),
+                        selectedLanguage.getText(),
+                        selectedType.getText(),
+                        selectedLevel.getText(),
+                        selectedDelivery.getText(),
+                        teachingMethodsTextArea.getText(),
+                        coordinatorTextField.getText(),
+                        instructionalStaffTextField.getText(),
+                        assistantsTextField.getText(),
+                        selectedCategories,
+                        lessons,
+                        Book.getText(),
+                        Material.getText(),
+                        activities,
+                        workLoads,
+                        competencies
+                );
+                String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
+                String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
+                File directory = new File(syllabusPath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                String courseCode = courseCodeTextField.getText();
+                String courseCodePath = syllabusPath + File.separator + courseCode;
+                File directory2 = new File(courseCodePath);
+                if (!directory2.exists()) {
+                    directory2.mkdirs();
+                }
+                String path = courseCodePath;
+                File file = new File(path);
+                try {
+                    if (file.exists()) {
+                        System.out.println("Dosya zaten mevcut.");
                     } else {
-                        showInputDialog();
-
-                        RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
-                        RadioButton selectedType = (RadioButton) typeToggleGroup.getSelectedToggle();
-                        RadioButton selectedLevel = (RadioButton) levelToggleGroup.getSelectedToggle();
-                        RadioButton selectedDelivery = (RadioButton) deliveryToggleGroup.getSelectedToggle();
-                        for (int j = 0; j < lessonsTextField.size() - 3; j += 3) {
-                            lessons.add(new Lesson(
-                                    lessonsTextField.get(j).getText(),
-                                    lessonsTextField.get(j + 1).getText(),
-                                    lessonsTextField.get(j + 2).getText()));
+                        if (file.mkdir()) {
+                            System.out.println("Dosya olusturldu.");
+                        } else {
+                            System.out.println("Failed to create directory.");
                         }
-                        for (int i = 0; i < activitiesTextField.size() - 7; i += 7) {
-                            try {
-                                activities.add(new Activity(
-                                        activitiesTextField.get(i).getText(),
-                                        Integer.parseInt(activitiesTextField.get(i + 1).getText()),
-                                        Integer.parseInt(activitiesTextField.get(i + 2).getText()),
-                                        Integer.parseInt(activitiesTextField.get(i + 3).getText()),
-                                        Integer.parseInt(activitiesTextField.get(i + 4).getText()),
-                                        Integer.parseInt(activitiesTextField.get(i + 5).getText()),
-                                        Integer.parseInt(activitiesTextField.get(i + 6).getText())
-                                ));
-                            } catch (NumberFormatException e) {
-                                Alert alert = new Alert(Alert.AlertType.WARNING);
-                                alert.setHeaderText(null);
-                                alert.setTitle("Uyarı");
-                                alert.setContentText("Lütfen tüm alanları doldurun!");
-                                alert.showAndWait();
-                            }
-                        }
-                        for (int k = 0; k < workloadTextFields.size() - 4; k += 4) {
-                            try {
-                                workLoads.add(new workLoad(
-                                        workloadTextFields.get(k).getText(),
-                                        Integer.parseInt(workloadTextFields.get(k + 1).getText()),
-                                        Integer.parseInt(workloadTextFields.get(k + 2).getText()),
-                                        Integer.parseInt(workloadTextFields.get(k + 3).getText())
-                                ));
-                            } catch (NumberFormatException e) {
-                                Alert alert = new Alert(Alert.AlertType.WARNING);
-                                alert.setHeaderText(null);
-                                alert.setTitle("Uyarı");
-                                alert.setContentText("Lütfen tüm alanları doldurun!");
-                                alert.showAndWait();
-
-                            }
-                        }
-
-
-                        Lecture lecture = new Lecture(
-                                courseNameTextField.getText(),
-                                courseCodeTextField.getText(),
-                                termChoiceBox.getValue().toString(),
-                                theoryHoursTextField.getText(),
-                                applicationHoursTextField.getText(),
-                                localCreditTextField.getText(),
-                                ectsTextField.getText(),
-                                preTextField.getText(),
-                                selectedLanguage.getText(),
-                                selectedType.getText(),
-                                selectedLevel.getText(),
-                                selectedDelivery.getText(),
-                                teachingMethodsTextArea.getText(),
-                                coordinatorTextField.getText(),
-                                instructionalStaffTextField.getText(),
-                                assistantsTextField.getText(),
-                                selectedCategories,
-                                lessons,
-                                Book.getText(),
-                                Material.getText(),
-                                activities,
-                                workLoads,
-                                competencies
-                        );
-                        String defaultDirectoryPath = FileSystemView.getFileSystemView().getDefaultDirectory().getPath();
-                        String syllabusPath = defaultDirectoryPath + File.separator + "Syllabus";
-                        File directory = new File(syllabusPath);
-                        if (!directory.exists()) {
-                            directory.mkdirs();
-                        }
-                        String courseCode = courseCodeTextField.getText();
-                        String courseCodePath = syllabusPath + File.separator + courseCode;
-                        File directory2 = new File(courseCodePath);
-                        if (!directory2.exists()) {
-                            directory2.mkdirs();
-                        }
-                        String path = courseCodePath;
-                        File file = new File(path);
-                        try {
-                            if (file.exists()) {
-                                System.out.println("Dosya zaten mevcut.");
-                            } else {
-                                if (file.mkdir()) {
-                                    System.out.println("Dosya olusturldu.");
-                                } else {
-                                    System.out.println("Failed to create directory.");
-                                }
-                            }
-                            Gson gson = new Gson();
-                            String lectureString = gson.toJson(lecture);
-                            DirectoryChooser directoryChooser = new DirectoryChooser();
-                            directoryChooser.setTitle("Select Folder to Save JSON File");
-                            File selectedDirectory = directoryChooser.showDialog(new Stage());
-                            if (selectedDirectory != null) {
-                                TextInputDialog dialog = new TextInputDialog("output");
-                                dialog.setTitle("Enter File Name");
-                                dialog.setHeaderText(null);
-                                dialog.setContentText("Please enter the name of the JSON file:");
-                                Optional<String> result = dialog.showAndWait();
-                                if (result.isPresent()) {
-                                    String fileName = result.get().isEmpty() ? "output" : result.get();
-                                    String jsonFilePath = selectedDirectory.getAbsolutePath() + File.separator + fileName + ".json";
-                                    try (FileWriter fileWriter = new FileWriter(jsonFilePath)) {
-                                        fileWriter.write(lectureString);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                            SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
-                            String jsonString = gson.toJson(versioning);
-                            File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
-                            int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
-                            String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
-                            try (FileWriter writer = new FileWriter(filePath)) {
-                                writer.write(jsonString);
-                                System.out.println("JSON successfully written to the file: " + filePath);
+                    }
+                    Gson gson = new Gson();
+                    String lectureString = gson.toJson(lecture);
+                    DirectoryChooser directoryChooser = new DirectoryChooser();
+                    directoryChooser.setTitle("Select Folder to Save JSON File");
+                    File selectedDirectory = directoryChooser.showDialog(new Stage());
+                    if (selectedDirectory != null) {
+                        TextInputDialog dialog = new TextInputDialog("output");
+                        dialog.setTitle("Enter File Name");
+                        dialog.setHeaderText(null);
+                        dialog.setContentText("Please enter the name of the JSON file:");
+                        Optional<String> result = dialog.showAndWait();
+                        if (result.isPresent()) {
+                            String fileName = result.get().isEmpty() ? "output" : result.get();
+                            String jsonFilePath = selectedDirectory.getAbsolutePath() + File.separator + fileName + ".json";
+                            try (FileWriter fileWriter = new FileWriter(jsonFilePath)) {
+                                fileWriter.write(lectureString);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            System.out.println("Error: " + e.getMessage());
                         }
-                        // }
                     }
+                    SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
+                    String jsonString = gson.toJson(versioning);
+                    File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
+                    int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
+                    String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        writer.write(jsonString);
+                        System.out.println("JSON successfully written to the file: " + filePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
+            }
 
-        );
+        });
         Scene scene = new Scene(new StackPane(scrollPane), 1200, 800);
         stage.setScene(scene);
         stage.show();

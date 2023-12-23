@@ -148,7 +148,6 @@ public class Lecture {
     public String getAssistants() {
         return assistants;
     }
-
     public List<String> getCourseCategory() {
         return courseCategory;
     }
