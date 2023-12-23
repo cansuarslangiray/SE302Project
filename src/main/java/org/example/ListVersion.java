@@ -58,6 +58,7 @@ public class ListVersion extends Application {
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(20));
+        vBox.setStyle("-fx-background-color: lavender;");
         vBox.getChildren().addAll(versionListView, searchBox,  backButton);
 
         versionListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
