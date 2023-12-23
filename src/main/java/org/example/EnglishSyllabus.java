@@ -679,7 +679,9 @@ public class EnglishSyllabus extends Application {
             Material.setText(lecture.materials);
             int i = 0;
             for (int j = 0; j < lecture.assessmentTable.size(); j++) {
-
+                if (i == activitiesTextField.size() - 7) {
+                    break;
+                }
                 activitiesTextField.get(i).setText(lecture.assessmentTable.get(j).getName());
                 activitiesTextField.get(i + 1).setText(String.valueOf(lecture.assessmentTable.get(j).getCount()));
                 activitiesTextField.get(i + 2).setText(String.valueOf(lecture.assessmentTable.get(j).getPercentage()));
@@ -687,7 +689,7 @@ public class EnglishSyllabus extends Application {
                 activitiesTextField.get(i + 4).setText(String.valueOf(lecture.assessmentTable.get(j).getLo2()));
                 activitiesTextField.get(i + 5).setText(String.valueOf(lecture.assessmentTable.get(j).getLo3()));
                 activitiesTextField.get(i + 6).setText(String.valueOf(lecture.assessmentTable.get(j).getLo4()));
-                j += 7;
+                i+= 7;
             }
             //  activities.addAll(lecture.assessmentTable);
             i = 0;
@@ -878,6 +880,17 @@ public class EnglishSyllabus extends Application {
                         }
                     }
                     Gson gson = new Gson();
+                    SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
+                    String jsonString = gson.toJson(versioning);
+                    File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
+                    int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
+                    String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        writer.write(jsonString);
+                        System.out.println("JSON successfully written to the file: " + filePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     String lectureString = gson.toJson(lecture);
                     DirectoryChooser directoryChooser = new DirectoryChooser();
                     directoryChooser.setTitle("Select Folder to Save JSON File");
@@ -896,19 +909,15 @@ public class EnglishSyllabus extends Application {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            try (FileWriter writer = new FileWriter(jsonFilePath)) {
+                                writer.write(jsonString);
+                                System.out.println("JSON successfully written to the file: " + jsonFilePath);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                    SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
-                    String jsonString = gson.toJson(versioning);
-                    File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
-                    int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
-                    String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
-                    try (FileWriter writer = new FileWriter(filePath)) {
-                        writer.write(jsonString);
-                        System.out.println("JSON successfully written to the file: " + filePath);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }

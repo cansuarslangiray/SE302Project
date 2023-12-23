@@ -1,4 +1,6 @@
 {
+  "name": "f",
+  "reason": "f",
   "lecture": {
     "courseName": "adx",
     "courseCode": "axD",
@@ -16,9 +18,7 @@
     "coordinator": "Ax",
     "lecturer": "ax",
     "assistants": "AX",
-    "courseCategory": [
-      "Major Area Course"
-    ],
+    "courseCategory": [],
     "weeklySubject": [
       {
         "week": "1",
@@ -100,6 +100,42 @@
     "materials": "ax",
     "assessmentTable": [
       {
+        "name": "Seminer/Çalıştay",
+        "count": 23,
+        "percentage": 22,
+        "lo1": 44,
+        "lo2": 55,
+        "lo3": 66,
+        "lo4": 777
+      },
+      {
+        "name": "Laboratuvar/Uygulama",
+        "count": 3,
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
+      },
+      {
+        "name": "Arazi Çalışması",
+        "count": 3,
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
+      },
+      {
+        "name": "Küçük Sınav/Stüdyo Kritiği",
+        "count": 3,
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
+      },
+      {
         "name": "Ödev",
         "count": 33,
         "percentage": 3,
@@ -109,94 +145,67 @@
         "lo4": 1
       },
       {
-        "name": "Laboratory/Application",
+        "name": "Sunum/Jüri Önünde Sunum",
         "count": 3,
-        "percentage": 33,
-        "lo1": 55,
-        "lo2": 6,
-        "lo3": 6,
-        "lo4": 3
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
       },
       {
-        "name": "Quiz/Studio Critique",
+        "name": "Portfolyo",
+        "count": 233,
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
+      },
+      {
+        "name": "Proje",
         "count": 33,
-        "percentage": 5,
-        "lo1": 5,
-        "lo2": 55,
-        "lo3": 6,
-        "lo4": 3
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
       },
       {
-        "name": "Homework/Assignment",
-        "count": 5,
-        "percentage": 55,
-        "lo1": 5,
-        "lo2": 5,
-        "lo3": 3,
-        "lo4": 33
+        "name": "Seminer/Çalıştay",
+        "count": 2,
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
       },
       {
-        "name": "Presentation/Jury",
-        "count": 3,
-        "percentage": 5,
-        "lo1": 5,
-        "lo2": 5,
-        "lo3": 6,
-        "lo4": 3
-      },
-      {
-        "name": "Project",
-        "count": 35,
-        "percentage": 55,
-        "lo1": 5,
-        "lo2": 55,
-        "lo3": 6,
-        "lo4": 22
-      },
-      {
-        "name": "Portfolio",
-        "count": 5,
-        "percentage": 5,
-        "lo1": 5,
-        "lo2": 6,
-        "lo3": 6,
-        "lo4": 343
-      },
-      {
-        "name": "Seminar/Workshop",
-        "count": 45,
-        "percentage": 5555,
-        "lo1": 5,
-        "lo2": 55,
-        "lo3": 6,
-        "lo4": 23
-      },
-      {
-        "name": "Oral Exam",
-        "count": 4,
-        "percentage": 5,
-        "lo1": 55,
-        "lo2": 6,
-        "lo3": 6,
-        "lo4": 45
-      },
-      {
-        "name": "Midterm",
+        "name": "Sözlü Sınav",
         "count": 33,
-        "percentage": 55,
-        "lo1": 5,
-        "lo2": 55,
-        "lo3": 6,
-        "lo4": 4
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 1
       },
       {
-        "name": "Final Exam",
-        "count": 5,
-        "percentage": 5,
-        "lo1": 5,
-        "lo2": 555,
-        "lo3": 6,
-        "lo4": 6
+        "name": "Ara Sınavı",
+        "count": 1,
+        "percentage": 3,
+        "lo1": 44,
+        "lo2": 4,
+        "lo3": 1,
+        "lo4": 11
+      },
+      {
+        "name": "Final Sınavı",
+        "count": 1,
+        "percentage": 3,
+        "lo1": 4,
+        "lo2": 44,
+        "lo3": 1,
+        "lo4": 1
       }
     ],
     "workloadTable": [
@@ -371,5 +380,6 @@
         "level5": 34
       }
     ]
-  }
+  },
+  "time": "f"
 }
