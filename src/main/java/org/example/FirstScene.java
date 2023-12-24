@@ -73,7 +73,7 @@ public class FirstScene extends Application {
         feature6_4.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         Text feature7 = new Text("8. When filling out the tables, please enter integer values for cells marked as integers and string values for cells marked as strings.\n");
         feature7.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        Text feature8 = new Text("9.When making comparisons, the selected syllabus languages must be the same to enable a valid comparison.\n");
+        Text feature8 = new Text("9.When making comparisons, the selected syllabus languages can be different and also it's possible to select same courses with different versions to make comparison.\n");
         feature8.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
 

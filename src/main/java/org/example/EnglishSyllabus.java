@@ -820,6 +820,7 @@ public class EnglishSyllabus extends Application {
                     workloadTableCompeleted = false;
                     break;
                 }
+                workloadTableCompeleted=true;
 
             }for (int i = 0; i < workloadTextFields.size(); i++) {
                 try{
@@ -840,7 +841,6 @@ public class EnglishSyllabus extends Application {
                                 Integer.parseInt(workloadTextFields.get(k + 2).getText()),
                                 Integer.parseInt(workloadTextFields.get(k + 3).getText())
                         ));
-
 
                     } catch (NumberFormatException e) {
                         System.out.println("current worklad table is false");
@@ -897,6 +897,7 @@ public class EnglishSyllabus extends Application {
                 correctActiviteTable = true;
                 correctOutcomeTable = true;
                 correctWorkloadTable = true;
+
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Warning");

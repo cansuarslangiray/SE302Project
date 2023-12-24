@@ -911,6 +911,9 @@ public class TurkishSyllabus extends Application {
                     languageToggleGroup.getSelectedToggle() == null ||
                     typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
                     deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted|| !activitesTableCompeleted||!outcometablecompleted||!lessontablecompleted) {
+                correctActiviteTable=true;
+                correctOutcomeTable=true;
+                correctWorkloadTable=true;
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Uyarı");
