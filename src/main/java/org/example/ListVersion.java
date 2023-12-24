@@ -45,6 +45,7 @@ public class ListVersion extends Application {
         Button listButton = new Button("List Versions");
         listButton.setOnAction(e -> listVersions(courseCodeTextField.getText()));
 
+
         Button backButton = new Button("Back to Main Scene");
         backButton.setOnAction(e -> goBackToMainScene());
 
@@ -123,6 +124,7 @@ public class ListVersion extends Application {
     private void showErrorAlert(String title, String content) {
 
     }
+
 
     public static void main(String[] args) {
         launch(args);

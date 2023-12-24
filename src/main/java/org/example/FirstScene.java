@@ -15,6 +15,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.beans.FeatureDescriptor;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
@@ -29,40 +30,55 @@ public class FirstScene extends Application {
         helpVBox.setPadding(new Insets(20));
         TextFlow textFlow = new TextFlow();
 
+
+
+
         Text head=new Text("Welcome to Syllabus Conversion and Management Application! \n");
-        head.setFont(Font.font("Arial",FontWeight.BOLD,18));
+        head.setFont(Font.font("Arial",FontWeight.BOLD,20));
 
-        Text feature1 = new Text("1. You can press Add First Version of Turkish Syllabus to add Turkish Syllabus.\n");
-        feature1.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        Text head1=new Text(" ---------------------------------------------------------------------\n");
 
-        Text feature1_1 = new Text(" 1.1 When you are in the Turkish Syllabus screen, fill in the blanks in Turkish and press 'Gönder' at the end.\n");
+        Text feature = new Text("1.You can use the menubar to navigate the program more quickly and efficiently. Utilize the quick access buttons in the menubar for swift transitions between screens.\n");
+        feature.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature2 = new Text("2. You can press Add First Version of English Syllabus to add English Syllabus.\n");
-        feature2.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        Text feature1 = new Text("2. You can press Add First Version of Turkish Syllabus to add Turkish Syllabus.\n");
+        feature1.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature2_1 = new Text(" 2.1 When you are in the English Syllabus screen, fill in the blanks in English and press 'Submit' at the end.\n");
+        Text feature1_1 = new Text("    2.1 When you are in the Turkish Syllabus screen, fill in the blanks in Turkish and press 'Gönder' at the end.\n");
+        feature1_1.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text feature2 = new Text("3. You can press Add First Version of English Syllabus to add English Syllabus.\n");
+        feature2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature3 = new Text("3. You can press List Versions of Syllabus to see all versions you committed.\n");
-        feature3.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        Text feature2_1 = new Text("    3.1 When you are in the English Syllabus screen, fill in the blanks in English and press 'Submit' at the end.\n");
+        feature2_1.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text feature3 = new Text("4. You can press List Versions of Syllabus to see all versions you committed.\n");
+        feature3.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature4 = new Text("4. You can press View Version of Syllabus to see selected version.\n");
-        feature4.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        Text feature4 = new Text("5. You can press View Version of Syllabus to see selected version.\n");
+        feature4.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature5 = new Text("5. You can press Compare Versions of Syllabus to compare two versions.\n");
-        feature5.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        Text feature5 = new Text("6. You can press Compare Versions of Syllabus to compare two versions.\n");
+        feature5.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature6 = new Text("6. You can click File button at the top menu to open up a new menu.\n");
-        feature6.setFont(Font.font("Arial", FontWeight.NORMAL, 14));
+        Text feature6 = new Text("7. You can click File button at the top menu to open up a new menu.\n");
+        feature6.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature6_1 = new Text(" 6.1 When you press open you can select and view any syllabus you generated.\n");
+        Text feature6_1 = new Text("    7.1 When you press open you can select and view any syllabus you generated.\n");
+        feature6_1.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text feature6_2 = new Text("    7.2 When you press compare you can select two syllabuses and see their differences.\n");
+        feature6_2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text feature6_3 = new Text("    7.3 When you press edit you can select a syllabus and edit its texts.\n");
+        feature6_3.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text feature6_4 = new Text("    7.4 When you press exit you close the application.\n");
+        feature6_4.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text feature7 = new Text("8. When filling out the tables, please enter integer values for cells marked as integers and string values for cells marked as strings.\n");
+        feature7.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        Text feature8 = new Text("9.When making comparisons, the selected syllabus languages must be the same to enable a valid comparison.\n");
+        feature8.setFont(Font.font("Arial", FontWeight.BOLD, 16));
 
-        Text feature6_2 = new Text(" 6.2 When you press compare you can select two syllabuses and see their differences.\n");
 
-        Text feature6_3 = new Text(" 6.3 When you press edit you can select a syllabus and edit its texts.\n");
+        textFlow.getChildren().addAll(head ,head1,feature,feature1, feature1_1, feature2, feature2_1, feature3, feature4,feature5,feature6, feature6_1, feature6_2, feature6_3, feature6_4,feature7, feature8);
 
-        Text feature6_4 = new Text(" 6.4 When you press exit you close the application.\n");
-
-        textFlow.getChildren().addAll(head ,feature1, feature1_1, feature2, feature2_1, feature3, feature4,feature5,feature6, feature6_1, feature6_2, feature6_3, feature6_4);
 
         Label helpLabelTurkish = new Label();
         helpLabelTurkish.setFont(Font.font("Arial", FontWeight.BOLD, 16));
@@ -70,7 +86,7 @@ public class FirstScene extends Application {
         helpLabelTurkish.setGraphic(textFlow);
         helpVBox.getChildren().addAll(helpLabelTurkish);
 
-        Scene helpScene = new Scene(helpVBox, 800, 300);
+        Scene helpScene = new Scene(helpVBox, 800, 400);
 
         helpStage.setScene(helpScene);
         helpStage.setTitle("HELP");
