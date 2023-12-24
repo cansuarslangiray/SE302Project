@@ -32,80 +32,84 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         // Implement detailed comparison logic here, comparing all aspects of o1 and o2.
 
         if (!o1.getCourseName().equals(o2.getCourseName())) {
-            differences.add(new Difference("Course Name", o1.getCourseName(), o2.getCourseName()));
+            differences.add(new Difference("Course Name/ Ders İsmi", o1.getCourseName(), o2.getCourseName()));
         }
         if (!o1.getCourseCode().equals(o2.getCourseCode())) {
-            differences.add(new Difference("Course Code", o1.getCourseCode(), o2.getCourseCode()));
+            differences.add(new Difference("Course Code/ Ders Kodu", o1.getCourseCode(), o2.getCourseCode()));
         }
         if (!o1.getTerm().equals(o2.getTerm())) {
-            differences.add(new Difference("Term", o1.getTerm(), o2.getTerm()));
+            differences.add(new Difference("Term/ Dönem", o1.getTerm(), o2.getTerm()));
         }
         if (!o1.getTheoryHours().equals(o2.getTheoryHours())) {
-            differences.add(new Difference("Theory Hours", o1.getTheoryHours(), o2.getTheoryHours()));
+            differences.add(new Difference("Theory Hours/ Teorik Saatleri", o1.getTheoryHours(), o2.getTheoryHours()));
         }
         if (!o1.getApplicationHours().equals(o2.getApplicationHours())) {
-            differences.add(new Difference("Application Hours", o1.getApplicationHours(), o2.getApplicationHours()));
+            differences.add(new Difference("Application Hours/ Uygulama Saatleri", o1.getApplicationHours(), o2.getApplicationHours()));
         }
         if (!o1.getLocalCredit().equals(o2.getLocalCredit())) {
-            differences.add(new Difference("Local Credit", o1.getLocalCredit(), o2.getLocalCredit()));
+            differences.add(new Difference("Local Credit/ Yerel Kredi", o1.getLocalCredit(), o2.getLocalCredit()));
         }
         if (!o1.getEcts().equals(o2.getEcts())) {
-            differences.add(new Difference("Ects", o1.getEcts(), o2.getEcts()));
+            differences.add(new Difference("ECTS/ AKTS", o1.getEcts(), o2.getEcts()));
         }
         if (!o1.getPrerequisites().equals(o2.getPrerequisites())) {
-            differences.add(new Difference("Prerequisites", o1.getPrerequisites(), o2.getPrerequisites()));
+            differences.add(new Difference("Prerequisites/ Ön Koşullar", o1.getPrerequisites(), o2.getPrerequisites()));
         }
         if (!o1.getLanguage().equals(o2.getLanguage())) {
-            differences.add(new Difference("Language", o1.getLanguage(), o2.getLanguage()));
+            differences.add(new Difference("Language/ Dil", o1.getLanguage(), o2.getLanguage()));
         }
         if (!o1.getType().equals(o2.getType())) {
-            differences.add(new Difference("Type", o1.getType(), o2.getType()));
+            differences.add(new Difference("Type/ Tür", o1.getType(), o2.getType()));
         }
         if (!o1.getCourseLevel().equals(o2.getCourseLevel())) {
-            differences.add(new Difference("CourseLevel", o1.getCourseLevel(), o2.getCourseLevel()));
+            differences.add(new Difference("CourseLevel/ Ders Düzeyi", o1.getCourseLevel(), o2.getCourseLevel()));
         }
         if (!o1.getDeliveryMode().equals(o2.getDeliveryMode())) {
-            differences.add(new Difference("Delivery Mode", o1.getDeliveryMode(), o2.getDeliveryMode()));
+            differences.add(new Difference("Delivery Mode/ Veriliş Şekli", o1.getDeliveryMode(), o2.getDeliveryMode()));
         }
         if (!o1.getTeachingMethods().equals(o2.getTeachingMethods())) {
-            differences.add(new Difference("Teaching Methods", o1.getTeachingMethods(), o2.getTeachingMethods()));
+            differences.add(new Difference("Teaching Methods/ Öğretim Teknikleri", o1.getTeachingMethods(), o2.getTeachingMethods()));
         }
         if (!o1.getCoordinator().equals(o2.getCoordinator())) {
-            differences.add(new Difference("Coordinator", o1.getCoordinator(), o2.getCoordinator()));
+            differences.add(new Difference("Coordinator/ Koordinatör", o1.getCoordinator(), o2.getCoordinator()));
         }
         if (!o1.getLecturer().equals(o2.getLecturer())) {
-            differences.add(new Difference("Lecturer", o1.getLecturer(), o2.getLecturer()));
+            differences.add(new Difference("Lecturer/ Öğretim Elemanı", o1.getLecturer(), o2.getLecturer()));
         }
         if (!o1.getAssistants().equals(o2.getAssistants())) {
-            differences.add(new Difference("Assistants", o1.getAssistants(), o2.getAssistants()));
+            differences.add(new Difference("Assistants/ Yardımcılar", o1.getAssistants(), o2.getAssistants()));
         }
         if (!o1.getCourseCategory().equals(o2.getCourseCategory())) {
-            differences.add(new Difference("Course Category", o1.getCourseCategory(), o2.getCourseCategory()));
+            differences.add(new Difference("Course Category/ Ders Kategorisi", o1.getCourseCategory(), o2.getCourseCategory()));
         }
 
         // Table
 
         if (!o1.getWeeklySubject().equals(o2.getWeeklySubject())) {
             for (int j = 0; j < o1.getWeeklySubject().size(); j++) {
+
+                try {
+
+
                 if (!o1.getWeeklySubject().get(j).getWeek().equals(o2.getWeeklySubject().get(j).getWeek())) {
-                    differences.add(new Difference("Week " + j+1, o1.getWeeklySubject().get(j).getWeek(), o2.getWeeklySubject().get(j).getWeek()));
+                    differences.add(new Difference("Week/ Hafta " + (j + 1), o1.getWeeklySubject().get(j).getWeek(), o2.getWeeklySubject().get(j).getWeek()));
+                } else if (!o1.getWeeklySubject().get(j).getTopics().equals(o2.getWeeklySubject().get(j).getTopics())) {
+                    differences.add(new Difference("Week/ Hafta " + (j + 1), o1.getWeeklySubject().get(j).getTopics(), o2.getWeeklySubject().get(j).getTopics()));
+                } else if (!o1.getWeeklySubject().get(j).getPreparation().equals(o2.getWeeklySubject().get(j).getPreparation())) {
+                    differences.add(new Difference("Week/ Hafta " + (j + 1), o1.getWeeklySubject().get(j).getPreparation(), o2.getWeeklySubject().get(j).getPreparation()));
                 }
-                else if (!o1.getWeeklySubject().get(j).getTopics().equals(o2.getWeeklySubject().get(j).getTopics())){
-                    differences.add(new Difference("Week " + j+1, o1.getWeeklySubject().get(j).getTopics(), o2.getWeeklySubject().get(j).getTopics()));
-                }
-                else if(!o1.getWeeklySubject().get(j).getPreparation().equals(o2.getWeeklySubject().get(j).getPreparation())){
-                    differences.add(new Difference("Week " + j+1, o1.getWeeklySubject().get(j).getPreparation(), o2.getWeeklySubject().get(j).getPreparation()));
-                }
-            }
+            }catch(Exception e){}
+
+        }
         }
 
 
 
         if (!o1.getBook().equals(o2.getBook())) {
-            differences.add(new Difference("Book", o1.getBook(), o2.getBook()));
+            differences.add(new Difference("Book/ Kitap", o1.getBook(), o2.getBook()));
         }
         if (!o1.getMaterials().equals(o2.getMaterials())) {
-            differences.add(new Difference("Materials", o1.getMaterials(), o2.getMaterials()));
+            differences.add(new Difference("Materials/ Materyaller", o1.getMaterials(), o2.getMaterials()));
         }
 
         //Tables
@@ -115,25 +119,22 @@ public class Comparator extends Application implements java.util.Comparator<Lect
             for (int j = 0; j < o1.getAssessmentTable().size(); j++) {
                 System.out.println(j);
 
-
-                if (o1.getAssessmentTable().get(j).getCount()!=(o2.getAssessmentTable().get(j).getCount())) {
-                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getCount(), o2.getAssessmentTable().get(j).getCount()));
+                try {
+                    if (o1.getAssessmentTable().get(j).getCount() != (o2.getAssessmentTable().get(j).getCount())) {
+                        differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "\n" + " Number/Sayı  ", o1.getAssessmentTable().get(j).getCount(), o2.getAssessmentTable().get(j).getCount()));
+                    } else if (o1.getAssessmentTable().get(j).getPercentage() != (o2.getAssessmentTable().get(j).getPercentage())) {
+                        differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "\n" + " Percentage/Oran  ", o1.getAssessmentTable().get(j).getPercentage(), o2.getAssessmentTable().get(j).getPercentage()));
+                    } else if (o1.getAssessmentTable().get(j).getLo1() != (o2.getAssessmentTable().get(j).getLo1())) {
+                        differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "\n" + " Lo1 ", o1.getAssessmentTable().get(j).getLo1(), o2.getAssessmentTable().get(j).getLo1()));
+                    } else if (o1.getAssessmentTable().get(j).getLo2() != (o2.getAssessmentTable().get(j).getLo2())) {
+                        differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "\n" + " Lo2 ", o1.getAssessmentTable().get(j).getLo2(), o2.getAssessmentTable().get(j).getLo2()));
+                    } else if (o1.getAssessmentTable().get(j).getLo3() != (o2.getAssessmentTable().get(j).getLo3())) {
+                        differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "\n" + " Lo3 ", o1.getAssessmentTable().get(j).getLo3(), o2.getAssessmentTable().get(j).getLo3()));
+                    } else if (o1.getAssessmentTable().get(j).getLo4() != (o2.getAssessmentTable().get(j).getLo4())) {
+                        differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "\n" + " Lo4 ", o1.getAssessmentTable().get(j).getLo4(), o2.getAssessmentTable().get(j).getLo4()));
+                    }
                 }
-                else if (o1.getAssessmentTable().get(j).getPercentage()!=(o2.getAssessmentTable().get(j).getPercentage())) {
-                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getPercentage(), o2.getAssessmentTable().get(j).getPercentage()));
-                }
-                else if (o1.getAssessmentTable().get(j).getLo1()!=(o2.getAssessmentTable().get(j).getLo1())) {
-                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo1(), o2.getAssessmentTable().get(j).getLo1()));
-                }
-                else if (o1.getAssessmentTable().get(j).getLo2()!=(o2.getAssessmentTable().get(j).getLo2())) {
-                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo2(), o2.getAssessmentTable().get(j).getLo2()));
-                }
-                else if (o1.getAssessmentTable().get(j).getLo3()!=(o2.getAssessmentTable().get(j).getLo3())) {
-                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo3(), o2.getAssessmentTable().get(j).getLo3()));
-                }
-                else if (o1.getAssessmentTable().get(j).getLo4()!=(o2.getAssessmentTable().get(j).getLo4())) {
-                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo4(), o2.getAssessmentTable().get(j).getLo4()));
-                }
+                catch (Exception e){}
             }
         }
 
@@ -141,40 +142,44 @@ public class Comparator extends Application implements java.util.Comparator<Lect
 
         if (!o1.getWorkloadTable().equals(o2.getWorkloadTable())) {
             for (int j = 0; j < o1.getWorkloadTable().size(); j++) {
-                if (o1.getWorkloadTable().get(j).getHour()!=(o2.getWorkloadTable().get(j).getHour())) {
-                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() + "  ", o1.getWorkloadTable().get(j).getHour(), o2.getWorkloadTable().get(j).getHour()));
-                }
-                if (o1.getWorkloadTable().get(j).getCount()!=(o2.getWorkloadTable().get(j).getCount())) {
-                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() + "  ", o1.getWorkloadTable().get(j).getCount(), o2.getWorkloadTable().get(j).getCount()));
-                }
+                try {
 
-                if (o1.getWorkloadTable().get(j).getWorkloud()!=(o2.getWorkloadTable().get(j).getWorkloud())) {
-                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() + "  ", o1.getWorkloadTable().get(j).getWorkloud(), o2.getWorkloadTable().get(j).getCount()));
-                }
 
+                    if (o1.getWorkloadTable().get(j).getHour() != (o2.getWorkloadTable().get(j).getHour())) {
+                        differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() +" Duration (Hour) / Saat : "+ "  ", o1.getWorkloadTable().get(j).getHour(), o2.getWorkloadTable().get(j).getHour()));
+                    }
+                    if (o1.getWorkloadTable().get(j).getCount() != (o2.getWorkloadTable().get(j).getCount())) {
+                        differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() +" Number / Sayı : "+ "  ", o1.getWorkloadTable().get(j).getCount(), o2.getWorkloadTable().get(j).getCount()));
+                    }
+
+                    if (o1.getWorkloadTable().get(j).getWorkloud() != (o2.getWorkloadTable().get(j).getWorkloud())) {
+                        differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() +" Workload / İş Yükü : "+ "  ", o1.getWorkloadTable().get(j).getWorkloud(), o2.getWorkloadTable().get(j).getCount()));
+                    }
+                }catch(Exception e){}
             }
         }
         if (!o1.getOutcomeTable().equals(o2.getOutcomeTable())) {
             for (int j = 0; j < o1.getOutcomeTable().size(); j++) {
-                if (!o1.getOutcomeTable().get(j).getDescription().equals(o2.getOutcomeTable().get(j).getDescription())) {
-                    differences.add(new Difference("Description: " + "  ", o1.getOutcomeTable().get(j).getDescription(), o2.getOutcomeTable().get(j).getDescription()));
-                }
-                if (o1.getOutcomeTable().get(j).getLevel1()!=(o2.getOutcomeTable().get(j).getLevel1())) {
-                    differences.add(new Difference("1. " + "  ", o1.getOutcomeTable().get(j).getLevel1(), o2.getOutcomeTable().get(j).getLevel1()));
-                }
-                if (o1.getOutcomeTable().get(j).getLevel2()!=(o2.getOutcomeTable().get(j).getLevel2())) {
-                    differences.add(new Difference("2.  " + "  ", o1.getOutcomeTable().get(j).getLevel2(), o2.getOutcomeTable().get(j).getLevel2()));
-                }
-                if (o1.getOutcomeTable().get(j).getLevel3()!=(o2.getOutcomeTable().get(j).getLevel3())) {
-                    differences.add(new Difference("3. " + "  ", o1.getOutcomeTable().get(j).getLevel3(), o2.getOutcomeTable().get(j).getLo()));
-                }
-                if (o1.getOutcomeTable().get(j).getLevel4()!=(o2.getOutcomeTable().get(j).getLevel4())) {
-                    differences.add(new Difference("4. " + "  ", o1.getOutcomeTable().get(j).getLevel4(), o2.getOutcomeTable().get(j).getLo()));
-                }
-                if (o1.getOutcomeTable().get(j).getLevel5()!=(o2.getOutcomeTable().get(j).getLevel5())) {
-                    differences.add(new Difference("5. " + "  ", o1.getOutcomeTable().get(j).getLevel5(), o2.getOutcomeTable().get(j).getLo()));
-                }
-
+                try {
+                    if (!o1.getOutcomeTable().get(j).getDescription().equals(o2.getOutcomeTable().get(j).getDescription())) {
+                        differences.add(new Difference("Description/ Tanım: " + "  ", o1.getOutcomeTable().get(j).getDescription(), o2.getOutcomeTable().get(j).getDescription()));
+                    }
+                    if (o1.getOutcomeTable().get(j).getLevel1() != (o2.getOutcomeTable().get(j).getLevel1())) {
+                        differences.add(new Difference("1. " + "  ", o1.getOutcomeTable().get(j).getLevel1(), o2.getOutcomeTable().get(j).getLevel1()));
+                    }
+                    if (o1.getOutcomeTable().get(j).getLevel2() != (o2.getOutcomeTable().get(j).getLevel2())) {
+                        differences.add(new Difference("2.  " + "  ", o1.getOutcomeTable().get(j).getLevel2(), o2.getOutcomeTable().get(j).getLevel2()));
+                    }
+                    if (o1.getOutcomeTable().get(j).getLevel3() != (o2.getOutcomeTable().get(j).getLevel3())) {
+                        differences.add(new Difference("3. " + "  ", o1.getOutcomeTable().get(j).getLevel3(), o2.getOutcomeTable().get(j).getLo()));
+                    }
+                    if (o1.getOutcomeTable().get(j).getLevel4() != (o2.getOutcomeTable().get(j).getLevel4())) {
+                        differences.add(new Difference("4. " + "  ", o1.getOutcomeTable().get(j).getLevel4(), o2.getOutcomeTable().get(j).getLo()));
+                    }
+                    if (o1.getOutcomeTable().get(j).getLevel5() != (o2.getOutcomeTable().get(j).getLevel5())) {
+                        differences.add(new Difference("5. " + "  ", o1.getOutcomeTable().get(j).getLevel5(), o2.getOutcomeTable().get(j).getLo()));
+                    }
+                }catch(Exception e){}
             }
         }
 
