@@ -34,11 +34,14 @@ import java.util.Optional;
 
 public class TurkishSyllabus extends Application {
     Lecture lecture;
+    int k,j,m,l;
+
     boolean isSaved;
     public TurkishSyllabus(Lecture lecture, boolean isSaved) {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
+
     boolean lessontablecompleted=true;
 
     boolean activitesTableCompeleted =true;
@@ -58,6 +61,10 @@ public class TurkishSyllabus extends Application {
     private final List<Lesson> lessons = new ArrayList<>();
     @Override
     public void start(Stage stage) {
+        k=0;
+        j=0;
+        m=0;
+        l=0;
         this.primaryStage = stage;
         stage.setTitle("Ders Formu");
         GridPane gridPane = new GridPane();
@@ -749,100 +756,134 @@ public class TurkishSyllabus extends Application {
 
         }
         submitButton.setOnAction(event -> {
-            //   correctActiviteTable=true;
-            //  correctOutcomeTable=true;
-            //  correctWorkloadTable=true;
-            for (int j = 0; j < lessonsTextField.size(); j ++) {
+            for (int j = 0; j < lessonsTextField.size(); j++) {
                 if (lessonsTextField.get(j).getText().isEmpty()) {
                     lessontablecompleted = false;
                     break;
                 }
-                lessontablecompleted=true;
+                lessontablecompleted = true;
             }
-            for (int j = 0; j < lessonsTextField.size() - 2; j += 3) {
-
-                lessons.add(
-                        new Lesson(lessonsTextField.get(j).getText(),
-                                lessonsTextField.get(j + 1).getText(),
-                                lessonsTextField.get(j + 2).getText()));
+            if(lessontablecompleted && k==0){
+                k++;
+                for (int j = 0; j < lessonsTextField.size() - 2; j += 3) {
+                    lessons.add(
+                            new Lesson(lessonsTextField.get(j).getText(),
+                                    lessonsTextField.get(j + 1).getText(),
+                                    lessonsTextField.get(j + 2).getText()));
+                }
             }
-
-            for (int i = 0; i < activitiesTextField.size(); i ++) {
-                if(activitiesTextField.get(i).getText().isEmpty()){
-                    activitesTableCompeleted=false;
+            for (int i = 0; i < activitiesTextField.size(); i++) {
+                if (activitiesTextField.get(i).getText().isEmpty()) {
+                    activitesTableCompeleted = false;
                     break;
                 }
-                activitesTableCompeleted=true;
+                activitesTableCompeleted = true;
             }
-            for (int i = 0; i < activitiesTextField.size() - 6; i += 7) {
+            for (int i = 0; i < activitiesTextField.size(); i++) {
+
+                    try {
+                        if(i%7!=0){
+                            int var = Integer.parseInt(activitiesTextField.get(i).getText());
+                        }
+                    }catch (NumberFormatException e){
+                        correctActiviteTable = false;
+                    }
+
+
+            }if(activitesTableCompeleted && j==0){
+                    j++;
+                    for (int i = 0; i < activitiesTextField.size() - 5; i += 7) {
+                        try {
+                            activities.add(new Activity(
+                                    activitiesTextField.get(i).getText(),
+                                    Integer.parseInt(activitiesTextField.get(i + 1).getText()),
+                                    Integer.parseInt(activitiesTextField.get(i + 2).getText()),
+                                    Integer.parseInt(activitiesTextField.get(i + 3).getText()),
+                                    Integer.parseInt(activitiesTextField.get(i + 4).getText()),
+                                    Integer.parseInt(activitiesTextField.get(i + 5).getText()),
+                                    Integer.parseInt(activitiesTextField.get(i + 6).getText())
+                            ));
+
+                        } catch (NumberFormatException e) {
+                            System.out.println("current activite table is false");
+                            correctActiviteTable = false;
+
+                        }
+                    }
+                }
+            for (int k = 0; k < workloadTextFields.size(); k++) {
                 try {
-                    activities.add(new Activity(
-                            activitiesTextField.get(i).getText(),
-                            Integer.parseInt(activitiesTextField.get(i + 1).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 2).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 3).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 4).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 5).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 6).getText())
-                    ));
-
-                } catch (NumberFormatException e) {
-                    System.out.println("current activite table is false");
-                    correctActiviteTable=false;
-
+                    if(k%4!=0){
+                        int var = Integer.parseInt(workloadTextFields.get(k).getText());
+                    }
+                }catch (NumberFormatException e){
+                    correctWorkloadTable = false;
                 }
             }
-            for (int k = 0; k < workloadTextFields.size() ;k ++) {
+            for (int k = 0; k < workloadTextFields.size(); k++) {
                 if (workloadTextFields.get(k).getText().isEmpty()) {
                     workloadTableCompeleted = false;
                     break;
                 }
-                workloadTableCompeleted=true;
-            }
-            for (int k = 0; k < workloadTextFields.size() - 3; k += 4) {
-                try {
-                    workLoads.add(new workLoad(
-                            workloadTextFields.get(k).getText(),
-                            Integer.parseInt(workloadTextFields.get(k + 1).getText()),
-                            Integer.parseInt(workloadTextFields.get(k + 2).getText()),
-                            Integer.parseInt(workloadTextFields.get(k + 3).getText())
-                    ));
+                workloadTableCompeleted = true;
+            }if(workloadTableCompeleted && m==0){
+                m++;
+                for (int k = 0; k < workloadTextFields.size() - 3; k += 4) {
+                    try {
+                        workLoads.add(new workLoad(
+                                workloadTextFields.get(k).getText(),
+                                Integer.parseInt(workloadTextFields.get(k + 1).getText()),
+                                Integer.parseInt(workloadTextFields.get(k + 2).getText()),
+                                Integer.parseInt(workloadTextFields.get(k + 3).getText())
+                        ));
 
 
-                } catch (NumberFormatException e) {
-                    System.out.println("current worklad table is false");
-                    correctWorkloadTable=false;
+                    } catch (NumberFormatException e) {
+                        System.out.println("current worklad table is false");
+                        correctWorkloadTable = false;
 
+                    }
                 }
             }
-            for (int k = 0; k < outcomeTextField.size() ; k ++) {
-                if(outcomeTextField.get(k).getText().isEmpty()){
-                    outcometablecompleted=false;
+            for (int k = 0; k < outcomeTextField.size(); k++) {
+                try {
+                    if(k%6!=0){
+                        int var = Integer.parseInt(outcomeTextField.get(k).getText());
+                    }
+                }catch (NumberFormatException e){
+                    correctOutcomeTable = false;
+                }
+            }
+            for (int k = 0; k < outcomeTextField.size(); k++) {
+                if (outcomeTextField.get(k).getText().isEmpty()) {
+                    outcometablecompleted = false;
                     break;
                 }
-                outcometablecompleted=true;
+
+                outcometablecompleted = true;
 
             }
-            for (int k = 0; k < outcomeTextField.size() - 5; k += 6) {
-                try {
-                    competencies.add(new Competency(
-                            outcomeTextField.get(k).getText(),
-                            Integer.parseInt(outcomeTextField.get(k + 1).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 2).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 3).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 4).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 5).getText())
-                    ));
+            if(outcometablecompleted && l==0){
+                l++;
+                for (int k = 0; k < outcomeTextField.size() - 5; k += 6) {
+                    try {
+                        competencies.add(new Competency(
+                                outcomeTextField.get(k).getText(),
+                                Integer.parseInt(outcomeTextField.get(k + 1).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 2).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 3).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 4).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 5).getText())
+                        ));
 
 
+                    } catch (NumberFormatException e) {
+                        System.out.println("current outcome table is false");
+                        correctOutcomeTable = false;
 
-                } catch (NumberFormatException e) {
-                    System.out.println("current outcome table is false");
-                    correctOutcomeTable=false;
-
+                    }
                 }
             }
-
             if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
                     applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
                     languageToggleGroup.getSelectedToggle() == null ||

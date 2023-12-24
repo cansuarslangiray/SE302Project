@@ -1,5 +1,4 @@
 package org.example;
-
 import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -82,9 +81,25 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         if (!o1.getCourseCategory().equals(o2.getCourseCategory())) {
             differences.add(new Difference("Course Category", o1.getCourseCategory(), o2.getCourseCategory()));
         }
+
+        // Table
+
         if (!o1.getWeeklySubject().equals(o2.getWeeklySubject())) {
-            differences.add(new Difference("Weekly Subject", o1.getWeeklySubject(), o2.getWeeklySubject()));
+            for (int j = 0; j < o1.getWeeklySubject().size(); j++) {
+                if (!o1.getWeeklySubject().get(j).getWeek().equals(o2.getWeeklySubject().get(j).getWeek())) {
+                    differences.add(new Difference("Week " + j+1, o1.getWeeklySubject().get(j).getWeek(), o2.getWeeklySubject().get(j).getWeek()));
+                }
+                else if (!o1.getWeeklySubject().get(j).getTopics().equals(o2.getWeeklySubject().get(j).getTopics())){
+                    differences.add(new Difference("Week " + j+1, o1.getWeeklySubject().get(j).getTopics(), o2.getWeeklySubject().get(j).getTopics()));
+                }
+                else if(!o1.getWeeklySubject().get(j).getPreparation().equals(o2.getWeeklySubject().get(j).getPreparation())){
+                    differences.add(new Difference("Week " + j+1, o1.getWeeklySubject().get(j).getPreparation(), o2.getWeeklySubject().get(j).getPreparation()));
+                }
+            }
         }
+
+
+
         if (!o1.getBook().equals(o2.getBook())) {
             differences.add(new Difference("Book", o1.getBook(), o2.getBook()));
         }
@@ -95,15 +110,70 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         //Tables
 
         if (!o1.getAssessmentTable().equals(o2.getAssessmentTable())) {
-            differences.add(new Difference("Assessment Table", o1.getAssessmentTable(), o2.getAssessmentTable()));
+            System.out.println(o1.getAssessmentTable().size());
+            for (int j = 0; j < o1.getAssessmentTable().size(); j++) {
+                System.out.println(j);
+
+                if (o1.getAssessmentTable().get(j).getCount()!=(o2.getAssessmentTable().get(j).getCount())) {
+                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getCount(), o2.getAssessmentTable().get(j).getCount()));
+                }
+                else if (o1.getAssessmentTable().get(j).getPercentage()!=(o2.getAssessmentTable().get(j).getPercentage())) {
+                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getPercentage(), o2.getAssessmentTable().get(j).getPercentage()));
+                }
+                else if (o1.getAssessmentTable().get(j).getLo1()!=(o2.getAssessmentTable().get(j).getLo1())) {
+                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo1(), o2.getAssessmentTable().get(j).getLo1()));
+                }
+                else if (o1.getAssessmentTable().get(j).getLo2()!=(o2.getAssessmentTable().get(j).getLo2())) {
+                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo2(), o2.getAssessmentTable().get(j).getLo2()));
+                }
+                else if (o1.getAssessmentTable().get(j).getLo3()!=(o2.getAssessmentTable().get(j).getLo3())) {
+                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo3(), o2.getAssessmentTable().get(j).getLo3()));
+                }
+                else if (o1.getAssessmentTable().get(j).getLo4()!=(o2.getAssessmentTable().get(j).getLo4())) {
+                    differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getLo4(), o2.getAssessmentTable().get(j).getLo4()));
+                }
+            }
         }
+
+
 
         if (!o1.getWorkloadTable().equals(o2.getWorkloadTable())) {
-            differences.add(new Difference("Workload Table", o1.getWorkloadTable(), o2.getWorkloadTable()));
-        }
+            for (int j = 0; j < o1.getWorkloadTable().size(); j++) {
+                if (o1.getWorkloadTable().get(j).getHour()!=(o2.getWorkloadTable().get(j).getHour())) {
+                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() +"\n"+ " Duration(Hours) ", o1.getWorkloadTable().get(j).getHour(), o2.getWorkloadTable().get(j).getHour()));
+                }
+                if (o1.getWorkloadTable().get(j).getCount()!=(o2.getWorkloadTable().get(j).getCount())) {
+                    differences.add(new Difference(" Number ", o1.getWorkloadTable().get(j).getCount(), o2.getWorkloadTable().get(j).getCount()));
+                }
+                if (o1.getWorkloadTable().get(j).getWorkloud()!=(o2.getWorkloadTable().get(j).getWorkloud())) {
+                    differences.add(new Difference(" Workload", o1.getWorkloadTable().get(j).getWorkloud(), o2.getWorkloadTable().get(j).getCount()));
+                }
 
+            }
+        }
         if (!o1.getOutcomeTable().equals(o2.getOutcomeTable())) {
-            differences.add(new Difference("Outcome Table", o1.getOutcomeTable(), o2.getOutcomeTable()));
+            for (int j = 0; j < o1.getOutcomeTable().size(); j++) {
+                if (!o1.getOutcomeTable().get(j).getDescription().equals(o2.getOutcomeTable().get(j).getDescription())) {
+                    differences.add(new Difference(  " Description:  ", o1.getOutcomeTable().get(j).getDescription(), o2.getOutcomeTable().get(j).getDescription()));
+                }
+                if (o1.getOutcomeTable().get(j).getLevel1()!=(o2.getOutcomeTable().get(j).getLevel1())) {
+                    differences.add(new Difference("1. ", o1.getOutcomeTable().get(j).getLevel1(), o2.getOutcomeTable().get(j).getLevel1()));
+                }
+                if (o1.getOutcomeTable().get(j).getLevel2()!=(o2.getOutcomeTable().get(j).getLevel2())) {
+                    differences.add(new Difference( "2.  ", o1.getOutcomeTable().get(j).getLevel2(), o2.getOutcomeTable().get(j).getLevel2()));
+                }
+
+                if (o1.getOutcomeTable().get(j).getLevel3()!=(o2.getOutcomeTable().get(j).getLevel3())) {
+                    differences.add(new Difference("3.  ", o1.getOutcomeTable().get(j).getLevel3(), o2.getOutcomeTable().get(j).getLo()));
+                }
+                if (o1.getOutcomeTable().get(j).getLevel4()!=(o2.getOutcomeTable().get(j).getLevel4())) {
+                    differences.add(new Difference("4. ", o1.getOutcomeTable().get(j).getLevel4(), o2.getOutcomeTable().get(j).getLo()));
+                }
+                if (o1.getOutcomeTable().get(j).getLevel5()!=(o2.getOutcomeTable().get(j).getLevel5())) {
+                    differences.add(new Difference("5.  ", o1.getOutcomeTable().get(j).getLevel5(), o2.getOutcomeTable().get(j).getLo()));
+                }
+
+            }
         }
 
 
@@ -112,13 +182,8 @@ public class Comparator extends Application implements java.util.Comparator<Lect
     }
 
     public static void main(String[] args) {
-        // Paths to the JSON files
-       launch(args);
+        launch(args);
     }
-
-
-
-
 
     Stage primaryStage;
     TextField courseCodeField1, courseCodeField2;

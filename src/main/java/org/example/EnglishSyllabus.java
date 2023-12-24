@@ -34,18 +34,20 @@ public class EnglishSyllabus extends Application {
     Lecture lecture;
     boolean isSaved;
     private Stage primaryStage;
-    boolean activitesTableCompeleted =true;
-    boolean workloadTableCompeleted=true;
-    boolean outcometablecompleted=true;
-    boolean lessontablecompleted=true;
-    boolean correctActiviteTable =true;
-    boolean correctWorkloadTable=true;
-    boolean correctOutcomeTable=true;
+    boolean activitesTableCompeleted = true;
+    boolean workloadTableCompeleted = true;
+    boolean outcometablecompleted = true;
+    boolean lessontablecompleted = true;
+    boolean correctActiviteTable = true;
+    boolean correctWorkloadTable = true;
+    boolean correctOutcomeTable = true;
+    int k,j,m,l;
 
     public EnglishSyllabus(Lecture lecture, boolean isSaved) {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
+
     String changedBy;
     String changeReason;
     String changeDate;
@@ -57,6 +59,10 @@ public class EnglishSyllabus extends Application {
 
     @Override
     public void start(Stage stage) {
+        k=0;
+        j=0;
+        m=0;
+        l=0;
         this.primaryStage = stage;
         stage.setTitle("Course Form");
 
@@ -221,7 +227,7 @@ public class EnglishSyllabus extends Application {
         TextArea Material = new TextArea();
         gridPane1.add(Material, 1, 2);
 
-        Label orangeLabel2 = new Label("3. ASSESSMENT\n");
+        Label orangeLabel2 = new Label("3. ASSESSMENT");
         orangeLabel2.setStyle("-fx-background-color: orange; -fx-padding: 5px;-fx-font-weight: bold;");
         gridPane1.setConstraints(orangeLabel2, 0, 3, 2, 2);
         gridPane1.getChildren().add(orangeLabel2);
@@ -330,7 +336,7 @@ public class EnglishSyllabus extends Application {
                 } else if (col == 6 && row == 0) {
                     textField.setText("LO4");
                 } else if (col == 0 && row == 1) {
-                    textField.setText("Participation\n");
+                    textField.setText("Participation");
                     activitiesTextField.add(textField);
                 } else if (col == 0 && row == 2) {
                     textField.setText("Laboratory/Application");
@@ -339,7 +345,7 @@ public class EnglishSyllabus extends Application {
                     textField.setText("Field Work");
                     activitiesTextField.add(textField);
                 } else if (col == 0 && row == 4) {
-                    textField.setText("Quiz/Studio Critique\n");
+                    textField.setText("Quiz/Studio Critique");
                     activitiesTextField.add(textField);
                 } else if (col == 0 && row == 5) {
                     textField.setText("Homework/Assignment");
@@ -428,7 +434,7 @@ public class EnglishSyllabus extends Application {
                     textField2.setText("Workload");
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 1) {
-                    textField2.setText("Participation\n");
+                    textField2.setText("Participation");
                     workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
 
@@ -441,7 +447,7 @@ public class EnglishSyllabus extends Application {
                     workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 4) {
-                    textField2.setText("Quiz/Studio Critique\n");
+                    textField2.setText("Quiz/Studio Critique");
                     workloadTextFields.add(textField2);
                     gridPane4.add(textField2, col, row);
                 } else if (col == 0 && row == 5) {
@@ -558,18 +564,21 @@ public class EnglishSyllabus extends Application {
                     textField3.setPrefColumnCount(narrowWidth2);
 
                 }
-                if (col == 0&&row>0) {
-                    textField2.setText(String.valueOf(row));}
-                if (col == 0 ) {
+                if (col == 0 && row > 0) {
+                    textField2.setText(String.valueOf(row));
+                }
+                if (col == 0) {
                     textField2.setPrefColumnCount(narrowWidth2);
 
-                }if(col==1){
+                }
+                if (col == 1) {
                     textField2.setPrefWidth(400);
                 }
-                if (col >= 0 && col <= 8&&row==0) {
+                if (col >= 0 && col <= 8 && row == 0) {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 16));
                     textField3.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-                    ;}else {
+                    ;
+                } else {
                     textField2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
                 }
@@ -597,7 +606,7 @@ public class EnglishSyllabus extends Application {
         if (isSaved) {
             courseNameTextField.setText(lecture.courseName);
             courseCodeTextField.setText(lecture.courseCode);
-           if (lecture.getTerm().equalsIgnoreCase("Fall")) {
+            if (lecture.getTerm().equalsIgnoreCase("Fall")) {
                 termChoiceBox.setValue("Fall");
             } else {
                 termChoiceBox.setValue("Spring");
@@ -608,14 +617,14 @@ public class EnglishSyllabus extends Application {
             ectsTextField.setText(lecture.ects);
             preTextField.setText(lecture.prerequisites);
             String lectureLanguage = lecture.language;
-           switch (lectureLanguage) {
+            switch (lectureLanguage) {
                 case "Turkish":
                     languageToggleGroup.selectToggle(languageTurkishRadioButton);
                     break;
                 case "English":
                     languageToggleGroup.selectToggle(languageEnglishRadioButton);
                     break;
-                case "Second Foreign Language\n":
+                case "Second Foreign Language":
                     languageToggleGroup.selectToggle(languageOtherRadioButton);
                     break;
             }
@@ -677,7 +686,6 @@ public class EnglishSyllabus extends Application {
                 lessonsTextField.get(i + 2).setText(lecture.weeklySubject.get(j).getTopics());
             }
 
-            //   lessons.addAll(lecture.weeklySubject);
             Book.setText(lecture.book);
             Material.setText(lecture.materials);
             int i = 0;
@@ -692,9 +700,8 @@ public class EnglishSyllabus extends Application {
                 activitiesTextField.get(i + 4).setText(String.valueOf(lecture.assessmentTable.get(j).getLo2()));
                 activitiesTextField.get(i + 5).setText(String.valueOf(lecture.assessmentTable.get(j).getLo3()));
                 activitiesTextField.get(i + 6).setText(String.valueOf(lecture.assessmentTable.get(j).getLo4()));
-                i+= 7;
+                i += 7;
             }
-            //  activities.addAll(lecture.assessmentTable);
             i = 0;
             for (int j = 0; j < lecture.workloadTable.size(); j++) {
                 if (i == workloadTextFields.size() - 3) {
@@ -706,7 +713,6 @@ public class EnglishSyllabus extends Application {
                 i += 4;
             }
 
-            // workLoads.addAll(lecture.workloadTable);
             i = 0;
             for (int j = 0; j < lecture.outcomeTable.size(); j++) {
                 if (i == outcomeTextField.size() - 5) {
@@ -722,109 +728,116 @@ public class EnglishSyllabus extends Application {
             }
 
 
-
         }
 
         submitButton.setOnAction(event -> {
-         //   correctActiviteTable=true;
-          //  correctOutcomeTable=true;
-          //  correctWorkloadTable=true;
-            for (int j = 0; j < lessonsTextField.size(); j ++) {
+            for (int j = 0; j < lessonsTextField.size(); j++) {
                 if (lessonsTextField.get(j).getText().isEmpty()) {
                     lessontablecompleted = false;
                     break;
                 }
-                lessontablecompleted=true;
+                lessontablecompleted = true;
             }
-            for (int j = 0; j < lessonsTextField.size() - 2; j += 3) {
-
-                lessons.add(
-                        new Lesson(lessonsTextField.get(j).getText(),
-                                lessonsTextField.get(j + 1).getText(),
-                                lessonsTextField.get(j + 2).getText()));
+            if(lessontablecompleted && k==0){
+                k++;
+                for (int j = 0; j < lessonsTextField.size() - 2; j += 3) {
+                    lessons.add(
+                            new Lesson(lessonsTextField.get(j).getText(),
+                                    lessonsTextField.get(j + 1).getText(),
+                                    lessonsTextField.get(j + 2).getText()));
+                }
             }
 
-            for (int i = 0; i < activitiesTextField.size(); i ++) {
-                if(activitiesTextField.get(i).getText().isEmpty()){
-                    activitesTableCompeleted=false;
+            for (int i = 0; i < activitiesTextField.size(); i++) {
+                if (activitiesTextField.get(i).getText().isEmpty()) {
+                    activitesTableCompeleted = false;
                     break;
                 }
-                activitesTableCompeleted=true;
-            }
-            for (int i = 0; i < activitiesTextField.size() - 6; i += 7) {
-                try {
-                    activities.add(new Activity(
-                            activitiesTextField.get(i).getText(),
-                            Integer.parseInt(activitiesTextField.get(i + 1).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 2).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 3).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 4).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 5).getText()),
-                            Integer.parseInt(activitiesTextField.get(i + 6).getText())
-                    ));
+                activitesTableCompeleted = true;
+            } if(activitesTableCompeleted && j==0){
+                j++;
+                for (int i = 0; i < activitiesTextField.size() - 5; i += 7) {
+                    try {
+                        activities.add(new Activity(
+                                activitiesTextField.get(i).getText(),
+                                Integer.parseInt(activitiesTextField.get(i + 1).getText()),
+                                Integer.parseInt(activitiesTextField.get(i + 2).getText()),
+                                Integer.parseInt(activitiesTextField.get(i + 3).getText()),
+                                Integer.parseInt(activitiesTextField.get(i + 4).getText()),
+                                Integer.parseInt(activitiesTextField.get(i + 5).getText()),
+                                Integer.parseInt(activitiesTextField.get(i + 6).getText())
+                        ));
 
-                } catch (NumberFormatException e) {
-                    System.out.println("current activite table is false");
-                    correctActiviteTable=false;
+                    } catch (NumberFormatException e) {
+                        System.out.println("current activite table is false");
+                        correctActiviteTable = false;
 
+                    }
                 }
             }
-            for (int k = 0; k < workloadTextFields.size() ;k ++) {
+
+
+            for (int k = 0; k < workloadTextFields.size(); k++) {
                 if (workloadTextFields.get(k).getText().isEmpty()) {
                     workloadTableCompeleted = false;
                     break;
                 }
-                workloadTableCompeleted=true;
-            }
-            for (int k = 0; k < workloadTextFields.size() - 3; k += 4) {
-                try {
-                    workLoads.add(new workLoad(
-                            workloadTextFields.get(k).getText(),
-                            Integer.parseInt(workloadTextFields.get(k + 1).getText()),
-                            Integer.parseInt(workloadTextFields.get(k + 2).getText()),
-                            Integer.parseInt(workloadTextFields.get(k + 3).getText())
-                    ));
+                workloadTableCompeleted = true;
+            }if(workloadTableCompeleted && m==0){
+                m++;
+                for (int k = 0; k < workloadTextFields.size() - 3; k += 4) {
+                    try {
+                        workLoads.add(new workLoad(
+                                workloadTextFields.get(k).getText(),
+                                Integer.parseInt(workloadTextFields.get(k + 1).getText()),
+                                Integer.parseInt(workloadTextFields.get(k + 2).getText()),
+                                Integer.parseInt(workloadTextFields.get(k + 3).getText())
+                        ));
 
 
-                } catch (NumberFormatException e) {
-                    System.out.println("current worklad table is false");
-                    correctWorkloadTable=false;
+                    } catch (NumberFormatException e) {
+                        System.out.println("current worklad table is false");
+                        correctWorkloadTable = false;
 
+                    }
                 }
             }
-            for (int k = 0; k < outcomeTextField.size() ; k ++) {
-                if(outcomeTextField.get(k).getText().isEmpty()){
-                    outcometablecompleted=false;
+            for (int k = 0; k < outcomeTextField.size(); k++) {
+                if (outcomeTextField.get(k).getText().isEmpty()) {
+                    outcometablecompleted = false;
                     break;
                 }
-                outcometablecompleted=true;
+                outcometablecompleted = true;
 
             }
-            for (int k = 0; k < outcomeTextField.size() - 5; k += 6) {
-                try {
-                    competencies.add(new Competency(
-                            outcomeTextField.get(k).getText(),
-                            Integer.parseInt(outcomeTextField.get(k + 1).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 2).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 3).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 4).getText()),
-                            Integer.parseInt(outcomeTextField.get(k + 5).getText())
-                    ));
+            if(outcometablecompleted && l==0){
+                l++;
+                for (int k = 0; k < outcomeTextField.size() - 5; k += 6) {
+                    try {
+                        competencies.add(new Competency(
+                                outcomeTextField.get(k).getText(),
+                                Integer.parseInt(outcomeTextField.get(k + 1).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 2).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 3).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 4).getText()),
+                                Integer.parseInt(outcomeTextField.get(k + 5).getText())
+                        ));
 
 
+                    } catch (NumberFormatException e) {
+                        System.out.println("current outcome table is false");
+                        correctOutcomeTable = false;
 
-                } catch (NumberFormatException e) {
-                    System.out.println("current outcome table is false");
-                    correctOutcomeTable=false;
-
+                    }
                 }
             }
+
 
             if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
                     applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
                     languageToggleGroup.getSelectedToggle() == null ||
                     typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
-                    deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted|| !activitesTableCompeleted||!outcometablecompleted||!lessontablecompleted) {
+                    deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted || !activitesTableCompeleted || !outcometablecompleted || !lessontablecompleted) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Uyarı");
@@ -834,10 +847,10 @@ public class EnglishSyllabus extends Application {
                     alert.close();
                 });
                 alert.showAndWait();
-            } else  if(!correctOutcomeTable||!correctActiviteTable||!correctWorkloadTable){
-                correctActiviteTable=true;
-                correctOutcomeTable=true;
-                correctWorkloadTable=true;
+            } else if (!correctOutcomeTable || !correctActiviteTable || !correctWorkloadTable) {
+                correctActiviteTable = true;
+                correctOutcomeTable = true;
+                correctWorkloadTable = true;
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Uyarı");
@@ -848,8 +861,7 @@ public class EnglishSyllabus extends Application {
 
                 });
                 alert.showAndWait();
-            }
-            else {
+            } else {
 
                 showInputDialog();
 

@@ -1,0 +1,396 @@
+{
+  "courseName": "adx",
+  "courseCode": "axD",
+  "term": "Spring",
+  "theoryHours": "Ax",
+  "applicationHours": "aX",
+  "localCredit": "Xa",
+  "ects": "ax",
+  "prerequisites": "Ax",
+  "language": "Second Foreign Language",
+  "type": "Elective",
+  "courseLevel": "Associate Degree",
+  "deliveryMode": "Online",
+  "teachingMethods": "aX",
+  "coordinator": "Ax",
+  "lecturer": "ax",
+  "assistants": "AX",
+  "courseCategory": [
+    "Major Area Course",
+    "Communication and Management Skills Course"
+  ],
+  "weeklySubject": [
+    {
+      "week": "1",
+      "topics": "ax",
+      "preparation": "ax"
+    },
+    {
+      "week": "2",
+      "topics": "XAd",
+      "preparation": "Ax"
+    },
+    {
+      "week": "3",
+      "topics": "xa",
+      "preparation": "ax"
+    },
+    {
+      "week": "4",
+      "topics": "xa",
+      "preparation": "AX"
+    },
+    {
+      "week": "5",
+      "topics": "AXd",
+      "preparation": "AX"
+    },
+    {
+      "week": "6",
+      "topics": "AX",
+      "preparation": "AX"
+    },
+    {
+      "week": "7",
+      "topics": "aX",
+      "preparation": "ax"
+    },
+    {
+      "week": "8",
+      "topics": "aXAx",
+      "preparation": "ax"
+    },
+    {
+      "week": "9",
+      "topics": "AX",
+      "preparation": "AX"
+    },
+    {
+      "week": "10",
+      "topics": "x",
+      "preparation": "XA"
+    },
+    {
+      "week": "11",
+      "topics": "ax",
+      "preparation": "ax"
+    },
+    {
+      "week": "12",
+      "topics": "AXa",
+      "preparation": "ax"
+    },
+    {
+      "week": "13",
+      "topics": "Ax",
+      "preparation": "AX"
+    },
+    {
+      "week": "14",
+      "topics": "xa",
+      "preparation": "ax"
+    },
+    {
+      "week": "15",
+      "topics": "AX",
+      "preparation": "AX"
+    },
+    {
+      "week": "16",
+      "topics": "dwe",
+      "preparation": "dscx"
+    }
+  ],
+  "book": "AX",
+  "materials": "ax",
+  "assessmentTable": [
+    {
+      "name": "Seminer/Çalıştay",
+      "count": 1112,
+      "percentage": 1,
+      "lo1": 1,
+      "lo2": 1,
+      "lo3": 1,
+      "lo4": 1
+    },
+    {
+      "name": "Laboratuvar/Uygulama",
+      "count": 2,
+      "percentage": 12,
+      "lo1": 2,
+      "lo2": 2,
+      "lo3": 2,
+      "lo4": 2
+    },
+    {
+      "name": "Arazi Çalışması",
+      "count": 2,
+      "percentage": 22,
+      "lo1": 11,
+      "lo2": 22,
+      "lo3": 2,
+      "lo4": 2
+    },
+    {
+      "name": "Küçük Sınav/Stüdyo Kritiği",
+      "count": 2,
+      "percentage": 2,
+      "lo1": 2,
+      "lo2": 22,
+      "lo3": 2,
+      "lo4": 2
+    },
+    {
+      "name": "Ödev",
+      "count": 2,
+      "percentage": 2,
+      "lo1": 5,
+      "lo2": 5,
+      "lo3": 6,
+      "lo4": 7
+    },
+    {
+      "name": "Sunum/Jüri Önünde Sunum",
+      "count": 2,
+      "percentage": 2,
+      "lo1": 44,
+      "lo2": 5,
+      "lo3": 6,
+      "lo4": 7
+    },
+    {
+      "name": "Proje",
+      "count": 2,
+      "percentage": 2,
+      "lo1": 44,
+      "lo2": 5,
+      "lo3": 66,
+      "lo4": 7
+    },
+    {
+      "name": "Seminer/Çalıştay",
+      "count": 2,
+      "percentage": 22,
+      "lo1": 44,
+      "lo2": 55,
+      "lo3": 66,
+      "lo4": 777
+    },
+    {
+      "name": "Sözlü Sınav",
+      "count": 2,
+      "percentage": 2,
+      "lo1": 44,
+      "lo2": 5,
+      "lo3": 6,
+      "lo4": 7
+    },
+    {
+      "name": "Ara Sınavı",
+      "count": 2,
+      "percentage": 2,
+      "lo1": 44,
+      "lo2": 55,
+      "lo3": 6,
+      "lo4": 7
+    },
+    {
+      "name": "Final Sınavı",
+      "count": 22,
+      "percentage": 2,
+      "lo1": 4,
+      "lo2": 5,
+      "lo3": 6,
+      "lo4": 77
+    },
+    {
+      "name": "Total",
+      "count": 1,
+      "percentage": 1,
+      "lo1": 1,
+      "lo2": 1,
+      "lo3": 1,
+      "lo4": 1
+    }
+  ],
+  "workloadTable": [
+    {
+      "activity": "Participation",
+      "count": 4321,
+      "hour": 23,
+      "workloud": 23
+    },
+    {
+      "activity": "Laboratory/Application",
+      "count": 1123,
+      "hour": 231,
+      "workloud": 3234
+    },
+    {
+      "activity": "Field Work",
+      "count": 231,
+      "hour": 131,
+      "workloud": 3
+    },
+    {
+      "activity": "Quiz/Studio Critique",
+      "count": 2,
+      "hour": 1,
+      "workloud": 231
+    },
+    {
+      "activity": "Homework/Assignment",
+      "count": 22,
+      "hour": 23,
+      "workloud": 23
+    },
+    {
+      "activity": "Presentation/Jury",
+      "count": 231,
+      "hour": 2,
+      "workloud": 11
+    },
+    {
+      "activity": "Portfolio",
+      "count": 23,
+      "hour": 22,
+      "workloud": 23
+    },
+    {
+      "activity": "Seminar/Workshop",
+      "count": 35,
+      "hour": 23,
+      "workloud": 3
+    },
+    {
+      "activity": "Oral Exam",
+      "count": 5,
+      "hour": 5,
+      "workloud": 5
+    },
+    {
+      "activity": "Midterm",
+      "count": 5,
+      "hour": 5,
+      "workloud": 5
+    },
+    {
+      "activity": "Final Exam",
+      "count": 5,
+      "hour": 5,
+      "workloud": 5
+    },
+    {
+      "activity": "Total",
+      "count": 5,
+      "hour": 5,
+      "workloud": 5
+    }
+  ],
+  "outcomeTable": [
+    {
+      "description": "WQWD",
+      "level1": 312,
+      "level2": 324,
+      "level3": 342,
+      "level4": 43,
+      "level5": 434
+    },
+    {
+      "description": "3WEDD",
+      "level1": 321,
+      "level2": 453,
+      "level3": 43,
+      "level4": 4334,
+      "level5": 34
+    },
+    {
+      "description": "WDQ",
+      "level1": 3131,
+      "level2": 234,
+      "level3": 432432,
+      "level4": 4334,
+      "level5": 34
+    },
+    {
+      "description": "WQDAWQQ",
+      "level1": 312,
+      "level2": 4,
+      "level3": 43432,
+      "level4": 343434,
+      "level5": 34
+    },
+    {
+      "description": "WQD",
+      "level1": 21,
+      "level2": 2342,
+      "level3": 43443,
+      "level4": 3434,
+      "level5": 34
+    },
+    {
+      "description": "WDQ",
+      "level1": 231321,
+      "level2": 432,
+      "level3": 34,
+      "level4": 43,
+      "level5": 34
+    },
+    {
+      "description": "WDQWDQ",
+      "level1": 132,
+      "level2": 4,
+      "level3": 43,
+      "level4": 34,
+      "level5": 34
+    },
+    {
+      "description": "WDQWDQ",
+      "level1": 32,
+      "level2": 231,
+      "level3": 342,
+      "level4": 3434,
+      "level5": 34
+    },
+    {
+      "description": "W",
+      "level1": 211,
+      "level2": 123,
+      "level3": 43,
+      "level4": 34342,
+      "level5": 4
+    },
+    {
+      "description": "QDW",
+      "level1": 321,
+      "level2": 34,
+      "level3": 4334,
+      "level4": 432342,
+      "level5": 34
+    },
+    {
+      "description": "D",
+      "level1": 12,
+      "level2": 231,
+      "level3": 43,
+      "level4": 343,
+      "level5": 34
+    },
+    {
+      "description": "WDQWDQ",
+      "level1": 2,
+      "level2": 123,
+      "level3": 34,
+      "level4": 34234234,
+      "level5": 34
+    },
+    {
+      "description": "1",
+      "level1": 1,
+      "level2": 1,
+      "level3": 1,
+      "level4": 1,
+      "level5": 1
+    }
+  ]
+}
