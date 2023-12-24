@@ -2,6 +2,7 @@
 package org.example;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -607,6 +608,7 @@ public class TurkishSyllabus extends Application {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         if (isSaved) {
+            try {
             courseNameTextField.setText(lecture.courseName);
             courseCodeTextField.setText(lecture.courseCode);
             if (lecture.term.equals("Güz")){
@@ -753,7 +755,27 @@ public class TurkishSyllabus extends Application {
             }
 
 
-
+        } catch (JsonParseException e) {
+            Alert alert1 = new Alert(Alert.AlertType.WARNING);
+            alert1.setHeaderText(null);
+            alert1.setTitle("Warning");
+            alert1.setContentText("please enter the correct form of json !");
+            Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
+            alertStage2.setOnCloseRequest(event1 -> {
+                alert1.close();
+            });
+            alert1.showAndWait();
+        } catch (Exception e){
+            Alert alert1 = new Alert(Alert.AlertType.WARNING);
+            alert1.setHeaderText(null);
+            alert1.setTitle("Warning");
+            alert1.setContentText("please enter the correct form of json !");
+            Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
+            alertStage2.setOnCloseRequest(event1 -> {
+                alert1.close();
+            });
+            alert1.showAndWait();
+        }
         }
         submitButton.setOnAction(event -> {
             for (int j = 0; j < lessonsTextField.size(); j++) {
@@ -896,6 +918,9 @@ public class TurkishSyllabus extends Application {
                 Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
                 alertStage.setOnCloseRequest(event1 -> {
                     alert.close();
+                    correctActiviteTable = true;
+                    correctOutcomeTable = true;
+                    correctWorkloadTable = true;
                 });
                 alert.showAndWait();
 

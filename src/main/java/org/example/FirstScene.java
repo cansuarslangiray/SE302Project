@@ -223,7 +223,21 @@ public class FirstScene extends Application {
                         Gson gson = new Gson();
                         Lecture lecture = gson.fromJson(reader, Lecture.class);
                         EnglishSyllabus englishSyllabus = new EnglishSyllabus(lecture, true);
-                        englishSyllabus.start(primaryStage);
+                        if(lecture.getCourseName()!=null) {
+                            englishSyllabus.start(primaryStage);
+
+                        }else{
+                            Alert alert1 = new Alert(Alert.AlertType.WARNING);
+                            alert1.setHeaderText(null);
+                            alert1.setTitle("Warning");
+                            alert1.setContentText("please enter the correct form of json !");
+                            Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
+                            alertStage2.setOnCloseRequest(event1 -> {
+                                alert1.close();
+
+                            });
+                            alert1.showAndWait();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -239,18 +253,33 @@ public class FirstScene extends Application {
                         Gson gson = new Gson();
                         Lecture lecture = gson.fromJson(reader, Lecture.class);
                         TurkishSyllabus app = new TurkishSyllabus(lecture, true);
-                        app.start(primaryStage);
+                        if(lecture.getCourseName()!=null){
+                            app.start(primaryStage);
+
+                        }else{
+                            Alert alert1 = new Alert(Alert.AlertType.WARNING);
+                            alert1.setHeaderText(null);
+                            alert1.setTitle("Warning");
+                            alert1.setContentText("please enter the correct form of json !");
+                            Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
+                            alertStage2.setOnCloseRequest(event1 -> {
+                                alert1.close();
+
+                            });
+                            alert1.showAndWait();
+                        }
+
                     } catch (Exception e) {
                         Alert alert1 = new Alert(Alert.AlertType.WARNING);
                         alert1.setHeaderText(null);
                         alert1.setTitle("Warning");
-                        alert1.setContentText("please enter the correct form of json !");
+                        alert1.setContentText("please enter json file!");
                         Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
                         alertStage2.setOnCloseRequest(event1 -> {
                             alert1.close();
 
                         });
-                        alert.showAndWait();
+                        alert1.showAndWait();
                         e.printStackTrace();
                     }
                 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,10 +60,10 @@ public class EnglishSyllabus extends Application {
 
     @Override
     public void start(Stage stage) {
-        k=0;
-        j=0;
-        m=0;
-        l=0;
+        k = 0;
+        j = 0;
+        m = 0;
+        l = 0;
         this.primaryStage = stage;
         stage.setTitle("Course Form");
 
@@ -604,6 +605,7 @@ public class EnglishSyllabus extends Application {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         if (isSaved) {
+            try{
             courseNameTextField.setText(lecture.courseName);
             courseCodeTextField.setText(lecture.courseCode);
             if (lecture.getTerm().equalsIgnoreCase("Fall")) {
@@ -728,7 +730,33 @@ public class EnglishSyllabus extends Application {
             }
 
 
-        }
+        } catch (JsonParseException e) {
+                Alert alert1 = new Alert(Alert.AlertType.WARNING);
+                alert1.setHeaderText(null);
+                alert1.setTitle("Warning");
+                alert1.setContentText("please enter the correct form of json !");
+                Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
+                alertStage2.setOnCloseRequest(event1 -> {
+                    alert1.close();
+
+                });
+                alert1.showAndWait();
+
+        } catch (Exception e){
+                Alert alert1 = new Alert(Alert.AlertType.WARNING);
+                alert1.setHeaderText(null);
+                alert1.setTitle("Warning");
+                alert1.setContentText("please enter the correct form of json !");
+                Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
+                alertStage2.setOnCloseRequest(event1 -> {
+                    alert1.close();
+
+                });
+                alert1.showAndWait();
+
+
+            }
+    }
 
         submitButton.setOnAction(event -> {
             for (int j = 0; j < lessonsTextField.size(); j++) {
@@ -754,7 +782,17 @@ public class EnglishSyllabus extends Application {
                     break;
                 }
                 activitesTableCompeleted = true;
-            } if(activitesTableCompeleted && j==0){
+            }
+            for (int i = 0; i < activitiesTextField.size(); i++) {
+               try{
+                   if(i%7!=0){
+                       int var= Integer.parseInt(activitiesTextField.get(i).getText());
+                   }
+               }catch (NumberFormatException e){
+                   correctActiviteTable = false;
+               }
+
+            }if(activitesTableCompeleted && j==0){
                 j++;
                 for (int i = 0; i < activitiesTextField.size() - 5; i += 7) {
                     try {
@@ -782,7 +820,16 @@ public class EnglishSyllabus extends Application {
                     workloadTableCompeleted = false;
                     break;
                 }
-                workloadTableCompeleted = true;
+
+            }for (int i = 0; i < workloadTextFields.size(); i++) {
+                try{
+                    if(i%4!=0){
+                        int var= Integer.parseInt(workloadTextFields.get(i).getText());
+                    }
+                }catch (NumberFormatException e){
+                    correctWorkloadTable = false;
+                }
+
             }if(workloadTableCompeleted && m==0){
                 m++;
                 for (int k = 0; k < workloadTextFields.size() - 3; k += 4) {
@@ -801,6 +848,15 @@ public class EnglishSyllabus extends Application {
 
                     }
                 }
+            }for (int i = 0; i < outcomeTextField.size(); i++) {
+                try{
+                    if(i%6!=0){
+                        int var= Integer.parseInt(outcomeTextField.get(i).getText());
+                    }
+                }catch (NumberFormatException e){
+                    correctOutcomeTable = false;
+                }
+
             }
             for (int k = 0; k < outcomeTextField.size(); k++) {
                 if (outcomeTextField.get(k).getText().isEmpty()) {
@@ -838,6 +894,9 @@ public class EnglishSyllabus extends Application {
                     languageToggleGroup.getSelectedToggle() == null ||
                     typeToggleGroup.getSelectedToggle() == null || levelToggleGroup.getSelectedToggle() == null ||
                     deliveryToggleGroup.getSelectedToggle() == null || !workloadTableCompeleted || !activitesTableCompeleted || !outcometablecompleted || !lessontablecompleted) {
+                correctActiviteTable = true;
+                correctOutcomeTable = true;
+                correctWorkloadTable = true;
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Uyarı");
@@ -845,6 +904,7 @@ public class EnglishSyllabus extends Application {
                 Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
                 alertStage.setOnCloseRequest(event1 -> {
                     alert.close();
+
                 });
                 alert.showAndWait();
             } else if (!correctOutcomeTable || !correctActiviteTable || !correctWorkloadTable) {
