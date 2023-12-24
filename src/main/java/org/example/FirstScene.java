@@ -86,7 +86,7 @@ public class FirstScene extends Application {
         helpLabelTurkish.setGraphic(textFlow);
         helpVBox.getChildren().addAll(helpLabelTurkish);
 
-        Scene helpScene = new Scene(helpVBox, 800, 400);
+        Scene helpScene = new Scene(helpVBox, 800, 500);
 
         helpStage.setScene(helpScene);
         helpStage.setTitle("HELP");
