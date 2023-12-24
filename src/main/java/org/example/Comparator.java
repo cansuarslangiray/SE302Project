@@ -1,4 +1,5 @@
 package org.example;
+
 import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -114,6 +115,7 @@ public class Comparator extends Application implements java.util.Comparator<Lect
             for (int j = 0; j < o1.getAssessmentTable().size(); j++) {
                 System.out.println(j);
 
+
                 if (o1.getAssessmentTable().get(j).getCount()!=(o2.getAssessmentTable().get(j).getCount())) {
                     differences.add(new Difference(o1.getAssessmentTable().get(j).getName() + "  ", o1.getAssessmentTable().get(j).getCount(), o2.getAssessmentTable().get(j).getCount()));
                 }
@@ -140,13 +142,14 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         if (!o1.getWorkloadTable().equals(o2.getWorkloadTable())) {
             for (int j = 0; j < o1.getWorkloadTable().size(); j++) {
                 if (o1.getWorkloadTable().get(j).getHour()!=(o2.getWorkloadTable().get(j).getHour())) {
-                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() +"\n"+ " Duration(Hours) ", o1.getWorkloadTable().get(j).getHour(), o2.getWorkloadTable().get(j).getHour()));
+                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() + "  ", o1.getWorkloadTable().get(j).getHour(), o2.getWorkloadTable().get(j).getHour()));
                 }
                 if (o1.getWorkloadTable().get(j).getCount()!=(o2.getWorkloadTable().get(j).getCount())) {
-                    differences.add(new Difference(" Number ", o1.getWorkloadTable().get(j).getCount(), o2.getWorkloadTable().get(j).getCount()));
+                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() + "  ", o1.getWorkloadTable().get(j).getCount(), o2.getWorkloadTable().get(j).getCount()));
                 }
+
                 if (o1.getWorkloadTable().get(j).getWorkloud()!=(o2.getWorkloadTable().get(j).getWorkloud())) {
-                    differences.add(new Difference(" Workload", o1.getWorkloadTable().get(j).getWorkloud(), o2.getWorkloadTable().get(j).getCount()));
+                    differences.add(new Difference(o1.getWorkloadTable().get(j).getActivity() + "  ", o1.getWorkloadTable().get(j).getWorkloud(), o2.getWorkloadTable().get(j).getCount()));
                 }
 
             }
@@ -154,23 +157,22 @@ public class Comparator extends Application implements java.util.Comparator<Lect
         if (!o1.getOutcomeTable().equals(o2.getOutcomeTable())) {
             for (int j = 0; j < o1.getOutcomeTable().size(); j++) {
                 if (!o1.getOutcomeTable().get(j).getDescription().equals(o2.getOutcomeTable().get(j).getDescription())) {
-                    differences.add(new Difference(  " Description:  ", o1.getOutcomeTable().get(j).getDescription(), o2.getOutcomeTable().get(j).getDescription()));
+                    differences.add(new Difference("Description: " + "  ", o1.getOutcomeTable().get(j).getDescription(), o2.getOutcomeTable().get(j).getDescription()));
                 }
                 if (o1.getOutcomeTable().get(j).getLevel1()!=(o2.getOutcomeTable().get(j).getLevel1())) {
-                    differences.add(new Difference("1. ", o1.getOutcomeTable().get(j).getLevel1(), o2.getOutcomeTable().get(j).getLevel1()));
+                    differences.add(new Difference("1. " + "  ", o1.getOutcomeTable().get(j).getLevel1(), o2.getOutcomeTable().get(j).getLevel1()));
                 }
                 if (o1.getOutcomeTable().get(j).getLevel2()!=(o2.getOutcomeTable().get(j).getLevel2())) {
-                    differences.add(new Difference( "2.  ", o1.getOutcomeTable().get(j).getLevel2(), o2.getOutcomeTable().get(j).getLevel2()));
+                    differences.add(new Difference("2.  " + "  ", o1.getOutcomeTable().get(j).getLevel2(), o2.getOutcomeTable().get(j).getLevel2()));
                 }
-
                 if (o1.getOutcomeTable().get(j).getLevel3()!=(o2.getOutcomeTable().get(j).getLevel3())) {
-                    differences.add(new Difference("3.  ", o1.getOutcomeTable().get(j).getLevel3(), o2.getOutcomeTable().get(j).getLo()));
+                    differences.add(new Difference("3. " + "  ", o1.getOutcomeTable().get(j).getLevel3(), o2.getOutcomeTable().get(j).getLo()));
                 }
                 if (o1.getOutcomeTable().get(j).getLevel4()!=(o2.getOutcomeTable().get(j).getLevel4())) {
-                    differences.add(new Difference("4. ", o1.getOutcomeTable().get(j).getLevel4(), o2.getOutcomeTable().get(j).getLo()));
+                    differences.add(new Difference("4. " + "  ", o1.getOutcomeTable().get(j).getLevel4(), o2.getOutcomeTable().get(j).getLo()));
                 }
                 if (o1.getOutcomeTable().get(j).getLevel5()!=(o2.getOutcomeTable().get(j).getLevel5())) {
-                    differences.add(new Difference("5.  ", o1.getOutcomeTable().get(j).getLevel5(), o2.getOutcomeTable().get(j).getLo()));
+                    differences.add(new Difference("5. " + "  ", o1.getOutcomeTable().get(j).getLevel5(), o2.getOutcomeTable().get(j).getLo()));
                 }
 
             }
@@ -184,6 +186,10 @@ public class Comparator extends Application implements java.util.Comparator<Lect
     public static void main(String[] args) {
         launch(args);
     }
+
+
+
+
 
     Stage primaryStage;
     TextField courseCodeField1, courseCodeField2;
