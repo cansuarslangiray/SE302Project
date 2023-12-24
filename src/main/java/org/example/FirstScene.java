@@ -94,8 +94,6 @@ public class FirstScene extends Application {
     }
 
 
-
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -127,11 +125,6 @@ public class FirstScene extends Application {
             Comparator comparator=new Comparator();
             comparator.start(primaryStage);
         });
-
-
-
-
-
         fileMenu.getItems().addAll(openItem, CompareItem, new SeparatorMenuItem(), exitItem);
         helpMenu.getItems().addAll(help);
 
@@ -202,8 +195,6 @@ public class FirstScene extends Application {
         button.setPrefSize(350, 50);
         return button;
     }
-    
-
     private void showLanguageSelectionPopup() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Syllabus Selection");
@@ -250,6 +241,16 @@ public class FirstScene extends Application {
                         TurkishSyllabus app = new TurkishSyllabus(lecture, true);
                         app.start(primaryStage);
                     } catch (Exception e) {
+                        Alert alert1 = new Alert(Alert.AlertType.WARNING);
+                        alert1.setHeaderText(null);
+                        alert1.setTitle("Warning");
+                        alert1.setContentText("please enter the correct form of json !");
+                        Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
+                        alertStage2.setOnCloseRequest(event1 -> {
+                            alert1.close();
+
+                        });
+                        alert.showAndWait();
                         e.printStackTrace();
                     }
                 }

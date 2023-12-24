@@ -1,0 +1,13 @@
+org\example\SyllabusVersioning.class
+org\example\ViewVersion.class
+org\example\workLoad.class
+org\example\EnglishSyllabus.class
+org\example\TurkishSyllabus.class
+org\example\ListVersion.class
+org\example\FirstScene.class
+org\example\Lesson.class
+org\example\Activity.class
+org\example\Difference.class
+org\example\Comparator.class
+org\example\Lecture.class
+org\example\Competency.class

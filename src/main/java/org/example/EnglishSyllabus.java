@@ -38,11 +38,14 @@ public class EnglishSyllabus extends Application {
     boolean workloadTableCompeleted=true;
     boolean outcometablecompleted=true;
     boolean lessontablecompleted=true;
+    boolean correctActiviteTable =true;
+    boolean correctWorkloadTable=true;
+    boolean correctOutcomeTable=true;
+
     public EnglishSyllabus(Lecture lecture, boolean isSaved) {
         this.lecture = lecture;
         this.isSaved = isSaved;
     }
-
     String changedBy;
     String changeReason;
     String changeDate;
@@ -594,7 +597,7 @@ public class EnglishSyllabus extends Application {
         if (isSaved) {
             courseNameTextField.setText(lecture.courseName);
             courseCodeTextField.setText(lecture.courseCode);
-            if (lecture.term.equals("Fall")) {
+           if (lecture.getTerm().equalsIgnoreCase("Fall")) {
                 termChoiceBox.setValue("Fall");
             } else {
                 termChoiceBox.setValue("Spring");
@@ -605,7 +608,7 @@ public class EnglishSyllabus extends Application {
             ectsTextField.setText(lecture.ects);
             preTextField.setText(lecture.prerequisites);
             String lectureLanguage = lecture.language;
-            switch (lectureLanguage) {
+           switch (lectureLanguage) {
                 case "Turkish":
                     languageToggleGroup.selectToggle(languageTurkishRadioButton);
                     break;
@@ -664,7 +667,7 @@ public class EnglishSyllabus extends Application {
             }
             for (int j = 0; j < lecture.weeklySubject.size(); j++) {
                 int i = j * 3;
-                if (i == lessonsTextField.size() - 3) {
+                if (i == lessonsTextField.size() - 2) {
                     break;
                 }
                 lessonsTextField.get(i).setText(lecture.weeklySubject.get(j).getWeek());
@@ -679,7 +682,7 @@ public class EnglishSyllabus extends Application {
             Material.setText(lecture.materials);
             int i = 0;
             for (int j = 0; j < lecture.assessmentTable.size(); j++) {
-                if (i == activitiesTextField.size() - 7) {
+                if (i == activitiesTextField.size() - 6) {
                     break;
                 }
                 activitiesTextField.get(i).setText(lecture.assessmentTable.get(j).getName());
@@ -694,7 +697,7 @@ public class EnglishSyllabus extends Application {
             //  activities.addAll(lecture.assessmentTable);
             i = 0;
             for (int j = 0; j < lecture.workloadTable.size(); j++) {
-                if (i == workloadTextFields.size() - 4) {
+                if (i == workloadTextFields.size() - 3) {
                     break;
                 }
                 workloadTextFields.get(i + 1).setText(String.valueOf(lecture.workloadTable.get(j).getCount()));
@@ -706,7 +709,7 @@ public class EnglishSyllabus extends Application {
             // workLoads.addAll(lecture.workloadTable);
             i = 0;
             for (int j = 0; j < lecture.outcomeTable.size(); j++) {
-                if (i == outcomeTextField.size() - 6) {
+                if (i == outcomeTextField.size() - 5) {
                     break;
                 }
                 outcomeTextField.get(i).setText(lecture.outcomeTable.get(j).getDescription());
@@ -723,6 +726,9 @@ public class EnglishSyllabus extends Application {
         }
 
         submitButton.setOnAction(event -> {
+         //   correctActiviteTable=true;
+          //  correctOutcomeTable=true;
+          //  correctWorkloadTable=true;
             for (int j = 0; j < lessonsTextField.size(); j ++) {
                 if (lessonsTextField.get(j).getText().isEmpty()) {
                     lessontablecompleted = false;
@@ -730,13 +736,14 @@ public class EnglishSyllabus extends Application {
                 }
                 lessontablecompleted=true;
             }
-            for (int j = 0; j < lessonsTextField.size() - 3; j += 3) {
+            for (int j = 0; j < lessonsTextField.size() - 2; j += 3) {
 
                 lessons.add(
                         new Lesson(lessonsTextField.get(j).getText(),
                                 lessonsTextField.get(j + 1).getText(),
                                 lessonsTextField.get(j + 2).getText()));
             }
+
             for (int i = 0; i < activitiesTextField.size(); i ++) {
                 if(activitiesTextField.get(i).getText().isEmpty()){
                     activitesTableCompeleted=false;
@@ -744,7 +751,7 @@ public class EnglishSyllabus extends Application {
                 }
                 activitesTableCompeleted=true;
             }
-            for (int i = 0; i < activitiesTextField.size() - 7; i += 7) {
+            for (int i = 0; i < activitiesTextField.size() - 6; i += 7) {
                 try {
                     activities.add(new Activity(
                             activitiesTextField.get(i).getText(),
@@ -755,7 +762,10 @@ public class EnglishSyllabus extends Application {
                             Integer.parseInt(activitiesTextField.get(i + 5).getText()),
                             Integer.parseInt(activitiesTextField.get(i + 6).getText())
                     ));
+
                 } catch (NumberFormatException e) {
+                    System.out.println("current activite table is false");
+                    correctActiviteTable=false;
 
                 }
             }
@@ -766,7 +776,7 @@ public class EnglishSyllabus extends Application {
                 }
                 workloadTableCompeleted=true;
             }
-            for (int k = 0; k < workloadTextFields.size() - 4; k += 4) {
+            for (int k = 0; k < workloadTextFields.size() - 3; k += 4) {
                 try {
                     workLoads.add(new workLoad(
                             workloadTextFields.get(k).getText(),
@@ -775,7 +785,10 @@ public class EnglishSyllabus extends Application {
                             Integer.parseInt(workloadTextFields.get(k + 3).getText())
                     ));
 
+
                 } catch (NumberFormatException e) {
+                    System.out.println("current worklad table is false");
+                    correctWorkloadTable=false;
 
                 }
             }
@@ -785,10 +798,10 @@ public class EnglishSyllabus extends Application {
                     break;
                 }
                 outcometablecompleted=true;
-            }
-            for (int k = 0; k < outcomeTextField.size() - 6; k += 6) {
-                try {
 
+            }
+            for (int k = 0; k < outcomeTextField.size() - 5; k += 6) {
+                try {
                     competencies.add(new Competency(
                             outcomeTextField.get(k).getText(),
                             Integer.parseInt(outcomeTextField.get(k + 1).getText()),
@@ -798,10 +811,15 @@ public class EnglishSyllabus extends Application {
                             Integer.parseInt(outcomeTextField.get(k + 5).getText())
                     ));
 
+
+
                 } catch (NumberFormatException e) {
+                    System.out.println("current outcome table is false");
+                    correctOutcomeTable=false;
 
                 }
             }
+
             if (courseNameTextField.getText().isEmpty() || courseCodeTextField.getText().isEmpty() || termChoiceBox.getValue() == null || theoryHoursTextField.getText().isEmpty() ||
                     applicationHoursTextField.getText().isEmpty() || localCreditTextField.getText().isEmpty() || ectsTextField.getText().isEmpty() || preTextField.getText().isEmpty() ||
                     languageToggleGroup.getSelectedToggle() == null ||
@@ -816,10 +834,23 @@ public class EnglishSyllabus extends Application {
                     alert.close();
                 });
                 alert.showAndWait();
+            } else  if(!correctOutcomeTable||!correctActiviteTable||!correctWorkloadTable){
+                correctActiviteTable=true;
+                correctOutcomeTable=true;
+                correctWorkloadTable=true;
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setTitle("Uyarı");
+                alert.setContentText("Sayi girrr!");
+                Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                alertStage.setOnCloseRequest(event1 -> {
+                    alert.close();
 
+                });
+                alert.showAndWait();
+            }
+            else {
 
-
-            } else {
                 showInputDialog();
 
                 RadioButton selectedLanguage = (RadioButton) languageToggleGroup.getSelectedToggle();
@@ -880,17 +911,6 @@ public class EnglishSyllabus extends Application {
                         }
                     }
                     Gson gson = new Gson();
-                    SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
-                    String jsonString = gson.toJson(versioning);
-                    File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
-                    int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
-                    String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
-                    try (FileWriter writer = new FileWriter(filePath)) {
-                        writer.write(jsonString);
-                        System.out.println("JSON successfully written to the file: " + filePath);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                     String lectureString = gson.toJson(lecture);
                     DirectoryChooser directoryChooser = new DirectoryChooser();
                     directoryChooser.setTitle("Select Folder to Save JSON File");
@@ -909,15 +929,19 @@ public class EnglishSyllabus extends Application {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            try (FileWriter writer = new FileWriter(jsonFilePath)) {
-                                writer.write(jsonString);
-                                System.out.println("JSON successfully written to the file: " + jsonFilePath);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         }
                     }
-
+                    SyllabusVersioning versioning = new SyllabusVersioning(changedBy, changeReason, changeDate, lecture);
+                    String jsonString = gson.toJson(versioning);
+                    File[] jsonFiles = file.listFiles((dir, name) -> name.endsWith(".json"));
+                    int counter = (jsonFiles != null) ? jsonFiles.length + 1 : 1;
+                    String filePath = path + "/" + courseCodeTextField.getText() + counter + ".json";
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        writer.write(jsonString);
+                        System.out.println("JSON successfully written to the file: " + filePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
                 }
