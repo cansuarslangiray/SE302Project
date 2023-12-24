@@ -4,6 +4,7 @@ org\example\workLoad.class
 org\example\EnglishSyllabus.class
 org\example\TurkishSyllabus.class
 org\example\ListVersion.class
+org\example\SuperMain.class
 org\example\FirstScene.class
 org\example\Lesson.class
 org\example\Activity.class
