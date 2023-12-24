@@ -899,8 +899,8 @@ public class EnglishSyllabus extends Application {
                 correctWorkloadTable = true;
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
-                alert.setTitle("Uyarı");
-                alert.setContentText("Lütfen tüm alanları doldurun!");
+                alert.setTitle("Warning");
+                alert.setContentText("Please fill in all fields!");
                 Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
                 alertStage.setOnCloseRequest(event1 -> {
                     alert.close();
@@ -913,8 +913,8 @@ public class EnglishSyllabus extends Application {
                 correctWorkloadTable = true;
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
-                alert.setTitle("Uyarı");
-                alert.setContentText("Sayi girrr!");
+                alert.setTitle("Warning");
+                alert.setContentText("Please enter number in required table parts instead of words!");
                 Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
                 alertStage.setOnCloseRequest(event1 -> {
                     alert.close();
@@ -1041,7 +1041,7 @@ public class EnglishSyllabus extends Application {
     public void showInputDialog() {
 
         Stage inputStage = new Stage();
-        inputStage.setTitle("Kullanıcı Girişi");
+        inputStage.setTitle("User Login ");
 
         GridPane inputGridPane = new GridPane();
         inputGridPane.setPadding(new Insets(20, 20, 20, 20));
@@ -1049,7 +1049,7 @@ public class EnglishSyllabus extends Application {
         inputGridPane.setHgap(10);
 
 
-        Label inputLabel = new Label("EDİTOR");
+        Label inputLabel = new Label("Editor");
         TextField userInputField = new TextField();
         inputGridPane.add(inputLabel, 0, 0);
         inputGridPane.add(userInputField, 1, 0);

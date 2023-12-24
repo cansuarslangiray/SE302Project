@@ -758,8 +758,8 @@ public class TurkishSyllabus extends Application {
         } catch (JsonParseException e) {
             Alert alert1 = new Alert(Alert.AlertType.WARNING);
             alert1.setHeaderText(null);
-            alert1.setTitle("Warning");
-            alert1.setContentText("please enter the correct form of json !");
+            alert1.setTitle("Uyarı");
+            alert1.setContentText("lütfen doğru formdaki json dosyasını giriniz !");
             Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
             alertStage2.setOnCloseRequest(event1 -> {
                 alert1.close();
@@ -768,8 +768,8 @@ public class TurkishSyllabus extends Application {
         } catch (Exception e){
             Alert alert1 = new Alert(Alert.AlertType.WARNING);
             alert1.setHeaderText(null);
-            alert1.setTitle("Warning");
-            alert1.setContentText("please enter the correct form of json !");
+            alert1.setTitle("Uyarı");
+            alert1.setContentText("lütfen doğru formdaki json dosyasını giriniz !");
             Stage alertStage2 = (Stage) alert1.getDialogPane().getScene().getWindow();
             alertStage2.setOnCloseRequest(event1 -> {
                 alert1.close();
@@ -932,7 +932,7 @@ public class TurkishSyllabus extends Application {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText(null);
                 alert.setTitle("Uyarı");
-                alert.setContentText("Sayi girrr!");
+                alert.setContentText("Lütfen istenen türde tabloyu doldurun. Sayı yerine kelime girmeyin !");
                 Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
                 alertStage.setOnCloseRequest(event1 -> {
                     alert.close();
@@ -1000,16 +1000,16 @@ public class TurkishSyllabus extends Application {
                     Gson gson = new Gson();
                     String lectureString = gson.toJson(lecture);
                     DirectoryChooser directoryChooser = new DirectoryChooser();
-                    directoryChooser.setTitle("Select Folder to Save JSON File");
+                    directoryChooser.setTitle("JSON dosyasını kaydetmek için dosya seçiniz ");
                     File selectedDirectory = directoryChooser.showDialog(new Stage());
                     if (selectedDirectory != null) {
-                        TextInputDialog dialog = new TextInputDialog("output");
-                        dialog.setTitle("Enter File Name");
+                        TextInputDialog dialog = new TextInputDialog("çıktı");
+                        dialog.setTitle("Dosya adı giriniz:");
                         dialog.setHeaderText(null);
-                        dialog.setContentText("Please enter the name of the JSON file:");
+                        dialog.setContentText("Lütfen JSON dosyasının adını giriniz :");
                         Optional<String> result = dialog.showAndWait();
                         if (result.isPresent()) {
-                            String fileName = result.get().isEmpty() ? "output" : result.get();
+                            String fileName = result.get().isEmpty() ? "çıktı" : result.get();
                             String jsonFilePath = selectedDirectory.getAbsolutePath() + File.separator + fileName + ".json";
                             try (FileWriter fileWriter = new FileWriter(jsonFilePath)) {
                                 fileWriter.write(lectureString);
@@ -1062,7 +1062,7 @@ public class TurkishSyllabus extends Application {
         inputGridPane.setHgap(10);
 
 
-        Label inputLabel = new Label("değişlik yapan kişi");
+        Label inputLabel = new Label("Değişlik yapan kişi");
         TextField userInputField = new TextField();
         inputGridPane.add(inputLabel, 0, 0);
         inputGridPane.add(userInputField, 1, 0);
@@ -1072,7 +1072,7 @@ public class TurkishSyllabus extends Application {
         inputGridPane.add(inputLabel1, 0, 1);
         inputGridPane.add(userInputField1, 1, 1);
 
-        Label inputLabel2 = new Label("değişiklik Tarihi");
+        Label inputLabel2 = new Label("Değişiklik Tarihi");
         TextField userInputField2 = new TextField();
         inputGridPane.add(inputLabel2, 0, 2);
         inputGridPane.add(userInputField2, 1, 2);
